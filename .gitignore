@@ -5,3 +5,4 @@
 /src/nameco/app/logs/*
 /src/nameco/vendor/
 /src/nameco/app/config/parameters.yml
+*.php~
