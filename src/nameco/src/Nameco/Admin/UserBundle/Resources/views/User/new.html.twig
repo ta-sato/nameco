@@ -7,7 +7,7 @@
 {% block body %}
 	<div id="user_new_container">
 		{% if success == true %}
-			<div class="alert alert-info">登録しました</div>
+			<div class="alert alert-success">登録しました</div>
 		{% endif %}
 		<form action="" method="post" {{ form_enctype(form) }}>
 			{{ form_errors(form) }}
@@ -30,4 +30,5 @@
 	    	</div>
 		</form>
 	</div>
+	
 {% endblock %}

@@ -1,3 +1,8 @@
+nameco_security:
+    resource: "@NamecoSecurityBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 nameco_admin_user:
     resource: "@NamecoAdminUserBundle/Controller/"
     type:     annotation
@@ -7,6 +12,12 @@ nameco_user_establishment:
     resource: "@NamecoUserEstablishmentBundle/Controller/"
     type:     annotation
     prefix:   /
+    
+login_check:
+    pattern:   /login_check
+
+logout:
+    pattern:   /logout
 
 # Internal routing configuration to handle ESI
 #_internal:

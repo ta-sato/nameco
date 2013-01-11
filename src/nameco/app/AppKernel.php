@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Nameco\Admin\UserBundle\NamecoAdminUserBundle(),
             new Nameco\User\EstablishmentBundle\NamecoUserEstablishmentBundle(),
+            new Nameco\SecurityBundle\NamecoSecurityBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

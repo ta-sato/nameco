@@ -1,0 +1,18 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+	{% if error %}
+	    <div class="alert alert-error">{{ error.message }}</div>
+	{% endif %}
+	
+	<form action="{{ path('login_check') }}" method="post">
+		<fieldset>
+	    	<label for="username">ユーザ名:</label>
+	    	<input type="text" id="username" name="_username" value="{{ last_username }}" />
+	    	<label for="password">パスワード:</label>
+	    	<input type="password" id="password" name="_password" />
+	    	<input type="hidden" name="_target_path" value="/user/new" />
+    	</fieldset>
+    	<button class="btn btn-primary" type="submit">ログイン</button>
+	</form>
+{% endblock %}
