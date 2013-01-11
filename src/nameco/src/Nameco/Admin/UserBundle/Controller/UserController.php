@@ -20,33 +20,19 @@ class UserController extends Controller
 	public function indexAction(Request $request)
 	{
 		$user = new User();
-
+		
 		$form = $this->createFormBuilder($user)
-			->add('familly_name',     'text', array('property_path' => false, 'required' => true))
-			->add('first_name',       'text', array('property_path' => false, 'required' => true))
-			->add('kana_familly',     'text', array('property_path' => false, 'required' => true))
-			->add('kana_first',       'text', array('property_path' => false, 'required' => true))
-			->add('email',            'email')
-			->add('password',         'password')
-			->add('confirm',          'password', array('property_path' => false, 'required' => true))
-			->addValidator(new CallbackValidator(function($form)
-			{
-				// パスワード
-				if($form['password']->getData() != $form['confirm']->getData())
-				{
-					$form['confirm']->addError(new FormError('パスワードが一致しません'));
-				}
-				// メール
-				$em = $this->getDoctrine()->getEntityManager();
-
-				$user_repo = $em->getRepository('NamecoAdminUserBundle:User');
-				$exsist = $user_repo->findOneBy(array('email' => $form['email']->getData())) != null;
-				if ($exsist)
-				{
-					$form['email']->addError(new FormError('既に登録されています'));
-				}
-			}))
+			->add('familly_name',   'text')
+			->add('first_name',     'text')
+			->add('kana_familly',   'text')
+			->add('kana_first',     'text')
+			->add('email',          'email')
+			->add('password',       'repeated', array(
+									'type'            => 'password',
+									'invalid_message' => 'パスワードが一致しません'))
 			->getForm();
+		
+		$sucsess = false;
 
 		if ($request->getMethod() == 'POST')
 		 {
@@ -73,11 +59,14 @@ class UserController extends Controller
 				$em = $this->getDoctrine()->getEntityManager();
 				$em->persist($user);
    				$em->flush();
+   				
+   				$sucsess = true;
 			}
 		}
 
 		return $this->render('NamecoAdminUserBundle:User:new.html.twig', array(
-				'form' => $form->createView(),
+				'form'    => $form->createView(),
+				'success' => $sucsess
 		));	}
 
 }

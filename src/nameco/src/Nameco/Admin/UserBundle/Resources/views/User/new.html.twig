@@ -1,9 +1,33 @@
 {% extends "::base.html.twig" %}
 
-{% block body %}
-	<form action="" method="post" {{ form_enctype(form) }}>
-    	{{ form_widget(form) }}
+{% block stylesheets %}
+	<link href="{{ asset('css/admin_user.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
 
-    	<button class="btn btn-primary" type="submit" >登録</button>
-	</form>
+{% block body %}
+	<div id="user_new_container">
+		{% if success == true %}
+			<div class="alert alert-info">登録しました</div>
+		{% endif %}
+		<form action="" method="post" {{ form_enctype(form) }}>
+			{{ form_errors(form) }}
+			<fieldset>
+				<label>名前</label>
+				{{ form_errors(form.familly_name) }}
+				{{ form_errors(form.first_name) }}
+				{{ form_widget(form.familly_name, { 'attr': {'class' : 'familly_name'}})}}{{ form_widget(form.first_name)}}
+				<label>カナ</label>
+				{{ form_errors(form.kana_familly) }}
+				{{ form_errors(form.kana_first) }}
+				{{ form_widget(form.kana_familly, { 'attr': {'class' : 'familly_name'}})}}{{ form_widget(form.kana_first)}}
+				{{ form_row( form.email, { 'label': 'Mail:' } ) }}
+				{{ form_row( form.password.first, { 'label': 'パスワード' } ) }}     
+	    		{{ form_row( form.password.second, { 'label': '確認用パスワード' } ) }}
+			</fieldset>
+			{{ form_rest(form) }}
+			<div id="submit_wrapper">
+	    		<button class="btn btn-primary" type="submit">登録</button>
+	    	</div>
+		</form>
+	</div>
 {% endblock %}

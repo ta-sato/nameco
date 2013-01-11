@@ -4,6 +4,8 @@ namespace Nameco\Admin\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
@@ -11,17 +13,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="user")
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(fields="email", message="既に登録されています")
  */
 class User implements UserInterface
-{
-	public function eraseCredentials()
-	{
-	}
-
-	public function getRoles()
-	{
-	}
-
+{	
 	/**
 	 * @var integer
 	 *
@@ -42,6 +37,8 @@ class User implements UserInterface
 	 * @var string
 	 *
 	 * @ORM\Column(name="password", type="string", length=255, nullable=false)
+	 * @Assert\MinLength(limit=6, message="{{ limit }} 文字以上で入力してください")
+	 * @Assert\NotBlank()
 	 */
 	private $password;
 
@@ -69,7 +66,8 @@ class User implements UserInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="email", type="string", length=255, nullable=false)
+	 * @ORM\Column(name="email", type="string", length=255, nullable=false, unique=true)
+	 * @Assert\Email()
 	 */
 	private $email;
 
@@ -115,6 +113,47 @@ class User implements UserInterface
 	 * @ORM\ManyToMany(targetEntity="Schedule", mappedBy="user")
 	 */
 	private $schedule;
+	
+	/**
+	 * @Assert\NotNull()
+	 * @Assert\NotBlank()
+	 * @Assert\MaxLength(limit=50, message="{{ limit }}文字以内で入力してください")
+	 * @var string
+	 */
+	private $familly_name;
+	
+	/**
+	 * @Assert\NotNull()
+	 * @Assert\NotBlank()
+	 * @Assert\MaxLength(limit=50, message="{{ limit }}文字以内で入力してください")
+	 * @var string
+	 */
+	private $first_name;
+	
+	/**
+	 * @Assert\NotNull()
+	 * @Assert\NotBlank()
+	 * @Assert\MaxLength(limit=50, message="{{ limit }}文字以内で入力してください")
+	 * @Assert\Regex(
+	 * 		pattern="/^[ァ-ヾ]+$/u",
+	 * 		match=true,
+	 * 		message="カタカナで入力してください"
+	 * )
+	 * @var string
+	 */
+	private $kana_familly;
+	/**
+	 * @Assert\NotNull()
+	 * @Assert\NotBlank()
+	 * @Assert\MaxLength(limit=50, message="{{ limit }}文字以内で入力してください")
+	 * @Assert\Regex(
+	 * 		pattern="/^[ァ-ヾ]+$/u",
+	 * 		match=true,
+	 * 		message="カタカナで入力してください"
+	 * )
+	 * @var string
+	 */
+	private $kana_first;
 
 	/**
 	 * Constructor
@@ -414,6 +453,52 @@ class User implements UserInterface
 	{
 		return $this->bookmarkUser;
 	}
+	
+	public function setFirstName($first_name)
+	{
+		$this->first_name = $first_name;
+		return $this;
+	}
+	public function getFirstName()
+	{
+		return $this->first_name;
+	}
+	public function setFamillyName($familly_name)
+	{
+		$this->familly_name = $familly_name;
+		return $this;
+	}
+	public function getFamillyName()
+	{
+		return $this->familly_name;
+	}
+	public function setKanaFamilly($kana_familly)
+	{
+		$this->kana_familly = $kana_familly;
+		return $this;
+	}
+	public function getKanaFamilly()
+	{
+		return $this->kana_familly;
+	}
+	public function setKanaFirst($kana_first)
+	{
+		$this->kana_first = $kana_first;
+		return $this;
+	}
+	public function getKanaFirst()
+	{
+		return $this->kana_first;
+	}
+// 	public function setConfirm($confirm)
+// 	{
+// 		$this->confirm = $confirm;
+// 		return $this;
+// 	}
+// 	public function getConfirm()
+// 	{
+// 		return $this->confirm;
+// 	}
 
 // 	/**
 // 	 * set values bedore persist
@@ -437,5 +522,13 @@ class User implements UserInterface
 	public function preUpdate()
 	{
 		$this->updated = new \DateTime();
+	}
+	
+	public function eraseCredentials()
+	{
+	}
+	
+	public function getRoles()
+	{
 	}
 }
