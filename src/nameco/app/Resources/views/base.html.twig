@@ -3,11 +3,15 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Nameco{% endblock %}</title>
-        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <script src="{{ asset('js/jquery-1.8.3.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+        {% stylesheets  '../app/Resources/public/css/*'%}
+        	<link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+		{% endstylesheets %}
+
+		{% javascripts "../app/Resources/public/js/*" %}
+		      <script src="{{ asset_url }}" type="text/javascript"></script>
+		{% endjavascripts %}
     </head>
     <body>
         {% block body %}{% endblock %}
