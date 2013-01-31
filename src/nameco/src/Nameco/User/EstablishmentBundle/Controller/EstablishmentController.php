@@ -9,11 +9,25 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class EstablishmentController extends Controller
 {
     /**
-     * @Route("/establishment/month/{id}/{year}/{month}", name="establishment_month")
-     * 
+     * @Route("/establishment/month/{id}/{year}/{month}")
+     * @Route("/establishment/month/", name="establishment_month")
      */
-    public function monthAction($id, $year, $month)
+    public function monthAction($id = null, $year = null, $month = null)
     {
+    	if ($id == null )
+    	{
+    		$year  = date("Y");
+    		$month = date("m");
+    		$em = $this->getDoctrine()->getEntityManager();
+    		$query = $em->createQuery('
+    				SELECT e
+    				FROM NamecoUserEstablishmentBundle:Establishment e
+    				ORDER BY e.id')
+    				->setMaxResults(1);
+    		$ids = $query->getResult();
+    		$id  = $ids[0]->getId();
+    	}
+    	
 		// 月の初日が日曜でなければ日曜までずらす
     	$firstDay = new \DateTime($year.'-'.$month.'-1');
     	$firstDay->modify('-' .($firstDay->format('w') -1) .' day');
