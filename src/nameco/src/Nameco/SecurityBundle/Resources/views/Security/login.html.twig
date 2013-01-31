@@ -1,11 +1,15 @@
 {% extends "::base.html.twig" %}
 
+{% block stylesheets %}
+	<link href="{{ asset('bundles/namecosecurity/css/login.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
 {% block body %}
 	{% if error %}
 	    <div class="alert alert-error">{{ error.message }}</div>
 	{% endif %}
 	
-	<form action="{{ path('login_check') }}" method="post">
+	<form  id="login_form" action="{{ path('login_check') }}" method="post">
 		<fieldset>
 	    	<label for="username">ユーザ名:</label>
 	    	<input type="text" id="username" name="_username" value="{{ last_username }}" />

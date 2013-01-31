@@ -1,17 +1,13 @@
-{# コントローラで取得している値を確認用にとりあえずの記述 #}
-<div>カレンダー開始日：{{firstDay|date('Y/m/d')}}</div>
-<div>カレンダー終了日：{{lastDay|date('Y/m/d')}}</div>
-<table>
-    <tr>
-        <td>タイトル</td>
-        <td>開始時間</td>
-        <td>終了時間</td>
-    </tr>
-	{% for data in result %}
-		<tr>
-			<td>{{data.title}}</td>
-			<td>{{data.startDatetime|date('Y/m/d H:i')}}</td>
-			<td>{{data.endDatetime|date('Y/m/d H:i')}}</td>
-		</tr>
-	{% endfor %}
-</table>
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/namecouserestablishment/css/month.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body %}
+
+	<div id="month_contents" class="clearfix">
+		{% include 'NamecoUserEstablishmentBundle:Calendar:calendar_month.html.twig' %}
+	</div>	
+
+{% endblock body%}

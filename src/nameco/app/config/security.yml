@@ -6,7 +6,6 @@ security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
         Nameco\Admin\UserBundle\Entity\User:   sha512
-        Nameco\SecurityBundle\Entity\User:   sha512
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -21,12 +20,12 @@ security:
             users:
               admin:  { password: namecoadmin, roles: [ 'ROLE_ADMIN' ] }
         user_db:
-          entity:  { class: Nameco\SecurityBundle\Entity\User, property: username }
+          entity:  { class: Nameco\Admin\UserBundle\Entity\User, property: username }
         
 
     firewalls:
         login:
-            pattern:  ^/login$
+            pattern:  ^/(login$|css|js|images)
             security: false
 
         secured_area:

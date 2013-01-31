@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+#calendar_pane
+{
+	width: 1200px;
+	float: left;
+	
+	margin: 10px;
+}

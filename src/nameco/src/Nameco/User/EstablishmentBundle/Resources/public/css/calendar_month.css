@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+#weekday
+{
+	margin: 0;
+	width: 100%;
+	max-width: 100%;
+	list-style-type: none;
+}
+#weekday li
+{
+	text-align: center;
+	float: left;
+	width: 14%;
+}
+
+#grid_pane, .week_row
+{
+	position: relative;
+}
+
+
+
+#calender_bg, .week_schedule_row
+{
+	table-layout: fixed;
+	margin: 0;
+	width: 100%;
+	background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+    max-width: 100%;
+}
+
+
+
+#calender_bg td, #calender_bg th,
+.week_schedule_row td, .week_schedule_row th
+{
+	width: 14%;
+	text-align: center;
+	border-top: none;
+	font-weight: normal;
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#calender_bg th, .week_schedule_row th
+{
+	height: 20px;
+}
+
+
+
+.week_row
+{
+	min-height: 126px;
+}
+.week_schedule_row
+{
+	height: 100%;
+	border-top: 1px solid #dddddd;
+}
+.date_row th
+{
+	border-bottom: 1px solid #dddddd;
+}
+
+.schedule
+{
+	margin: 5px;
+	border: 1px solid #dddddd;
+	background-color: #fcf8e3;
+}
+
+
+#calender_bg
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	min-height: 100%;
+	border-right: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
+}
+
+#calender_bg td
+,#calender_bg th
+{
+	border-left: 1px solid #dddddd;
+}
+.bg_week_5
+{
+	background-color: #E2F7F7;
+}
+.bg_week_6
+{
+	background-color: #FEEAEA;
+}

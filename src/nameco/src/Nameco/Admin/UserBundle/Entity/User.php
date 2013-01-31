@@ -154,6 +154,8 @@ class User implements UserInterface
 	 * @var string
 	 */
 	private $kana_first;
+	
+	private $roles;
 
 	/**
 	 * Constructor
@@ -528,7 +530,14 @@ class User implements UserInterface
 	{
 	}
 	
-	public function getRoles()
-	{
-	}
+	public function setRoles($roles)
+    {
+    	$this->roles = $roles;
+    	return $this;
+    }
+    public function getRoles()
+    {
+    	$roles = array();
+    	return $roles;
+    }
 }

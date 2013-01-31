@@ -9,18 +9,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class EstablishmentController extends Controller
 {
     /**
-     * @Route("/establishment/month/{id}/{year}/{month}")
-     * @Template()
+     * @Route("/establishment/month/{id}/{year}/{month}", name="establishment_month")
+     * 
      */
     public function monthAction($id, $year, $month)
     {
 		// 月の初日が日曜でなければ日曜までずらす
     	$firstDay = new \DateTime($year.'-'.$month.'-1');
-    	$firstDay->modify('-'.$firstDay->format('w').' day');
+    	$firstDay->modify('-' .($firstDay->format('w') -1) .' day');
 
     	// 月の最終日が土曜でなければ土曜までずらす
     	$lastDay = new \DateTime('last day of '.$year.'-'.$month);
-    	$diffWeek = 6 - $lastDay->format('w');
+    	$diffWeek = 6 - $lastDay->format('w') + 1;
     	$lastDay->modify('+'.$diffWeek.' day');
     	// DBからの検索用最終日を作成(カレンダーの最終日+1日)
     	$searchLastDay = clone $lastDay;
@@ -30,14 +30,24 @@ class EstablishmentController extends Controller
     	$em = $this->getDoctrine()->getEntityManager();
     	$query = $em->createQuery('
     			SELECT s FROM NamecoUserEstablishmentBundle:Schedule s JOIN NamecoUserEstablishmentBundle:Establishment e
-    			WHERE e.id = :id AND s.startDatetime >= :firstDay AND s.startDatetime < :lastDay ORDER BY s.startDatetime ASC')
+    			WHERE e.id = :id
+    			AND (s.startDatetime >= :firstDay AND s.startDatetime < :lastDay)
+    			ORDER BY s.startDatetime ASC')
     	->setParameter('id', $id)
     	->setParameter('firstDay', $firstDay)
     	->setParameter('lastDay', $searchLastDay);
 
     	$result = $query->getResult();
+    	
+    	$diff = $firstDay->diff($lastDay);
+    	$week = (intval($diff->format( '%a' )) + 1) / 7;
 
-    	return array('firstDay' => $firstDay, 'lastDay' => $lastDay, 'result' => $result);
+    	return $this->render('NamecoUserEstablishmentBundle:Establishment:month.html.twig', 
+    			array(
+    					'start'     => $firstDay, 
+    					'end'       => $lastDay,
+    					'week'      => $week, 
+    					'schedules' => $result));
     }
 
     /**

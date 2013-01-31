@@ -27,7 +27,6 @@ class SecurityController extends Controller
 		}
 		
 		return $this->render('NamecoSecurityBundle:Security:login.html.twig', array(
-				// ユーザによって前回入力された username
 				'last_username' => $session->get(SecurityContext::LAST_USERNAME),
 				'error'         => $error,
 		));
