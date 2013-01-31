@@ -9,7 +9,7 @@ var Month =
 		var items = $('#schedules').find('li');
 		items.each(function()
 		{
-			item = {
+			var item = {
 				'id' : $(this).children('.id').text(),
 				'start_date' : $(this).children('.start_date').text(),
 				'end_date' : $(this).children('.end_date').text(),
