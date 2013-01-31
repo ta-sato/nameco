@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+#month_contents
+{
+	width: 1250px;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+#left_pane
+{
+	width: 230px;
+	float: left;
+}
+
+#calendar_pane
+{
+	width: 1000px;
+	float: left;
+	padding-left: 10px;
+	padding-right: 10px
+}
+
+#main_menu
+{
+	padding-top: 30px;
+}
+#main_menu a
+{
+	display: block;
+	margin-top: 10px;
+}
+
+#sub_menu
+{
+	border-top: 1px dashed #dddddd;
+	margin-top: 50px;
+	padding-top: 30px;
+}

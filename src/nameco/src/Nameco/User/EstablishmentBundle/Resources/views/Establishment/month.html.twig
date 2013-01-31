@@ -1,13 +1,5 @@
-{% extends "::base.html.twig" %}
+{% extends "NamecoUserEstablishmentBundle:Calendar:layout.html.twig" %}
 
-{% block stylesheets %}
-	<link href="{{ asset('bundles/namecouserestablishment/css/month.css') }}" rel="stylesheet" type="text/css" />
-{% endblock %}
-
-{% block body %}
-
-	<div id="month_contents" class="clearfix">
-		{% include 'NamecoUserEstablishmentBundle:Calendar:calendar_month.html.twig' %}
-	</div>	
-
-{% endblock body%}
+{% block submenu %}
+	<select></select>
+{% endblock submenu %}

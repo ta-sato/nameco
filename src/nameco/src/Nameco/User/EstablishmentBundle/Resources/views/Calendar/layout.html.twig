@@ -1,0 +1,25 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/namecouserestablishment/css/calendar.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body %}
+
+	<div id="month_contents" class="clearfix">
+		<div id="left_pane">
+			<div id="main_menu"">
+				<a class="btn btn-primary btn-large" href="#">スケジュール</a>
+				<a class="btn btn-primary btn-large" href="#">施設予約</a>
+			</div>
+			<div id="sub_menu">
+				{% block submenu %}
+				{% endblock submenu %}
+			</div>
+		</div>
+		
+		{% include 'NamecoUserEstablishmentBundle:Calendar:calendar_month.html.twig' %}
+		
+	</div>	
+
+{% endblock body%}
