@@ -9,22 +9,22 @@ class SecurityController extends Controller
 {
 	/**
 	 * @Route("login")
-	 * @Route("/")
 	 */
 	public function loginAction()
 	{
 		$request = $this->getRequest();
 		$session = $request->getSession();
 		
-		// ログインエラーがあれば、ここで取得
-		$error_message = null;
+
+		$error = null;
 		if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR))
 		{
-			$error_message = 'ユーザ名またはパスワードが違います';
+			$error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR)->message;
 		}
-		else
+		else if ($session->has(SecurityContext::AUTHENTICATION_ERROR))
 		{
-			$error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+			$error = 'ユーザ名またはパスワードが違います';
+			$session->remove(SecurityContext::AUTHENTICATION_ERROR);
 		}
 		
 		return $this->render('NamecoSecurityBundle:Security:login.html.twig', array(

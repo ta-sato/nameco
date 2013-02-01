@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormError;
 class UserController extends Controller
 {
 	/**
-	 * @Route("/user/new")
+	 * @Route("/user/new", name="user_new")
 	 */
 	public function indexAction(Request $request)
 	{
