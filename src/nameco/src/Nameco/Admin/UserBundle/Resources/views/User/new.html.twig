@@ -9,21 +9,94 @@
 		{% if success == true %}
 			<div class="alert alert-success">登録しました</div>
 		{% endif %}
+
 		<form action="" method="post" {{ form_enctype(form) }}>
-			{{ form_errors(form) }}
-			<fieldset>
-				<label>名前</label>
-				{{ form_errors(form.familly_name) }}
-				{{ form_errors(form.first_name) }}
-				{{ form_widget(form.familly_name, { 'attr': {'class' : 'familly_name'}})}}{{ form_widget(form.first_name)}}
-				<label>カナ</label>
-				{{ form_errors(form.kana_familly) }}
-				{{ form_errors(form.kana_first) }}
-				{{ form_widget(form.kana_familly, { 'attr': {'class' : 'familly_name'}})}}{{ form_widget(form.kana_first)}}
-				{{ form_row( form.email, { 'label': 'Mail:' } ) }}
-				{{ form_row( form.password.first, { 'label': 'パスワード' } ) }}     
-	    		{{ form_row( form.password.second, { 'label': '確認用パスワード' } ) }}
-			</fieldset>
+		
+			{% set error_name = form_errors(form.familly_name) != "" or form_errors(form.first_name) != "" %}
+			{% set error_kana = form_errors(form.kana_familly) != "" or form_errors(form.kana_first) != "" %}
+			{% set error_mail = form_errors(form.email) != "" %}
+			{% set error_pass = form_errors(form.password.first) != "" %}
+			{% set error_confirm = form_errors(form.password.second) != "" %}
+			
+			<ul>
+				<li class="control-group {% if error_name %}{{ "error" }}{% endif %}">
+					<label class="control-label">名前</label>
+					<div class="controls clearfix">
+						<div class="name_pane">
+							{{ form_widget(form.familly_name, { 'attr': {'class' : 'span3'}})}}
+							{% if form_errors(form.familly_name) != "" %}
+								<div class="help-inline">
+									{{ form_errors(form.familly_name) }}
+								</div>
+							{% endif %}
+						</div>
+						<div class="name_pane">
+							{{ form_widget(form.first_name, { 'attr': {'class' : 'span3'}})}}
+							{% if form_errors(form.first_name) != "" %}
+								<div class="help-inline">
+									{{ form_errors(form.first_name) }}
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				</li>
+				<li class="control-group {% if error_kana %}{{ "error" }}{% endif %}">
+					<label class="control-label">カナ</label>
+					<div class="controls clearfix">
+						<div class="name_pane">
+							{{ form_widget(form.kana_familly, { 'attr': {'class' : 'span3'}})}}
+							{% if form_errors(form.kana_familly) != "" %}
+								<div class="help-inline">
+									{{ form_errors(form.kana_familly) }}
+								</div>
+							{% endif %}
+						</div>
+						<div class="name_pane">
+							{{ form_widget(form.kana_first, { 'attr': {'class' : 'span3'}})}}
+							{% if form_errors(form.kana_first) != "" %}
+								<div class="help-inline">
+									{{ form_errors(form.kana_first) }}
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				</li>
+				<li class="control-group {% if error_mail %}{{ "error" }}{% endif %}">
+					<label class="control-label">Mail</label>
+					<div class="controls clearfix">
+						<div class="input_pane">
+							{{ form_widget(form.email, { 'attr': {'class' : 'span3'}})}}
+						</div>
+						<div class="help-inline error_pane">
+							{{ form_errors(form.email) }}
+						</div>
+					</div>
+				</li>
+				<li class="control-group {% if error_pass %}{{ "error" }}{% endif %}">
+					<label class="control-label">パスワード</label>
+					<div class="controls clearfix">
+						<div class="input_pane">
+							{{ form_widget(form.password.first, { 'attr': {'class' : 'span3'}})}}
+						</div>
+						
+						<div class="help-inline error_pane">
+							{{ form_errors(form.password.first) }}
+						</div>
+						
+					</div>
+				</li>
+				<li class="control-group {% if error_confirm %}{{ "error" }}{% endif %}">
+					<label class="control-label">確認用パスワード</label>
+					<div class="controls clearfix">
+						<div class="input_pane">
+							{{ form_widget(form.password.second, { 'attr': {'class' : 'span3'}})}}
+						</div>
+						<div class="help-inline error_pane">
+							{{ form_errors(form.password.second) }}
+						</div>
+					</div>
+				</li>
+			</ul>
 			{{ form_rest(form) }}
 			<div id="submit_wrapper">
 	    		<button class="btn btn-primary" id="submit" type="submit">登録</button>
