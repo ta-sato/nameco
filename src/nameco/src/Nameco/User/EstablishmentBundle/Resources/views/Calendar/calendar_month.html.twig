@@ -5,7 +5,8 @@
 {% block javascripts %}
 	<script src="{{ asset('bundles/namecouserestablishment/js/calendar_month.js') }}" type="text/javascript"></script>
 {% endblock %}
-	
+
+{% include '::navigation.html.twig' with {'routeName': 'establishment_month_id', 'selectRouteName':'establishment_select_date'} %}
 
 <div id="calendar_pane">
 	<ul id="schedules"  style="display: none">

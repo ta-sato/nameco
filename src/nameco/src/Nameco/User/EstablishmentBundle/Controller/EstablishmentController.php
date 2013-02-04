@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class EstablishmentController extends Controller
 {
     /**
-     * @Route("/establishment/month/{id}/{year}/{month}")
+     * @Route("/establishment/month/{id}/{year}/{month}", name="establishment_month_id")
      * @Route("/establishment/month/", name="establishment_month")
      */
     public function monthAction($id = null, $year = null, $month = null)
@@ -60,11 +60,31 @@ class EstablishmentController extends Controller
     	$diff = $firstDay->diff($lastDay);
     	$week = (intval($diff->format( '%a' )) + 1) / 7;
 
-    	return $this->render('NamecoUserEstablishmentBundle:Establishment:month.html.twig', 
+    	// ナビゲーション用データ
+    	$dispDate = new \DateTime($year.'-'.$month.'-1');
+
+    	return $this->render('NamecoUserEstablishmentBundle:Establishment:month.html.twig',
     			array(
-    					'start'     => $firstDay, 
-    					'end'       => $lastDay,
-    					'week'      => $week, 
-    					'schedules' => $result));
+    					'start'           => $firstDay,
+    					'end'             => $lastDay,
+    					'week'            => $week,
+    					'schedules'       => $result,
+    					'id'              => $id,
+    					'dispDate'        => $dispDate,
+    					'dispTargetLabel' => '施設名'));
+    }
+
+    /**
+     * @Route("/establishmentSelectDate", name="establishment_select_date")
+     * @Template()
+     */
+    public function establishmentSelectDateAction()
+    {
+    	$request = $this->getRequest();
+    	$linkParam['id'] = $request->request->get('idVal');
+    	$linkParam['year'] = $request->request->get('y');
+    	$linkParam['month'] = $request->request->get('m');
+    	// 表示対象にリダイレクト
+    	return $this->redirect($this->generateUrl('establishment_month_id', $linkParam));
     }
 }
