@@ -1,5 +1,5 @@
 {% extends "NamecoUserEstablishmentBundle:Calendar:layout.html.twig" %}
 
 {% block submenu %}
-	<select></select>
+	{% render "NamecoUserEstablishmentBundle:SubMenu:main" with {'year': year, 'month': month} %}
 {% endblock submenu %}

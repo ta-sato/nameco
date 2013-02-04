@@ -1,0 +1,14 @@
+<div class="dropdown">
+	<button class="btn btn-large dropdown-toggle" data-toggle="dropdown">施設選択</button>
+	<ul class="dropdown-menu">
+		{% for area in areas %}
+			{% set head = loop.first %}
+			{% for es in area.establishment %}
+				{% if not head and loop.first %}
+					<li class="divider"></li>
+				{% endif %}
+				<li><a tabindex="-1" href="{{ path('establishment_month_id', {'id': es.id, 'year': year, 'month': month}) }}">{{ es.name }}</a></li>
+			{% endfor %}
+		{% endfor %}
+	</ul>
+</div>

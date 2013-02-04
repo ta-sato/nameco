@@ -27,7 +27,7 @@ class EstablishmentController extends Controller
     		$ids = $query->getResult();
     		$id  = $ids[0]->getId();
     	}
-    	
+
 		// 月の初日が日曜でなければ日曜までずらす
     	$firstDay = new \DateTime($year.'-'.$month.'-1');
     	$firstDay->modify('-' .($firstDay->format('w') -1) .' day');
@@ -56,7 +56,7 @@ class EstablishmentController extends Controller
     	->setParameter('lastDay',  $searchLastDay);
 
     	$result = $query->getResult();
-    	
+
     	$diff = $firstDay->diff($lastDay);
     	$week = (intval($diff->format( '%a' )) + 1) / 7;
 
@@ -71,7 +71,9 @@ class EstablishmentController extends Controller
     					'schedules'       => $result,
     					'id'              => $id,
     					'dispDate'        => $dispDate,
-    					'dispTargetLabel' => '施設名'));
+    					'dispTargetLabel' => '施設名',
+						'year' => $year,
+						'month' => $month));
     }
 
     /**
