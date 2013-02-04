@@ -58,3 +58,11 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+
+services:
+    acme.twig.navi_extension:
+        class: NamecoTwigExtensions\NavigationExtension
+        arguments:    [@router]
+        tags:
+            - { name: twig.extension }
