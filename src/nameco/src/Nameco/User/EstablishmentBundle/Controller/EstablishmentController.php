@@ -62,6 +62,11 @@ class EstablishmentController extends Controller
 
     	// ナビゲーション用データ
     	$dispDate = new \DateTime($year.'-'.$month.'-1');
+    	
+    	// 施設名
+    	$e      = $em->find('NamecoUserEstablishmentBundle:Establishment', $id);
+    	$area   = $e->getArea();
+    	$e_name = $area[0]->getName() . ' ' . $e->getName(); 
 
     	return $this->render('NamecoUserEstablishmentBundle:Establishment:month.html.twig',
     			array(
@@ -71,9 +76,9 @@ class EstablishmentController extends Controller
     					'schedules'       => $result,
     					'id'              => $id,
     					'dispDate'        => $dispDate,
-    					'dispTargetLabel' => '施設名',
-						'year' => $year,
-						'month' => $month));
+    					'dispTargetLabel' => $e_name,
+						'year'            => $year,
+						'month'           => $month));
     }
 
     /**
