@@ -61,8 +61,8 @@ swiftmailer:
 
 
 services:
-    acme.twig.navi_extension:
-        class: NamecoTwigExtensions\NavigationExtension
+    nameco.twig.navi_extension:
+        class: Nameco\User\SchedulerBundle\Twig\Extension\NavigationExtension
         arguments:    [@router]
         tags:
             - { name: twig.extension }

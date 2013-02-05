@@ -2,8 +2,7 @@
     "name": "MinoriSol-Digs/nameco",
     "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
-        "psr-0": { "": "src/",
-                   "NamecoTwigExtensions": "app/Resources/Twig/extensions/" }
+        "psr-0": { "": "src/" }
     },
     "require": {
         "php": ">=5.3.3",

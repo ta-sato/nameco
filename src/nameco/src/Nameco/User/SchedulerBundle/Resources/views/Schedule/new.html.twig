@@ -1,0 +1,9 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<form action="{{ path('schedule_create') }}" method="POST" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    
+    <input type="submit" value="登録" />
+</form>
+{% endblock %}

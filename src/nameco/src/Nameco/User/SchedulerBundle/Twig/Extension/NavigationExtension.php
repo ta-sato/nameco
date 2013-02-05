@@ -1,6 +1,6 @@
 <?php
 
-namespace NamecoTwigExtensions;
+namespace Nameco\User\SchedulerBundle\Twig\Extension;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use DateTime;

@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Nameco\Admin\UserBundle\NamecoAdminUserBundle(),
             new Nameco\User\EstablishmentBundle\NamecoUserEstablishmentBundle(),
             new Nameco\SecurityBundle\NamecoSecurityBundle(),
+            new Nameco\User\SchedulerBundle\NamecoUserSchedulerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

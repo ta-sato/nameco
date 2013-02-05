@@ -1,0 +1,8 @@
+<div class="dropdown">
+	<button class="btn btn-large dropdown-toggle" data-toggle="dropdown">ユーザ選択</button>
+	<ul class="dropdown-menu">
+		{% for u in users %}
+			<li><a tabindex="-1" href="{{ path('schedule_month_id_ym', {'id': u.id, 'year': year, 'month': month}) }}">{{ u.name }}</a></li>
+		{% endfor %}
+	</ul>
+</div>

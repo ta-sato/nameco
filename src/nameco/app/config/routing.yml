@@ -1,3 +1,8 @@
+nameco_user_scheduler:
+    resource: "@NamecoUserSchedulerBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 nameco_security:
     resource: "@NamecoSecurityBundle/Controller/"
     type:     annotation

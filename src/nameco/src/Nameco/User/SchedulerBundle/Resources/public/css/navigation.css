@@ -1,0 +1,15 @@
+.navigation_wrapper
+{
+	padding: 10px;
+}
+#navigation_left
+{
+	width: 600px;
+	float: left;
+}
+#navigation_right
+{
+	width: 60px;
+	float: right;
+}
+
