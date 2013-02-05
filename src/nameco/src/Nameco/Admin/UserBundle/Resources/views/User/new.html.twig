@@ -18,7 +18,7 @@
 			{% set error_pass = form_errors(form.password.first) != "" %}
 			{% set error_confirm = form_errors(form.password.second) != "" %}
 			
-			<ul>
+			<ul id="user_field">
 				<li class="control-group {% if error_name %}{{ "error" }}{% endif %}">
 					<label class="control-label">名前</label>
 					<div class="controls clearfix">
