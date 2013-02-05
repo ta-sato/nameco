@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+#message
+{
+	text-align: center;
+	margin-top: 30px;
+}
+
+#logout_wrapper
+{
+	margin-left: auto;
+	margin-right: auto;
+	width: 144px;
+}
+
