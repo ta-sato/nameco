@@ -67,8 +67,13 @@ class ScheduleController extends SchedulerBaseController
      */
     public function newAction()
     {
-        $form = $this->createForm(new ScheduleType(), new Schedule());
-        return array('form' => $form->createView());
+        $schedule = new Schedule();
+        $startDate = new \DateTime();
+        $endDate = new \DateTime();
+        $schedule->setStartDatetime($startDate);
+        $schedule->setEndDatetime($endDate);
+        $form = $this->createForm(new ScheduleType(), $schedule);
+        return array('form' => $form->createView(), 'startDate' => $startDate, 'endDate' => $endDate);
     }
     
     /**
@@ -86,6 +91,7 @@ class ScheduleController extends SchedulerBaseController
         
         $owner = $em->getRepository('NamecoUserSchedulerBundle:User')->find($this->getUser()->getId()); // TODO
         $schedule->setOwnerUser($owner);
+        $schedule->addUser($owner);
         
         if ($form->isValid())
         {
@@ -93,7 +99,7 @@ class ScheduleController extends SchedulerBaseController
             $em->persist($schedule);
             $em->flush();
         }
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(), 'startDate' => new \DateTime(), 'endDate' => new \DateTime());
     }
     
     /**

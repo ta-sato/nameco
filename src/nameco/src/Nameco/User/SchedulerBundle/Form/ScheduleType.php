@@ -20,8 +20,8 @@ class ScheduleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('startDateTime', 'datetime', array('label' => '開始', 'date_widget' => 'single_text', 'time_widget' => 'single_text'))
-            ->add('endDateTime', 'datetime', array('label' => '終了', 'date_widget' => 'single_text', 'time_widget' => 'single_text'))
+            ->add('startDateTime', 'datetime', array('label' => '開始', 'date_format' => 'yyyy/M/d', 'date_widget' => 'single_text', 'time_widget' => 'choice', 'minutes' => array(0, 15, 30, 45)))
+            ->add('endDateTime', 'datetime', array('label' => '終了', 'date_format' => 'yyyy/M/d', 'date_widget' => 'single_text', 'time_widget' => 'choice', 'minutes' => array(0, 15, 30, 45)))
             ->add('title', 'text', array('label' => 'タイトル'))
             ->add('detail', 'textarea', array('label' => '説明'))
             ->add('out', null, array('required' => false, 'label' => '外出'))

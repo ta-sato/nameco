@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+
+input.span-date
+{
+	width: 86px;
+}
+
+.btn-fixed
+{
+	width: 106px !important;
+}
+.register-table
+{
+	table-layout: fixed;
+}
+
+a.link-datepicker, a.link-datepicker:link, a.link-datepicker:visited, a.link-datepicker:hover, a.link-datepicker:active
+{
+	color: #000000;
+	text-decoration: none;
+}
+
+#schedule_startDateTime_date, #schedule_endDateTime_date
+{
+	ime-mode: disabled;
+}

@@ -1,0 +1,18 @@
+{% block checkbox_widget %}
+{% spaceless %}
+<label class="checkbox">
+  <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} /> 
+  {{label|trans }} 
+</label>
+{% endspaceless %}
+{% endblock %}
+{% block time_widget %}
+{% spaceless %}
+{% if widget == 'time_choice' %}
+
+{% else %}
+{{ form_widget(form.hour, {'attr':{'class':'span1', 'size':1}}) }}
+{{ form_widget(form.minute, {'attr':{'class':'span1', 'size':1}}) }}
+{% endif %}
+{% endspaceless %}
+{% endblock %}
