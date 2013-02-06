@@ -25,6 +25,8 @@ class ScheduleType extends AbstractType
             ->add('title', 'text', array('label' => 'タイトル'))
             ->add('detail', 'textarea', array('label' => '説明'))
             ->add('out', null, array('required' => false, 'label' => '外出'))
+            ->add('user')
+            ->add('establishment')
         ;
     }
     

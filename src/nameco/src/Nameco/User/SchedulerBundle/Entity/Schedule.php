@@ -3,6 +3,7 @@
 namespace Nameco\User\SchedulerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Schedule
@@ -26,6 +27,8 @@ class Schedule
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=64, nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\MaxLength(50)
      */
     private $title;
 
@@ -33,6 +36,7 @@ class Schedule
      * @var \DateTime
      *
      * @ORM\Column(name="start_datetime", type="datetime", nullable=false)
+     * @Assert\NotBlank()
      */
     private $startDatetime;
 
@@ -40,6 +44,7 @@ class Schedule
      * @var \DateTime
      *
      * @ORM\Column(name="end_datetime", type="datetime", nullable=false)
+     * @Assert\NotBlank()
      */
     private $endDatetime;
 
@@ -47,6 +52,7 @@ class Schedule
      * @var string
      *
      * @ORM\Column(name="detail", type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
      */
     private $detail;
 

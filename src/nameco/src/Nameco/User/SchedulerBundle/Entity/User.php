@@ -398,4 +398,9 @@ class User
     {
         return $this->schedule;
     }
+    
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

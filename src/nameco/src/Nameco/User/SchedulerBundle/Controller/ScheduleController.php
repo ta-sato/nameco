@@ -62,18 +62,18 @@ class ScheduleController extends SchedulerBaseController
     }
     
     /**
-     * @Route("/schedule/new", name="schedule_new")
+     * @Route("/schedule/new/{year}/{month}/{day}", name="schedule_new")
      * @Template()
      */
-    public function newAction()
+    public function newAction($year, $month, $day)
     {
         $schedule = new Schedule();
-        $startDate = new \DateTime();
-        $endDate = new \DateTime();
-        $schedule->setStartDatetime($startDate);
-        $schedule->setEndDatetime($endDate);
+        $date = new \DateTime();
+        $date->setDate($year, $month, $day);
+        $schedule->setStartDatetime($date);
+        $schedule->setEndDatetime($date);
         $form = $this->createForm(new ScheduleType(), $schedule);
-        return array('form' => $form->createView(), 'startDate' => $startDate, 'endDate' => $endDate);
+        return array('form' => $form->createView(), 'startDate' => $date, 'endDate' => $date);
     }
     
     /**
@@ -91,13 +91,13 @@ class ScheduleController extends SchedulerBaseController
         
         $owner = $em->getRepository('NamecoUserSchedulerBundle:User')->find($this->getUser()->getId()); // TODO
         $schedule->setOwnerUser($owner);
-        $schedule->addUser($owner);
         
         if ($form->isValid())
         {
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($schedule);
             $em->flush();
+            return $this->render('NamecoUserSchedulerBundle:Schedule:createSuccess.html.twig');
         }
         return array('form' => $form->createView(), 'startDate' => new \DateTime(), 'endDate' => new \DateTime());
     }

@@ -24,3 +24,13 @@ a.link-datepicker, a.link-datepicker:link, a.link-datepicker:visited, a.link-dat
 {
 	ime-mode: disabled;
 }
+
+.datepicker
+{
+	z-index: 9999;
+}
+
+.modal-body
+{
+	max-height: 760px;
+}
