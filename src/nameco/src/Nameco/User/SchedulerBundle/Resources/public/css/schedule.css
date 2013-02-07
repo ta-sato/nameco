@@ -34,3 +34,16 @@ a.link-datepicker, a.link-datepicker:link, a.link-datepicker:visited, a.link-dat
 {
 	max-height: 760px;
 }
+
+.form-horizontal .control-label
+{
+	width: 60px;
+}
+.form-horizontal .controls
+{
+	margin-left: 80px;
+}
+.modal
+{
+	width: 600px;
+}

@@ -65,8 +65,12 @@ class ScheduleController extends SchedulerBaseController
      * @Route("/schedule/new/{year}/{month}/{day}", name="schedule_new")
      * @Template()
      */
-    public function newAction($year, $month, $day)
+    public function newAction(Request $request, $year, $month, $day)
     {
+        if (!$request->isXmlHttpRequest())
+        {
+            return $this->redirect($this->generateUrl('schedule_month'));
+        }
         $schedule = new Schedule();
         $date = new \DateTime();
         $date->setDate($year, $month, $day);
@@ -84,7 +88,11 @@ class ScheduleController extends SchedulerBaseController
      */
     public function createAction(Request $request)
     {
-    	$em = $this->getDoctrine()->getEntityManager();
+        if (!$request->isXmlHttpRequest())
+        {
+            return $this->redirect($this->generateUrl('schedule_month'));
+        }
+        $em = $this->getDoctrine()->getEntityManager();
         $schedule = new Schedule();
         $form = $this->createForm(new ScheduleType(), $schedule);
         $form->bindRequest($request);

@@ -14,6 +14,10 @@ var Schedule =
 				Schedule.formInit();
 			});
 		});
+		$('form#form-schedule').live('submit', function(){
+			Schedule.submitScheduleForm(this);
+			return false;
+		});
 		$('#register-modal')
 			.on('hidden', function(ev){
 				Schedule.formDispose();
@@ -37,9 +41,6 @@ var Schedule =
 			.on('show', function(ev){
 				Schedule.onShow(this, ev, '#schedule_endDateTime_date')
 			});
-		$('#submit-schedule').click(function(ev){
-			Schedule.submitScheduleForm(ev);
-		});
 	},
 	formDispose:function()
 	{
@@ -57,21 +58,23 @@ var Schedule =
 		$(elem).datepicker('setDate', new Date($(selector).val()));
 		$(elem).datepicker('update');
 	},
-	submitScheduleForm:function(ev)
+	submitScheduleForm:function(form)
 	{
-		var $form = $('form#form-schedule');
-		var $target = $('#register-modal');
-		$target.find('.modal-body').html('<div class="progress progress-striped active"><div class="bar" style="width:100%;"></div></div>');
+		var f = $(form);
+		var formData = f.serialize();
+		var target = $('#register-modal');
+		target.find('.modal-body').html('<div class="progress progress-striped active"><div class="bar" style="width:100%;"></div></div>');
+		var method = f.attr('method');
+		var action = f.attr('action');
 		$.ajax({
-			type: $form.attr('method'),
-			url: $form.attr('action'),
-			data: $form.serialize(),
+			type: method,
+			url: action,
+			data: formData,
 			success: function(data, status){
-				$target.html(data);
+				target.html(data);
 				Schedule.formInit();
-			}
+			},
 		});
-		ev.preventDefault();
 	},
 	closeModal:function()
 	{

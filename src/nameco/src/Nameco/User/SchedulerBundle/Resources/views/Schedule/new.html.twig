@@ -4,50 +4,63 @@
 {% block title %}スケジュール登録{% endblock %}
 
 {% block body %}
-{{ form_errors(form) }}
-<form id="form-schedule" action="{{ path('schedule_create') }}" method="POST" {{ form_enctype(form) }}>
+<form id="form-schedule" class="form-horizontal" action="{{ path('schedule_create') }}" method="POST" {{ form_enctype(form) }}>
     <div class="control-group">
-        {{ form_label(form.startDateTime) }}
-        {{ form_widget(form.startDateTime.date, {'attr': {'class':'span-date'}}) }}
-        <a id="btn-startDate" class="link-datepicker" href="#" data-date-format="yyyy/m/d" data-date="{{ startDate.format('Y/m/d')|date('Y/m/d') }}">■</a>
-        {{ form_widget(form.startDateTime.time, {'attr': {'class':'span1 inline-inputs'}}) }}
+        {{ form_label(form.startDateTime, label|default(null), {'label_attr':{'class':'control-label'}}) }}
+        <div class="controls">
+            {{ form_widget(form.startDateTime.date, {'attr': {'class':'span-date'}}) }}
+            <a id="btn-startDate" class="link-datepicker" href="#" data-date-format="yyyy/m/d" data-date="{{ startDate.format('Y/m/d')|date('Y/m/d') }}">■</a>
+            {{ form_widget(form.startDateTime.time, {'attr': {'class':'span1 inline-inputs'}}) }}
+        </div>
     </div>
 
     <div class="control-group">
-        {{ form_label(form.endDateTime) }}
-        {{ form_widget(form.endDateTime.date, {'attr': {'class':'span-date'}}) }}
-        <a id="btn-endDate" class="link-datepicker" href="#" data-date-format="yyyy/m/d" data-date="{{ startDate.format('Y/m/d')|date('Y/m/d') }}">■</a>
-        {{ form_widget(form.endDateTime.time, {'attr': {'class':'span1'}}) }}
+        {{ form_label(form.endDateTime, label|default(null), {'label_attr':{'class':'control-label'}}) }}
+        <div class="controls">
+            {{ form_widget(form.endDateTime.date, {'attr': {'class':'span-date'}}) }}
+            <a id="btn-endDate" class="link-datepicker" href="#" data-date-format="yyyy/m/d" data-date="{{ startDate.format('Y/m/d')|date('Y/m/d') }}">■</a>
+            {{ form_widget(form.endDateTime.time, {'attr': {'class':'span1'}}) }}
+        </div>
     </div>
     
     <div class="control-group">
-        {{ form_label(form.title) }}
-        {{ form_errors(form.title) }}
-        {{ form_widget(form.title, {'attr': {'class':'span6'}}) }}
+        {{ form_label(form.title, label|default(null), {'label_attr':{'class':'control-label'}}) }}
+        <div class="controls">
+            {{ form_errors(form.title) }}
+            {{ form_widget(form.title, {'attr': {'class':'span6'}}) }}
+        </div>
     </div>
     
     <div class="control-group">
-        {{ form_label(form.detail) }}
-        {{ form_errors(form.detail) }}
-        {{ form_widget(form.detail, {'attr': {'class':'span6'}}) }}
+        {{ form_label(form.detail, label|default(null), {'label_attr':{'class':'control-label'}}) }}
+        <div class="controls">
+            {{ form_errors(form.detail) }}
+            {{ form_widget(form.detail, {'attr': {'class':'span6'}}) }}
+        </div>
     </div>
     
     <div class="control-group">
-        {{ form_widget(form.out) }}
+        <div class="controls">
+            {{ form_widget(form.out) }}
+        </div>
     </div>
     
-    <button type="button" id="btn-participant" class="btn btn-primary btn-fixed">参加者</button>
     <div class="control-group">
-        {{ form_widget(form.user) }}
+        <div class="controls">
+            <button type="button" id="btn-participant" class="btn btn-primary btn-fixed">参加者</button>
+            {{ form_widget(form.user) }}
+        </div>
     </div>
     
-    <button type="button" id="establishment" class="btn btn-primary btn-fixed">施設</button>
     <div class="control-group">
-        {{ form_widget(form.establishment) }}
+        <div class="controls">
+            <button type="button" id="establishment" class="btn btn-primary btn-fixed">施設</button>
+            {{ form_widget(form.establishment) }}
+        </div>
     </div>
     
     <div class="control-group pull-right">
-        <button id="submit-schedule" type="button" class="btn btn-primary btn-fixed">登録</button>
+        <input type="submit" class="btn btn-primary btn-fixed" value="登録" />
         <button type="button" class="btn btn-fixed" data-dismiss="modal">キャンセル</button>
     </div>
     {{ form_rest(form) }}
