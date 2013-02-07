@@ -1,7 +1,7 @@
-{% extends 'NamecoUserSchedulerBundle::calendar_month.html.twig' %}
+{% extends 'NamecoUserSchedulerBundle:Base:calendar_month.html.twig' %}
 
 {% block navigation %}
-    {% include 'NamecoUserSchedulerBundle::navigation.html.twig' with {'routeName': 'schedule_month_id_ym', 'selectRouteName':'schedule_selected_month'} %}
+    {% include 'NamecoUserSchedulerBundle:Base:navigation.html.twig' with {'routeName': 'schedule_month_id_ym', 'selectRouteName':'schedule_selected_month'} %}
 {% endblock %}
 
 {% block submenu %}

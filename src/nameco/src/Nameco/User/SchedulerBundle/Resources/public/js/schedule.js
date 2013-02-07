@@ -2,7 +2,26 @@ var Schedule =
 {
 	init:function()
 	{
-		$('#btn-startDate').datepicker({weekStart: 1})
+		$("th[id^='date_']").click(function(ev){
+			ev.preventDefault();
+			var date = $(this).attr('id').slice(5);
+			var url = $('#schedule_new_prefix').text() + '/' + date.slice(0, 4) + '/' + date.slice(4, 6) + '/' + date.slice(6, 8);
+			$.get(url, function(data){
+				var $elem = $('#register-modal');
+				$elem.html(data);
+				$elem.modal();
+			}).success(function(){
+				Schedule.formInit();
+			});
+		});
+		$('#register-modal')
+			.on('hidden', function(ev){
+				Schedule.formDispose();
+			});
+	},
+	formInit:function()
+	{
+		$('#btn-startDate').datepicker({weekStart: 1, language:'ja'})
 			.on('changeDate', function(ev){
 				$(this).datepicker('hide');
 				Schedule.onChangeDate(ev, '#schedule_startDateTime_date');
@@ -10,7 +29,7 @@ var Schedule =
 			.on('show', function(ev){
 				Schedule.onShow(this, ev, '#schedule_startDateTime_date')
 			});
-		$('#btn-endDate').datepicker({weekStart: 1})
+		$('#btn-endDate').datepicker({weekStart: 1, language:'ja'})
 			.on('changeDate', function(ev){
 				$(this).datepicker('hide');
 				Schedule.onChangeDate(ev, '#schedule_endDateTime_date');
@@ -22,6 +41,11 @@ var Schedule =
 			Schedule.submitScheduleForm(ev);
 		});
 	},
+	formDispose:function()
+	{
+		$('#btn-startDate').datepicker('remove');
+		$('#btn-endDate').datepicker('remove');
+	},
 	onChangeDate:function(ev, selector)
 	{
 		var selectedDate = new Date(ev.date);
@@ -30,7 +54,8 @@ var Schedule =
 	},
 	onShow:function(elem, ev, selector)
 	{
-		$(elem).datepicker('setValue', $(selector).val());
+		$(elem).datepicker('setDate', new Date($(selector).val()));
+		$(elem).datepicker('update');
 	},
 	submitScheduleForm:function(ev)
 	{
@@ -43,7 +68,7 @@ var Schedule =
 			data: $form.serialize(),
 			success: function(data, status){
 				$target.html(data);
-				Schedule.init();
+				Schedule.formInit();
 			}
 		});
 		ev.preventDefault();
@@ -53,3 +78,7 @@ var Schedule =
 		$('#register-modal').modal('hide');
 	}
 }
+
+$(window).ready(function(){
+	Schedule.init();
+});

@@ -5,6 +5,7 @@ var Navigation =
 
 		$('#selectDateButton').datepicker({
 			weekStart : 1,
+			language: 'ja',
 		}).on('changeDate', function(ev){
 			Navigation.onChangeDate(ev);
 		});

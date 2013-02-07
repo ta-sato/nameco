@@ -4,8 +4,9 @@
 <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
 {% endstylesheets %}
 
-{% javascripts "../app/Resources/public/js/navigation.js"
-				 "../app/Resources/public/js/bootstrap-datepicker.js" %}
+{% javascripts "../app/Resources/public/js/bootstrap-datepicker.js"
+				"../app/Resources/public/js/locales/bootstrap-datepicker.ja.js"
+				"../app/Resources/public/js/navigation.js" %}
       <script src="{{ asset_url }}" type="text/javascript"></script>
 {% endjavascripts %}
 
@@ -23,7 +24,7 @@
 		<input type="hidden" name="m"/>
 	</form>
 
-	<a class="btn" data-date="pickerDate" data-date-viewmode="months" data-date-format="yyyy-mm-dd" id="selectDateButton" href="#">
+	<a class="btn" data-date="pickerDate" data-date-format="yyyy-mm-dd" id="selectDateButton" href="#">
 		■<!-- <i class="icon-calendar"></i> -->
 	</a>
 	<span style="padding-left:10px;">{{ dispDate|diplayDate }}</span>
