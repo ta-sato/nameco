@@ -4,7 +4,8 @@
         <meta charset="UTF-8" />
         <title>Nameco</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        {% stylesheets  '../app/Resources/public/css/*'%}
+        {% stylesheets  '../app/Resources/public/css/bootstrap.min.css'
+        				  '../app/Resources/public/css/exception.css'  %}
         	<link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
 		{% endstylesheets %}
         {% block stylesheets %}{% endblock %}
@@ -15,7 +16,10 @@
 		{% endjavascripts %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+    	{% include '::header.html.twig' %}
+    	<div id="wrapper">
+        	{% block body %}{% endblock %}
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

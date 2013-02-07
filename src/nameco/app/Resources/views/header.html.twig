@@ -1,0 +1,21 @@
+<div class="navbar navbar-inverse navbar-static-top">
+	<div class="navbar-inner">
+	    <a class="brand" href="{{ path('schedule_month') }}">Nameco</a>
+		{% set token =app.security.getToken() %}
+		{% if token != null %}
+			{% if token.getUser() != null %}
+			    <ul class="nav pull-right">
+				    <li class="dropdown" >
+				    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				    	{{ token.getUser().getName }}
+				    	<b class="caret"></b>
+				    	</a>
+				    	<ul class="dropdown-menu">
+				    		<li><a tabindex="-1" href="{{ path('logout') }}">ログアウト</a></li>
+				    	</ul>
+				    </li>
+			    </ul>
+		    {% endif %}
+	    {% endif %}
+	</div> 
+</div>
