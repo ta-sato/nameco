@@ -46,7 +46,7 @@ class UserControllerTest extends WebTestCase
 	public function testAuth()
 	{
 		$client = static::createClient();
-		$client->request('GET', '/user/new');
+		$client->request('GET', '/admin/user/new');
 		$crawler = $client->followRedirect();
 		$this->assertTrue(
 				$crawler->filter('html:contains("名前")')->count() == 0
@@ -56,7 +56,7 @@ class UserControllerTest extends WebTestCase
 	
 	private function add($client, $mail)
 	{	
-		$crawler = $client->request('GET', '/user/new');
+		$crawler = $client->request('GET', '/admin/user/new');
 		$this->assertTrue($crawler->filter('html:contains("名前")')->count() > 0);
 		
 		$user_form = $crawler->selectButton('submit')->form();
@@ -77,7 +77,7 @@ class UserControllerTest extends WebTestCase
 	{
 		$client    = static::createClient();
 		$em        = $client->getContainer()->get('doctrine.orm.entity_manager');
-		$user_repo = $em->getRepository('NamecoAdminUserBundle:User');
+		$user_repo = $em->getRepository('NamecoUserSchedulerBundle:User');
 		$user      = $user_repo->findOneByEmail($mail);
 		$this->assertTrue($user != null);
 		$em->remove($user);

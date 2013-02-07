@@ -10,15 +10,15 @@ class SecurityControllerTest extends WebTestCase
 	 */
 	public function testLogin()
 	{
-		$client     = static::createClient();
+		$client = static::createClient();
 		$crawler    = $client->request('GET', '/login');
 		$login_form = $crawler->selectButton('submit')->form();
 		$crawler = $client->submit($login_form, array(
 				'_username'      => 'admin',
 				'_password'      => 'namecoadmin',
 		));
-		$crawler = $client->followRedirect();
-		$this->assertTrue($crawler->filter('html:contains("スケジュール")')->count() > 0);
+		$crawler    = $client->request('GET', '/admin/user/new');
+		$this->assertTrue($crawler->filter('html:contains("名前")')->count() > 0);
 		
 		$client->request('GET', '/logout');
 	}
