@@ -3,7 +3,7 @@
 namespace Nameco\Admin\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Nameco\Admin\UserBundle\Entity\User;
+use Nameco\User\SchedulerBundle\Entity\User;
 use Symfony\Component\Form\Form;
 
 use Symfony\Component\HttpFoundation\Request;

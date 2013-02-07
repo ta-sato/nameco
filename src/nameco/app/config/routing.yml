@@ -6,11 +6,6 @@ nameco_user_scheduler:
 nameco_user_scheduler_ajax:
     resource: "@NamecoUserSchedulerBundle/Resources/config/routing.yml"
 
-nameco_security:
-    resource: "@NamecoSecurityBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 nameco_admin_user:
     resource: "@NamecoAdminUserBundle/Controller/"
     type:     annotation

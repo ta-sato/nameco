@@ -20,7 +20,6 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Nameco\Admin\UserBundle\NamecoAdminUserBundle(),
-            new Nameco\SecurityBundle\NamecoSecurityBundle(),
             new Nameco\User\SchedulerBundle\NamecoUserSchedulerBundle(),
         );
 

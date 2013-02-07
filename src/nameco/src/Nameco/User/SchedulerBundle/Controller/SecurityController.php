@@ -1,14 +1,16 @@
 <?php
-namespace Nameco\SecurityBundle\Controller;
+namespace Nameco\User\SchedulerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class SecurityController extends Controller
 {
 	/**
 	 * @Route("login")
+	 * @Template()
 	 */
 	public function loginAction()
 	{
@@ -27,10 +29,9 @@ class SecurityController extends Controller
 			$session->remove(SecurityContext::AUTHENTICATION_ERROR);
 		}
 		
-		return $this->render('NamecoSecurityBundle:Security:login.html.twig', array(
+		return array(
 				'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-				'error'         => $error,
-		));
+				'error'         => $error);
 	} 	
 
 }
