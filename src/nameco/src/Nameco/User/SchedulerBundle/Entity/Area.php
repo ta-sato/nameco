@@ -54,6 +54,7 @@ class Area
      *     @ORM\JoinColumn(name="establishment_id", referencedColumnName="id")
      *   }
      * )
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $establishment;
 
@@ -64,12 +65,12 @@ class Area
     {
         $this->establishment = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -85,14 +86,14 @@ class Area
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -108,14 +109,14 @@ class Area
     public function setCreated($created)
     {
         $this->created = $created;
-    
+
         return $this;
     }
 
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -131,14 +132,14 @@ class Area
     public function setUpdated($updated)
     {
         $this->updated = $updated;
-    
+
         return $this;
     }
 
     /**
      * Get updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -154,7 +155,7 @@ class Area
     public function addEstablishment(\Nameco\User\SchedulerBundle\Entity\Establishment $establishment)
     {
         $this->establishment[] = $establishment;
-    
+
         return $this;
     }
 
@@ -171,7 +172,7 @@ class Area
     /**
      * Get establishment
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEstablishment()
     {

@@ -23,7 +23,7 @@ class SubMenuController extends Controller
         $users = $this->getDoctrine()->getRepository('NamecoUserSchedulerBundle:User')->findAll();
         return array('users' => $users, 'year' => $year, 'month' => $month);
     }
-    
+
     /**
      * @Route("/establishment/submenu/month")
      * @Template()
@@ -32,8 +32,11 @@ class SubMenuController extends Controller
     {
         $areas = $this->getDoctrine()
         ->getRepository('NamecoUserSchedulerBundle:Area')
-        ->findAll();
-    
+        ->createQueryBuilder('es')
+        ->orderBy('es.name', 'ASC')
+        ->getQuery()
+        ->getResult();
+
         return array('areas' => $areas, 'year' => $year, 'month' => $month);
     }
 }
