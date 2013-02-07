@@ -3,11 +3,11 @@
 	    <a class="brand" href="{{ path('schedule_month') }}">Nameco</a>
 		{% set token =app.security.getToken() %}
 		{% if token != null %}
-			{% if token.getUser() != null %}
+			{% if token.getUser() is defined  %}
 			    <ul class="nav pull-right">
 				    <li class="dropdown" >
 				    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-				    	{{ token.getUser().getName }}
+						{% if token.getUser().getName is defined %}{{ token.getUser().getName }}{% endif %}
 				    	<b class="caret"></b>
 				    	</a>
 				    	<ul class="dropdown-menu">
