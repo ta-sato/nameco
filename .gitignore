@@ -6,3 +6,5 @@
 /src/nameco/vendor/
 /src/nameco/app/config/parameters.yml
 *.php~
+/src/nameco/web/css/*
+/src/nameco/web/js/*
