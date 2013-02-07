@@ -16,11 +16,6 @@ nameco_admin_user:
     type:     annotation
     prefix:   /
 
-nameco_user_establishment:
-    resource: "@NamecoUserEstablishmentBundle/Controller/"
-    type:     annotation
-    prefix:   /
-    
 login_check:
     pattern:   /login_check
 

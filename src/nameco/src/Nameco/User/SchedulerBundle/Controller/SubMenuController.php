@@ -22,4 +22,24 @@ class SubMenuController extends Controller
         $users = $this->getDoctrine()->getRepository('NamecoUserSchedulerBundle:User')->findAll();
         return array('users' => $users, 'year' => $year, 'month' => $month);
     }
+    
+    /**
+     * @Route("/establishment/submenu")
+     * @Template()
+     */
+    public function mainAction(Request $request, $year = null, $month = null)
+    {
+    	$areas = $this->getDoctrine()
+    	->getRepository('NamecoUserEstablishmentBundle:Area')
+    	->findAll();
+    
+    	// 		foreach ($area as $elem) {
+    	// 		}
+    
+    	return $this->render('NamecoUserEstablishmentBundle:SubMenu:index.html.twig', array(
+    			'areas' => $areas,
+    			'year' => $year,
+    			'month' => $month
+    	));
+    }
 }
