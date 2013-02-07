@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8" />
-		<title>Nameco</title>
-		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-		{% stylesheets  '../app/Resources/public/css/*' output='css/main.css' %}
-			<link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    <head>
+        <meta charset="UTF-8" />
+        <title>Nameco</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% stylesheets  '../app/Resources/public/css/bootstrap.min.css'
+        				  '../app/Resources/public/css/exception.css'  %}
+        	<link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
 		{% endstylesheets %}
-		{% block stylesheets %}{% endblock %}
+        {% block stylesheets %}{% endblock %}
 		
-		{% javascripts  "../app/Resources/public/js/jquery-1.8.3.min.js"
-						"../app/Resources/public/js/bootstrap.min.js"
-						 output='js/main.js' %}
-			  <script src="{{ asset_url }}" type="text/javascript"></script>
+		{% javascripts "../app/Resources/public/js/jquery-1.8.3.min.js" 
+						 "../app/Resources/public/js/bootstrap.min.js" %}
+		      <script src="{{ asset_url }}" type="text/javascript"></script>
 		{% endjavascripts %}
-		{% block javascripts %}{% endblock %}
-	</head>
-	<body>
-		{% block body %}{% endblock %}
-	</body>
+    </head>
+    <body>
+    	{% include '::header.html.twig' %}
+    	<div id="wrapper">
+        	{% block body %}{% endblock %}
+        </div>
+        {% block javascripts %}{% endblock %}
+    </body>
 </html>
