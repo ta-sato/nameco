@@ -3,6 +3,7 @@
 namespace Nameco\User\SchedulerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -17,29 +18,22 @@ class SubMenuController extends Controller
      * @Route("/schedule/submenu/month")
      * @Template()
      */
-    public function scheduleMonthAction($year, $month)
+    public function scheduleMonthAction(Request $request, $year, $month)
     {
         $users = $this->getDoctrine()->getRepository('NamecoUserSchedulerBundle:User')->findAll();
         return array('users' => $users, 'year' => $year, 'month' => $month);
     }
     
     /**
-     * @Route("/establishment/submenu")
+     * @Route("/establishment/submenu/month")
      * @Template()
      */
-    public function mainAction(Request $request, $year = null, $month = null)
+    public function establishmentMonthAction(Request $request, $year = null, $month = null)
     {
-    	$areas = $this->getDoctrine()
-    	->getRepository('NamecoUserEstablishmentBundle:Area')
-    	->findAll();
+        $areas = $this->getDoctrine()
+        ->getRepository('NamecoUserSchedulerBundle:Area')
+        ->findAll();
     
-    	// 		foreach ($area as $elem) {
-    	// 		}
-    
-    	return $this->render('NamecoUserEstablishmentBundle:SubMenu:index.html.twig', array(
-    			'areas' => $areas,
-    			'year' => $year,
-    			'month' => $month
-    	));
+        return array('areas' => $areas, 'year' => $year, 'month' => $month);
     }
 }

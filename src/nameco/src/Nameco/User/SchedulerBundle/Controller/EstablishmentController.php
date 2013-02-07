@@ -1,6 +1,6 @@
 <?php
 
-namespace Nameco\User\EstablishmentBundle\Controller;
+namespace Nameco\User\SchedulerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -21,7 +21,7 @@ class EstablishmentController extends Controller
     		$em = $this->getDoctrine()->getEntityManager();
     		$query = $em->createQuery('
     				SELECT e
-    				FROM NamecoUserEstablishmentBundle:Establishment e
+    				FROM NamecoUserSchedulerBundle:Establishment e
     				ORDER BY e.id')
     				->setMaxResults(1);
     		$ids = $query->getResult();
@@ -43,7 +43,7 @@ class EstablishmentController extends Controller
 
     	$em = $this->getDoctrine()->getEntityManager();
     	$query = $em->createQuery('
-    			SELECT s FROM NamecoUserEstablishmentBundle:Schedule s
+    			SELECT s FROM NamecoUserSchedulerBundle:Schedule s
     			JOIN s.establishment e
     			WHERE e.id = :id
     			AND (
@@ -64,11 +64,11 @@ class EstablishmentController extends Controller
     	$dispDate = new \DateTime($year.'-'.$month.'-1');
     	
     	// 施設名
-    	$e      = $em->find('NamecoUserEstablishmentBundle:Establishment', $id);
+    	$e      = $em->find('NamecoUserSchedulerBundle:Establishment', $id);
     	$area   = $e->getArea();
     	$e_name = $area[0]->getName() . ' ' . $e->getName(); 
 
-    	return $this->render('NamecoUserEstablishmentBundle:Establishment:month.html.twig',
+    	return $this->render('NamecoUserSchedulerBundle:Establishment:month.html.twig',
     			array(
     					'start'           => $firstDay,
     					'end'             => $lastDay,

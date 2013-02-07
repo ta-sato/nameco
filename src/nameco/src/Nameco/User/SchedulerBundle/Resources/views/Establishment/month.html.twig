@@ -1,5 +1,9 @@
-{% extends "NamecoUserEstablishmentBundle:Calendar:layout.html.twig" %}
+{% extends 'NamecoUserSchedulerBundle:Base:calendar_month.html.twig' %}
+
+{% block navigation %}
+    {% include 'NamecoUserSchedulerBundle:Base:navigation.html.twig' with {'routeName': 'establishment_month_id', 'selectRouteName':'establishment_select_date'} %}
+{% endblock %}
 
 {% block submenu %}
-	{% render "NamecoUserEstablishmentBundle:SubMenu:main" with {'year': year, 'month': month} %}
+	{% render "NamecoUserSchedulerBundle:SubMenu:establishmentMonth" with {'year': year, 'month': month} %}
 {% endblock submenu %}
