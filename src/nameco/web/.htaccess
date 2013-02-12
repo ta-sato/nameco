@@ -5,6 +5,9 @@
     #    RewriteBase /
     #</IfModule>
 
+    RewriteRule app_dev\.php/img/(.*) img/$1
+
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ app.php [QSA,L]
+
 </IfModule>
