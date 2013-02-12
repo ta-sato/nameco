@@ -11,6 +11,7 @@
             {{ form_widget(form.startDateTime.date, {'attr': {'class':'span-date'}}) }}
             <a id="btn-startDate" class="link-datepicker" href="#" data-date-format="yyyy/m/d" data-date="{{ startDate.format('Y/m/d')|date('Y/m/d') }}">■</a>
             {{ form_widget(form.startDateTime.time, {'attr': {'class':'span1 inline-inputs'}}) }}
+            {{ form_errors(form.startDateTime) }}
         </div>
     </div>
 
@@ -56,6 +57,7 @@
         <div class="controls">
             <button type="button" id="establishment" class="btn btn-primary btn-fixed">施設</button>
             {{ form_widget(form.establishment) }}
+            {{ form_errors(form.establishment) }}
         </div>
     </div>
     

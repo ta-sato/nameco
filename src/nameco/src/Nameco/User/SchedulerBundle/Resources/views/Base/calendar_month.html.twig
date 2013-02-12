@@ -59,7 +59,7 @@
 					<thead>
 						<tr class="date_row" id="week_{{ i }}">
 							{% for n in 0..6 %}
-								<th id="date_{{ h_date|date("Ymd") }}" class="weekday_{{ n }} weekday">{{ h_date|date("m月d日") }}</th>
+								<th id="date_{{ h_date|date("Ymd") }}" class="weekday_{{ n }} weekday">{{ h_date|date("m月d日") }}<a href="#"><i class="icon-plus-sign"></i></a></th>
 								{% set h_date = h_date|date_modify("+1 day") %}
 							{% endfor %}
 						</tr>

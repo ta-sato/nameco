@@ -8,6 +8,8 @@ use Nameco\User\SchedulerBundle\Entity\Schedule;
 use Nameco\User\SchedulerBundle\Form\ScheduleType;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormError;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -97,10 +99,9 @@ class ScheduleController extends SchedulerBaseController
         $form = $this->createForm(new ScheduleType(), $schedule);
         $form->bindRequest($request);
         
-        $owner = $em->getRepository('NamecoUserSchedulerBundle:User')->find($this->getUser()->getId()); // TODO
-        $schedule->setOwnerUser($owner);
+        $schedule->setOwnerUser($this->getUser());
         
-        if ($form->isValid())
+        if ($this->checkEstablishment($form, $schedule, $em) && $form->isValid())
         {
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($schedule);
@@ -123,4 +124,15 @@ class ScheduleController extends SchedulerBaseController
         // 表示対象にリダイレクト
         return $this->redirect($this->generateUrl('schedule_month_id_ym', $linkParam));
     }
+    
+    public function checkEstablishment(Form $form, Schedule $schedule, $em)
+    {
+        if ($em->getRepository('NamecoUserSchedulerBundle:Establishment')->isNotBooking($schedule))
+        {
+            $form->get('establishment')->addError(new FormError("既に施設が予約されています"));
+            return false;
+        }
+        return true;
+    }
+    
 }

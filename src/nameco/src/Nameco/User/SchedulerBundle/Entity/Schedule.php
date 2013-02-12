@@ -4,6 +4,7 @@ namespace Nameco\User\SchedulerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContext;
 
 /**
  * Schedule
@@ -11,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="schedule")
  * @ORM\Entity(repositoryClass="Nameco\User\SchedulerBundle\Repository\ScheduleRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @Assert\Callback(methods={"compareDateTime"})
  */
 class Schedule
 {
@@ -406,4 +408,17 @@ class Schedule
     {
     	$this->updated = new \DateTime();
     }
+    
+    public function compareDateTime(ExecutionContext $context)
+    {
+        // 日付の整合性チェック
+        $start = $this->getStartDatetime();
+        $end = $this->getEndDatetime();
+        if ($start != null && $end != null
+                && ($start >= $end))
+        {
+            $context->addViolationAtSubPath('startDateTime', '開始日時が終了日時以降に設定されています');
+        }
+    }
+    
 }
