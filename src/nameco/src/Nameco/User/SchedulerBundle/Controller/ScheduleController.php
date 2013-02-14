@@ -63,21 +63,26 @@ class ScheduleController extends SchedulerBaseController
                 'week'      => $week,
                 'schedules' => $result,
                 'id'        => $id,
+                'userId'    => $id,
                 'dispDate'  => $dispDate,
                 'dispTargetLabel' => $user->getName());
     }
     
     /**
-     * @Route("/schedule/new/{year}/{month}/{day}", name="schedule_new")
+     * @Route("/schedule/new/{userId}/{year}/{month}/{day}", name="schedule_new")
      * @Template()
      */
-    public function newAction(Request $request, $year, $month, $day)
+    public function newAction(Request $request, $userId, $year, $month, $day)
     {
         if (!$request->isXmlHttpRequest())
         {
             return $this->redirect($this->generateUrl('schedule_month'));
         }
-        $user = $this->getUser();
+        $user = $this->getDoctrine()->getEntityManager()->getRepository('NamecoUserSchedulerBundle:User')->find($userId);
+        if (!$user)
+        {
+            $user = $this->getUser();
+        }
         $schedule = new Schedule();
         $schedule->addUser($user);
         $date = new \DateTime();
@@ -109,7 +114,6 @@ class ScheduleController extends SchedulerBaseController
         
         if ($this->checkEstablishment($form, $schedule, $em) && $form->isValid())
         {
-            $em = $this->getDoctrine()->getEntityManager();
             $em->persist($schedule);
             $em->flush();
             return $this->render('NamecoUserSchedulerBundle:Schedule:createSuccess.html.twig');

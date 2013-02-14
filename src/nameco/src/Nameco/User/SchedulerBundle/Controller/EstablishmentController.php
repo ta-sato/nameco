@@ -75,6 +75,7 @@ class EstablishmentController extends Controller
     					'week'            => $week,
     					'schedules'       => $result,
     					'id'              => $id,
+    					'userId'          => $this->getUser()->getId(),
     					'dispDate'        => $dispDate,
     					'dispTargetLabel' => $e_name,
 						'year'            => $year,
