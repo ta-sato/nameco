@@ -1,2 +1,5 @@
 schedule_new_prefix:
-    pattern: /schedule/new/{id}
+    pattern: /schedule/new/{userId}
+
+schedule_new_establishment_prefix:
+    pattern: /schedule/new/{userId}/{establishmentId}

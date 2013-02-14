@@ -7,3 +7,8 @@
 {% block submenu %}
     {% render "NamecoUserSchedulerBundle:SubMenu:scheduleMonth" with {'year': year, 'month': month} %}
 {% endblock %}
+
+{% block calendar %}
+    {{ parent() }}
+    <span id="schedule_new_prefix" style="display:none;">{{ path('schedule_new_prefix', {'userId': userId }) }}</span>
+{% endblock %}

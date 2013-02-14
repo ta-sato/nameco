@@ -69,16 +69,18 @@ class ScheduleController extends SchedulerBaseController
     }
     
     /**
-     * @Route("/schedule/new/{userId}/{year}/{month}/{day}", name="schedule_new")
+     * @Route("/schedule/new/{userId}/{year}/{month}/{day}")
+     * @Route("/schedule/new/{userId}/{establishmentId}/{year}/{month}/{day}")
      * @Template()
      */
-    public function newAction(Request $request, $userId, $year, $month, $day)
+    public function newAction(Request $request, $userId, $establishmentId = null, $year, $month, $day)
     {
         if (!$request->isXmlHttpRequest())
         {
             return $this->redirect($this->generateUrl('schedule_month'));
         }
-        $user = $this->getDoctrine()->getEntityManager()->getRepository('NamecoUserSchedulerBundle:User')->find($userId);
+        $em = $this->getDoctrine()->getEntityManager();
+        $user = $em->getRepository('NamecoUserSchedulerBundle:User')->find($userId);
         if (!$user)
         {
             $user = $this->getUser();
@@ -89,6 +91,13 @@ class ScheduleController extends SchedulerBaseController
         $date->setDate($year, $month, $day);
         $schedule->setStartDatetime($date);
         $schedule->setEndDatetime($date);
+        if ($establishmentId)
+        {
+            $e = $em->getRepository('NamecoUserSchedulerBundle:Establishment')->find($establishmentId);
+            if ($e) {
+                $schedule->addEstablishment($e);
+            }
+        }
         $form = $this->createForm(new ScheduleType(), $schedule);
         return array('form' => $form->createView(), 'startDate' => $date, 'endDate' => $date);
     }
