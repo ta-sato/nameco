@@ -7,8 +7,13 @@ use Nameco\User\SchedulerBundle\Entity\Schedule;
 use Nameco\User\SchedulerBundle\Form\ScheduleType;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -72,7 +77,9 @@ class ScheduleController extends SchedulerBaseController
         {
             return $this->redirect($this->generateUrl('schedule_month'));
         }
+        $user = $this->getUser();
         $schedule = new Schedule();
+        $schedule->addUser($user);
         $date = new \DateTime();
         $date->setDate($year, $month, $day);
         $schedule->setStartDatetime($date);
@@ -132,6 +139,20 @@ class ScheduleController extends SchedulerBaseController
             return false;
         }
         return true;
+    }
+    
+    
+    /**
+     * @Route("/schedule/users", name="schedule_users")
+     */
+    public function getUsersAction()
+    {
+        $users = $this->getDoctrine()->getEntityManager()->getRepository('NamecoUserSchedulerBundle:User')->findAll();
+        $serializer = $this->container->get('jms_serializer');
+        $json = $serializer->serialize($users, 'json');
+        $response = new Response($json);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
     
 }

@@ -7,6 +7,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+use JMS\Serializer\Annotation\AccessType;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\SerializedName;
+
 /**
  * User
  *
@@ -14,6 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields="email", message="既に登録されています")
+ * @ExclusionPolicy("ALL")
  */
 class User implements UserInterface
 {	
@@ -23,6 +29,8 @@ class User implements UserInterface
 	 * @ORM\Column(name="id", type="bigint", nullable=false)
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="IDENTITY")
+	 * @Expose
+	 * @SerializedName("value")
 	 */
 	private $id;
 
@@ -53,6 +61,8 @@ class User implements UserInterface
 	 * @var string
 	 *
 	 * @ORM\Column(name="name", type="string", length=255, nullable=false)
+	 * @Expose
+	 * @SerializedName("text")
 	 */
 	private $name;
 

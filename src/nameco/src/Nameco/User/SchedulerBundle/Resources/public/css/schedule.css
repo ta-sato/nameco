@@ -47,3 +47,18 @@ a.link-datepicker, a.link-datepicker:link, a.link-datepicker:visited, a.link-dat
 {
 	width: 600px;
 }
+.li_checklist_wrapper {
+	height:75px;
+	width: 200px;
+	overflow:auto;
+	overflow-x:hidden;
+	border: 1px solid #999999;
+}
+
+.li_checklist_container > li {
+	margin: 2px;
+	border-bottom: 1px dotted #DDDDDD;
+}
+.li_checklist_container > li:last-child {
+	border-bottom: none;
+}

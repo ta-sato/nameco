@@ -16,3 +16,37 @@
 {% endif %}
 {% endspaceless %}
 {% endblock %}
+
+{% block _schedule_user_widget %}
+{% spaceless %}
+{{ block('li_selector_widget') }}
+{% endspaceless %}
+{% endblock %}
+
+{% block li_selector_widget %}
+{% spaceless %}
+<div class="li_checklist_wrapper">
+<ul {{ block('li_checklist_attributes') }}>
+  {% set options = choices %}
+  {% for group_label, choice in options %}
+    {% if choice is selectedchoice(value) %}
+      <li {{ block('li_attributes') }}>{{ choice.label|trans({}, translation_domain) }}<input type="hidden" value="{{ choice.value }}" name="{{ full_name }}" /><a class="pull-right btn btn-mini btn-danger" href="#"><i class="icon-remove icon-white"></i></a></li>
+    {% endif %}
+  {% endfor %}
+</ul>
+</div>
+{% endspaceless %}
+{% endblock %}
+
+{% block li_checklist_attributes %}
+{% spaceless %}
+    id="{{ id }}" {% if read_only %} readonly="readonly"{% endif %}{% if disabled %} disabled="disabled"{% endif %}{% if required %} required="required"{% endif %}{% if max_length %} maxlength="{{ max_length }}"{% endif %}{% if pattern %} pattern="{{ pattern }}"{% endif %}
+    {% for attrname, attrvalue in attr %}{% if attrname in ['placeholder', 'title'] %}{{ attrname }}="{{ attrvalue|trans({}, translation_domain) }}" {% else %}{{ attrname }}="{{ attrvalue }}" {% endif %}{% endfor %}
+{% endspaceless %}
+{% endblock %}
+
+{% block li_attributes %}
+{% spaceless %}
+    {% for attrname, attrvalue in li_attr %}{{ attrname }}="{{ attrvalue }}" {% endfor %}
+{% endspaceless %}
+{% endblock %}

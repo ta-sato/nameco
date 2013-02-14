@@ -41,6 +41,20 @@ var Schedule =
 			.on('show', function(ev){
 				Schedule.onShow(this, ev, '#schedule_endDateTime_date')
 			});
+		Schedule.registRemove('ul#schedule_user');
+		var now = new Date();
+		$('#btn-participant').editable({
+			sourceCache: false,
+			unsavedclass: null,
+			display: function(value, sourceData) {
+				Schedule.setChecked('#schedule_user', 'schedule[user][]', value, sourceData);
+				Schedule.registRemove('ul#schedule_user');
+			},
+			inputclass: 'schedule_user_value'
+		})
+		.on('shown', function(){
+			Schedule.loadChecked('#btn-participant', 'schedule[user][]', '.schedule_user_value');
+		});
 	},
 	formDispose:function()
 	{
@@ -79,6 +93,45 @@ var Schedule =
 	closeModal:function()
 	{
 		$('#register-modal').modal('hide');
+	},
+	setChecked:function(ulId, hiddenName, value, sourceData)
+	{
+		var $ul = $(ulId);
+		var checked;
+		$ul.empty();
+		if (!value) {
+			return;
+		}
+		checked = $.grep(sourceData, function(o){
+			return $.grep(value, function(v){ 
+				 return v == o.value; 
+			}).length;
+		});
+		$.each(checked, function(i, v) {
+			$ul.append('<li class="clearfix">' + $.fn.editableutils.escape(v.text) + '<input type="hidden" name="' + hiddenName + '" value="' + v.value + '"/><a class="pull-right btn btn-mini btn-danger" href="#"><i class="icon-remove icon-white"></i></a></li>');
+		});
+	},
+	registRemove:function(selector)
+	{
+		$(selector).find('li>a').click(function(e){
+			$(this).parent().remove();
+		});
+	},
+	loadChecked:function(editableId, valuename, inputclass)
+	{
+		var selected = new Array();
+		$("input:hidden[name^='" + valuename + "']").each(function(){
+			selected.push($(this).val());
+		});
+		$(editableId).editable('setValue', selected, null);
+		$(inputclass).each(function(){
+			var $elem = $(this);
+			if ($.inArray($elem.val(), selected) != -1) {
+				$elem.attr('checked', 'checked');
+			} else {
+				$elem.removeAttr('checked');
+			}
+		});
 	}
 }
 

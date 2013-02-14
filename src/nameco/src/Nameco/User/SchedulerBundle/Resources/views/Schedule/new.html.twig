@@ -48,14 +48,14 @@
     
     <div class="control-group">
         <div class="controls">
-            <button type="button" id="btn-participant" class="btn btn-primary btn-fixed">参加者</button>
-            {{ form_widget(form.user) }}
+            <button type="button" id="btn-participant" data-pk="1" data-title="参加者" data-placement="right" data-source="{{ path('schedule_users') }}" data-value="{{ app.security.getToken().getUser().getId() }}" data-type="checklist" class="btn btn-primary btn-fixed">参加者</button>
+            {{ form_widget(form.user, {'attr':{'class':'unstyled li_checklist_container'}, 'li_attr':{'class': 'li_checklist'}}) }}
         </div>
     </div>
     
     <div class="control-group">
         <div class="controls">
-            <button type="button" id="establishment" class="btn btn-primary btn-fixed">施設</button>
+            <button type="button" id="btn-establishment" class="btn btn-primary btn-fixed">施設</button>
             {{ form_widget(form.establishment) }}
             {{ form_errors(form.establishment) }}
         </div>
