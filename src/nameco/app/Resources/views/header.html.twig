@@ -1,6 +1,6 @@
 <div class="navbar navbar-inverse navbar-static-top">
 	<div class="navbar-inner">
-	    <a class="brand" href="{{ path('schedule_month') }}">Nameco</a>
+	    <a class="brand" href="{{ path('home') }}">Nameco</a>
 		{% set token =app.security.getToken() %}
 		{% if token != null %}
 			{% if token.getUser() is defined  %}

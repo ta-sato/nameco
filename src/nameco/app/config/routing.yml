@@ -11,11 +11,16 @@ nameco_admin_user:
     type:     annotation
     prefix:   /admin
 
+home:
+    pattern: /
+    defaults: { _controller: NamecoUserSchedulerBundle:Schedule:month }
+
 login_check:
     pattern:   /login_check
 
 logout:
     pattern:   /logout
+
 
 # Internal routing configuration to handle ESI
 #_internal:
