@@ -3,7 +3,6 @@
 namespace Nameco\User\SchedulerBundle\Controller;
 
 use Nameco\User\SchedulerBundle\Entity\User;
-
 use Nameco\User\SchedulerBundle\Entity\Schedule;
 use Nameco\User\SchedulerBundle\Form\ScheduleType;
 
@@ -127,7 +126,7 @@ class ScheduleController extends SchedulerBaseController
     
     public function checkEstablishment(Form $form, Schedule $schedule, $em)
     {
-        if ($em->getRepository('NamecoUserSchedulerBundle:Establishment')->isNotBooking($schedule))
+        if ($em->getRepository('NamecoUserSchedulerBundle:Establishment')->isBooking($schedule))
         {
             $form->get('establishment')->addError(new FormError("既に施設が予約されています"));
             return false;
