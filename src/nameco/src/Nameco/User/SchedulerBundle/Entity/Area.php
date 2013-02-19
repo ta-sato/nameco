@@ -41,19 +41,11 @@ class Area
      * @ORM\Column(name="updated", type="datetime", nullable=false)
      */
     private $updated;
-
+    
     /**
      * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Establishment", inversedBy="area")
-     * @ORM\JoinTable(name="areas_establishments",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="area_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="establishment_id", referencedColumnName="id")
-     *   }
-     * )
+     * 
+     * @ORM\OneToMany(targetEntity="Establishment", mappedBy="area")
      * @ORM\OrderBy({"name" = "ASC"})
      */
     private $establishment;
@@ -63,14 +55,13 @@ class Area
      */
     public function __construct()
     {
-        $this->establishment = new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->establishment = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
 
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -86,14 +77,14 @@ class Area
     public function setName($name)
     {
         $this->name = $name;
-
+    
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -109,14 +100,14 @@ class Area
     public function setCreated($created)
     {
         $this->created = $created;
-
+    
         return $this;
     }
 
     /**
      * Get created
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreated()
     {
@@ -132,20 +123,20 @@ class Area
     public function setUpdated($updated)
     {
         $this->updated = $updated;
-
+    
         return $this;
     }
 
     /**
      * Get updated
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getUpdated()
     {
         return $this->updated;
     }
-
+    
     /**
      * Add establishment
      *
@@ -154,11 +145,11 @@ class Area
      */
     public function addEstablishment(\Nameco\User\SchedulerBundle\Entity\Establishment $establishment)
     {
-        $this->establishment[] = $establishment;
-
-        return $this;
+    	$this->establishment[] = $establishment;
+    
+    	return $this;
     }
-
+    
     /**
      * Remove establishment
      *
@@ -166,9 +157,9 @@ class Area
      */
     public function removeEstablishment(\Nameco\User\SchedulerBundle\Entity\Establishment $establishment)
     {
-        $this->establishment->removeElement($establishment);
+    	$this->establishment->removeElement($establishment);
     }
-
+    
     /**
      * Get establishment
      *
@@ -176,6 +167,6 @@ class Area
      */
     public function getEstablishment()
     {
-        return $this->establishment;
+    	return $this->establishment;
     }
 }

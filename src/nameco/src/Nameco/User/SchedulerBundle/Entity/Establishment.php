@@ -52,23 +52,25 @@ class Establishment
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Area", mappedBy="establishment")
-     */
-    private $area;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
      * @ORM\ManyToMany(targetEntity="Schedule", mappedBy="establishment")
      */
     private $schedule;
+
+    /**
+     * @var \Area
+     *
+     * @ORM\ManyToOne(targetEntity="Area")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="area_id", referencedColumnName="id")
+     * })
+     */
+    private $area;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->area = new \Doctrine\Common\Collections\ArrayCollection();
         $this->schedule = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -176,39 +178,6 @@ class Establishment
     }
 
     /**
-     * Add area
-     *
-     * @param \Nameco\User\SchedulerBundle\Entity\Area $area
-     * @return Establishment
-     */
-    public function addArea(\Nameco\User\SchedulerBundle\Entity\Area $area)
-    {
-        $this->area[] = $area;
-    
-        return $this;
-    }
-
-    /**
-     * Remove area
-     *
-     * @param \Nameco\User\SchedulerBundle\Entity\Area $area
-     */
-    public function removeArea(\Nameco\User\SchedulerBundle\Entity\Area $area)
-    {
-        $this->area->removeElement($area);
-    }
-
-    /**
-     * Get area
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getArea()
-    {
-        return $this->area;
-    }
-
-    /**
      * Add schedule
      *
      * @param \Nameco\User\SchedulerBundle\Entity\Schedule $schedule
@@ -240,9 +209,32 @@ class Establishment
     {
         return $this->schedule;
     }
+
+    /**
+     * Set area
+     *
+     * @param \Nameco\User\SchedulerBundle\Entity\Area $area
+     * @return Establishment
+     */
+    public function setArea(\Nameco\User\SchedulerBundle\Entity\Area $area = null)
+    {
+        $this->area = $area;
+    
+        return $this;
+    }
+
+    /**
+     * Get area
+     *
+     * @return \Nameco\User\SchedulerBundle\Entity\Area 
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
     
     public function __toString()
     {
-        return $this->getName();
+    	return $this->getName();
     }
 }

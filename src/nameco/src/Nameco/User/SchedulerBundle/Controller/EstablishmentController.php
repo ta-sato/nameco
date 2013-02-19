@@ -66,7 +66,7 @@ class EstablishmentController extends Controller
     	// 施設名
     	$e      = $em->find('NamecoUserSchedulerBundle:Establishment', $id);
     	$area   = $e->getArea();
-    	$e_name = $area[0]->getName() . ' ' . $e->getName(); 
+    	$e_name = $area->getName() . ' ' . $e->getName(); 
 
     	return $this->render('NamecoUserSchedulerBundle:Establishment:month.html.twig',
     			array(
