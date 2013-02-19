@@ -23,7 +23,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 	{
 		$factory = $this->container->get('security.encoder_factory');
 		
-		for ($i = 1; $i < 6; $i++)
+		for ($i = 0; $i < 5; $i++)
 		{
 			$user = new User();
 			$user->setUsername("test" . $i);
@@ -35,7 +35,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 			$user->setEmail("test" . $i . "@test.com");
 			$user->setEnabled(true);
 			$em->persist($user);
-			// user-1 to user-5
+			// user-0 to user-4
 			$this->addReference('user-' . $i, $user);
 		}
 		

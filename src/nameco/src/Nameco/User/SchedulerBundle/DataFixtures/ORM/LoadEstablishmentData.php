@@ -20,33 +20,29 @@ class LoadEstablishmentData extends AbstractFixture implements OrderedFixtureInt
 	
 	public function load(ObjectManager $em)
 	{
+		$area0 = new Area();
+		$area0->setName("Area0");
+
 		$area1 = new Area();
 		$area1->setName("Area1");
-
-		$area2 = new Area();
-		$area2->setName("Area2");
 		
+		$em->persist($area0);
 		$em->persist($area1);
-		$em->persist($area2);
 		
-		// area-1 and area-2
+		// area-0 and area-1
+		$this->addReference('area-0', $area0);
 		$this->addReference('area-1', $area1);
-		$this->addReference('area-2', $area2);
 		
-		for ($i = 1; $i < 3; $i++)
+		for ($i = 0; $i < 5; $i++)
 		{
-			for ($j = 1; $j < 6; $j++)
-			{
-				$e = new Establishment();
-				$e->setName("Establishment_" . $i . "-" . $j);
-				$e->setEnabled(true);
-				$e->setArea($em->merge($this->getReference('area-' . $i)));
-				$em->persist($e);
-				
-				// establishment-1-1 to establishment-1-5
-				// establishment-2-1 to establishment-2-5
-				$this->addReference('establishment-' . $i . '-' . $j, $e);
-			}
+			$e = new Establishment();
+			$e->setName("Establishment_" . $i);
+			$e->setEnabled(true);
+			$e->setArea($em->merge($this->getReference('area-' . ($i % 2))));
+			$em->persist($e);
+			
+			// establishment-0 to establishment-4
+			$this->addReference('establishment-' . $i, $e);
 		}
 		
 		$em->flush();
