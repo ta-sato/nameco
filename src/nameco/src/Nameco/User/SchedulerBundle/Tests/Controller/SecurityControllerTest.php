@@ -1,5 +1,5 @@
 <?php 
-namespace Nameco\User\SchedulerBundle\Tests;
+namespace Nameco\User\SchedulerBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

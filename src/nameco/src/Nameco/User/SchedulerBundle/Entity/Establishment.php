@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="establishment")
  * @ORM\Entity(repositoryClass="Nameco\User\SchedulerBundle\Repository\EstablishmentRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Establishment
 {
@@ -236,5 +237,25 @@ class Establishment
     public function __toString()
     {
     	return $this->getName();
+    }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedValue()
+    {
+    	if (!$this->getCreated())
+    	{
+    		$this->created = new \DateTime();
+    	}
+    }
+    
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedValue()
+    {
+    	$this->updated = new \DateTime();
     }
 }

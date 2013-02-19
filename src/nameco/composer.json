@@ -21,7 +21,9 @@
         "kriswallsmith/assetic": "1.1.*@dev",
         "phpunit/phpunit": "3.7.*",
         "jms/serializer": "1.0.*@dev",
-        "jms/serializer-bundle": "1.0.*@dev"
+        "jms/serializer-bundle": "1.0.*@dev",
+        "doctrine/data-fixtures": "1.0.*@dev",
+        "doctrine/doctrine-fixtures-bundle": "2.1.*@dev"
     },
     "scripts": {
         "post-install-cmd": [

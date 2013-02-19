@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="area")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class Area
 {
@@ -168,5 +169,25 @@ class Area
     public function getEstablishment()
     {
     	return $this->establishment;
+    }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedValue()
+    {
+    	if (!$this->getCreated())
+    	{
+    		$this->created = new \DateTime();
+    	}
+    }
+    
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedValue()
+    {
+    	$this->updated = new \DateTime();
     }
 }
