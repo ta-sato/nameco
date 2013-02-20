@@ -22,21 +22,4 @@ class ScheduleRepository extends EntityRepository
         
         return $query->getResult();
     }
-    
-    public function getEstablishmentMonthSchedules($establishmentId, $firstDay, $lastDay)
-    {
-        $query = $this->getEntityManager()->createQuery(
-                'SELECT s FROM NamecoUserSchedulerBundle:Schedule s
-                LEFT JOIN s.establishment e
-                WHERE e.id = :establishmentId
-                AND (
-                (s.startDatetime >= :firstDay AND s.startDatetime < :lastDay) OR (s.startDatetime < :firstDay AND s.endDatetime > :lastDay))
-                ORDER BY s.startDatetime ASC'
-        )
-        ->setParameter('establishmentId', $establishmentId)
-        ->setParameter('firstDay', $firstDay)
-        ->setParameter('lastDay', $lastDay);
-        
-        return $query->getResult();
-    }
 }
