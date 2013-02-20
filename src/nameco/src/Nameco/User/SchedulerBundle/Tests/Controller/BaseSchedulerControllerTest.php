@@ -2,6 +2,8 @@
 
 namespace Nameco\User\SchedulerBundle\Tests\Controller;
 
+use Nameco\User\SchedulerBundle\DataFixtures\ORM\LoadScheduleData;
+
 use Nameco\User\SchedulerBundle\DataFixtures\ORM\LoadUserData;
 use Nameco\User\SchedulerBundle\DataFixtures\ORM\LoadEstablishmentData;
 
@@ -13,6 +15,11 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class BaseSchedulerControllerTest extends WebTestCase
 {
+	public function setUp()
+	{
+		$this->initDatabase();
+	}
+	
 	protected function login($client, $username, $password)
 	{
 		$crawler    = $client->request('GET', '/login');
@@ -45,7 +52,7 @@ abstract class BaseSchedulerControllerTest extends WebTestCase
 		$tool->createSchema($classes);
 	}
 	
-	protected function loadData()
+	protected function loadData($loadFixtures = array())
 	{
 		$client = static::createClient();
 		$container = $client->getContainer();
@@ -54,6 +61,13 @@ abstract class BaseSchedulerControllerTest extends WebTestCase
 		$loader = new Loader($container);
 		$loader->addFixture(new LoadEstablishmentData());
 		$loader->addFixture(new LoadUserData($container));
+		if ($loadFixtures)
+		{
+			foreach ($loadFixtures as $f)
+			{
+				$loader->addFixture($f);
+			}
+		}
 		$fixtures = $loader->getFixtures();
 
 		$purger = new ORMPurger($em);
