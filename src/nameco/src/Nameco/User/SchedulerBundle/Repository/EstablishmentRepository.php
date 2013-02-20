@@ -8,9 +8,6 @@ use Doctrine\ORM\EntityRepository;
 
 class EstablishmentRepository extends EntityRepository
 {
-    /**
-     * ID順にソートした一番上の施設を取得する
-     */
     public function getOne()
     {
         $em = $this->getEntityManager();
@@ -24,7 +21,6 @@ class EstablishmentRepository extends EntityRepository
     }
     
     /**
-     * 月のスケジュールを取得する
      * @param type $id
      * @param type $firstDay
      * @param type $searchLastDay
@@ -66,6 +62,7 @@ class EstablishmentRepository extends EntityRepository
                     WHERE e.id = :id
                     AND (
                     (s.startDatetime >= :startDateTime AND s.endDatetime <= :endDateTime)
+                    OR (s.startDatetime < :startDateTime AND s.endDatetime > :endDateTime)
                     OR (s.startDatetime >= :startDateTime AND s.startDatetime < :endDateTime)
                     OR (s.endDatetime > :startDateTime AND s.endDatetime <= :endDateTime))');
             $query->setParameter('id', $e->getId())

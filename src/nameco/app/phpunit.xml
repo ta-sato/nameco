@@ -37,6 +37,7 @@
                 <directory>../src/*/Bundle/*Bundle/Tests</directory>
                 <directory>../src/*/*/*Bundle/Resources</directory>
                 <directory>../src/*/*/*Bundle/Tests</directory>
+                <directory>../src/Nameco/User/SchedulerBundle/DataFixtures</directory>
             </exclude>
         </whitelist>
     </filter>
