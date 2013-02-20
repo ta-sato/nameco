@@ -1,26 +1,26 @@
 <?php 
 namespace Nameco\User\SchedulerBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
-class SecurityControllerTest extends WebTestCase
+class SecurityControllerTest extends BaseSchedulerControllerTest
 {
+        public function setUp()
+	{
+            parent::setUp();
+            $this->loadData();
+        }
+    
 	/**
 	 * ログインできること
 	 */
 	public function testLogin()
 	{
 		$client = static::createClient();
-		$crawler    = $client->request('GET', '/login');
-		$login_form = $crawler->selectButton('submit')->form();
-		$crawler = $client->submit($login_form, array(
-				'_username'      => 'admin',
-				'_password'      => 'namecoadmin',
-		));
-		$crawler    = $client->request('GET', '/admin/user/new');
-		$this->assertTrue($crawler->filter('html:contains("名前")')->count() > 0);
+                $this->login($client, 'test4', 'testtest');
+
+                $crawler = $client->followRedirect();
+		$this->assertTrue($crawler->filter('html:contains("Test4 Test4")')->count() > 0);
 		
-		$client->request('GET', '/logout');
+		$this->logout($client);
 	}
 	
 	/**
@@ -28,15 +28,10 @@ class SecurityControllerTest extends WebTestCase
 	 */
 	public function testError()
 	{
-		$client     = static::createClient();
-		$crawler    = $client->request('GET', '/login');
-		$login_form = $crawler->selectButton('submit')->form();
-		$crawler = $client->submit($login_form, array(
-				'_username'      => time(),
-				'_password'      => time()
-		));
-		
-		$crawler = $client->followRedirect();
+            	$client = static::createClient();
+                $this->login($client, time(), time());
+
+                $crawler = $client->followRedirect();
 		$this->assertTrue($crawler->filter('html:contains("ユーザ名またはパスワードが違います")')->count() > 0);
 	}
 	 
