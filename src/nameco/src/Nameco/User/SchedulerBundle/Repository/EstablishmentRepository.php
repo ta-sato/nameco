@@ -26,6 +26,7 @@ class EstablishmentRepository extends EntityRepository
                     WHERE e.id = :id
                     AND (
                     (s.startDatetime >= :startDateTime AND s.endDatetime <= :endDateTime)
+                    OR (s.startDatetime < :startDateTime AND s.endDatetime > :endDateTime)
                     OR (s.startDatetime >= :startDateTime AND s.startDatetime < :endDateTime)
                     OR (s.endDatetime > :startDateTime AND s.endDatetime <= :endDateTime))');
             $query->setParameter('id', $e->getId())
