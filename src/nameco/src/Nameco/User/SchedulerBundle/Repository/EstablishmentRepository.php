@@ -8,6 +8,46 @@ use Doctrine\ORM\EntityRepository;
 
 class EstablishmentRepository extends EntityRepository
 {
+    /**
+     * ID順にソートした一番上の施設を取得する
+     */
+    public function getOne()
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('
+                        SELECT e
+                        FROM NamecoUserSchedulerBundle:Establishment e
+                        ORDER BY e.id')
+                        ->setMaxResults(1);
+        $ids = $query->getResult();
+        return $ids[0];
+    }
+    
+    /**
+     * 月のスケジュールを取得する
+     * @param type $id
+     * @param type $firstDay
+     * @param type $searchLastDay
+     * @return type
+     */
+    public function getMonthSchedules($id, $firstDay, $searchLastDay)
+    {
+        $em = $this->getEntityManager();
+    	$query = $em->createQuery('
+    			SELECT s FROM NamecoUserSchedulerBundle:Schedule s
+    			JOIN s.establishment e
+    			WHERE e.id = :id
+    			AND (
+                                (s.startDatetime >= :firstDay AND s.startDatetime < :lastDay)
+                            OR  (s.startDatetime < :firstDay AND s.endDatetime > :lastDay)
+                        )
+    			ORDER BY s.startDatetime ASC')
+    	->setParameter('id',       $id)
+    	->setParameter('firstDay', $firstDay)
+    	->setParameter('lastDay',  $searchLastDay);
+    	return $query->getResult();
+    }
+    
     public function isBooking(Schedule $schedule)
     {
         $establishment = $schedule->getEstablishment();
