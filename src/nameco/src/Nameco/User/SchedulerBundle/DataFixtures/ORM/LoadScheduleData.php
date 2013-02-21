@@ -88,6 +88,15 @@ class LoadScheduleData extends AbstractFixture implements OrderedFixtureInterfac
 		$start->setTime(9, 0, 0);
 		$end = clone $start;
 		$end->modify('+2 hours');
+		$nextStart = clone $start;
+		$nextEnd = clone $end;
+		$prevStart = clone $start;
+		$prevEnd = clone $end;
+		$nextStart->modify('+1 month');
+		$nextEnd->modify('+1 month');
+		$prevStart->modify('-1 month');
+		$prevEnd->modify('-1 month');
+		
 		for ($i = 1; $i < 5; $i++)
 		{
 			$s = new Schedule();
@@ -99,6 +108,26 @@ class LoadScheduleData extends AbstractFixture implements OrderedFixtureInterfac
 			$s->setOwnerUser($em->merge($this->getReference('user-' . $i)));
 			$s->addUser($em->merge($this->getReference('user-' . $i)));
 			$em->persist($s);
+			
+			$s1 = new Schedule();
+			$s1->setTitle("Title Next" . $i);
+			$s1->setDetail("Detail Next" . $i);
+			$s1->setStartDatetime($nextStart);
+			$s1->setEndDatetime($nextEnd);
+			$s1->setOut(false);
+			$s1->setOwnerUser($em->merge($this->getReference('user-' . $i)));
+			$s1->addUser($em->merge($this->getReference('user-' . $i)));
+			$em->persist($s1);
+			
+			$s2 = new Schedule();
+			$s2->setTitle("Title Prev" . $i);
+			$s2->setDetail("Detail Prev" . $i);
+			$s2->setStartDatetime($prevStart);
+			$s2->setEndDatetime($prevEnd);
+			$s2->setOut(false);
+			$s2->setOwnerUser($em->merge($this->getReference('user-' . $i)));
+			$s2->addUser($em->merge($this->getReference('user-' . $i)));
+			$em->persist($s2);
 		}
 		
 		$em->flush();
