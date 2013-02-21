@@ -6,10 +6,6 @@ use Nameco\User\SchedulerBundle\Entity\Schedule;
 
 use Nameco\User\SchedulerBundle\DataFixtures\ORM\LoadScheduleData;
 
-use Doctrine\Common\DataFixtures\Loader;
-use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-
 class ScheduleControllerTest extends BaseSchedulerControllerTest
 {
 	private $_client;
@@ -72,7 +68,6 @@ class ScheduleControllerTest extends BaseSchedulerControllerTest
 	{
 		$client = $this->_client;
 		$container = $client->getContainer();
-		$l = $container->get('logger');
 		
 		$em = $this->_em;
 		
@@ -124,7 +119,6 @@ class ScheduleControllerTest extends BaseSchedulerControllerTest
 	{
 		$client = $this->_client;
 		$container = $client->getContainer();
-		$l = $container->get('logger');
 		
 		$em = $this->_em;
 		
@@ -140,7 +134,6 @@ class ScheduleControllerTest extends BaseSchedulerControllerTest
 		// 正常登録
 		$crawler = $client->request('GET', '/schedule/new/' . $id . '/' . $year . '/' . $month . '/' . $day, array(), array(), array('HTTP_X-Requested-With' => 'XMLHttpRequest'));
 		$schedule_form = $crawler->selectButton('submit')->form();
-		//$l->info(var_dump($schedule_form));
 		$client->setServerParameters(array('HTTP_X-Requested-With' => 'XMLHttpRequest')); // Ajax設定
 				$crawler = $client->submit($schedule_form, array(
 				'schedule[startDateTime][date]' => $year . '/' . $month . '/' . $day,
@@ -316,7 +309,6 @@ class ScheduleControllerTest extends BaseSchedulerControllerTest
 		// 既に施設が予約されている
 		$crawler = $client->request('GET', '/schedule/new/' . $id . '/' . $year . '/' . $month . '/' . $day, array(), array(), array('HTTP_X-Requested-With' => 'XMLHttpRequest'));
 		$schedule_form = $crawler->selectButton('submit')->form();
-		//$l->info(var_dump($schedule_form));
 		$client->setServerParameters(array('HTTP_X-Requested-With' => 'XMLHttpRequest')); // Ajax設定
 		$crawler = $client->submit($schedule_form, array(
 				'schedule[startDateTime][date]' => $year . '/' . $month . '/' . $day,
