@@ -21,6 +21,7 @@
             {{ form_widget(form.endDateTime.date, {'attr': {'class':'span-date'}}) }}
             <a id="btn-endDate" class="link-datepicker" href="#" data-date-format="yyyy/m/d" data-date="{{ startDate.format('Y/m/d')|date('Y/m/d') }}">■</a>
             {{ form_widget(form.endDateTime.time, {'attr': {'class':'span1'}}) }}
+            {{ form_errors(form.endDateTime) }}
         </div>
     </div>
     
@@ -50,6 +51,7 @@
         <div class="controls">
             <button type="button" id="btn-participant" data-pk="1" data-title="参加者" data-placement="right" data-source="{{ path('schedule_users') }}" data-value="{{ app.security.getToken().getUser().getId() }}" data-type="checklist" class="btn btn-primary btn-fixed">参加者</button>
             {{ form_widget(form.user, {'attr':{'class':'unstyled li_checklist_container'}, 'li_attr':{'class': 'li_checklist'}}) }}
+            {{ form_errors(form.user) }}
         </div>
     </div>
     
@@ -62,7 +64,7 @@
     </div>
     
     <div class="control-group pull-right">
-        <input type="submit" class="btn btn-primary btn-fixed" value="登録" />
+        <input id="submit" type="submit" class="btn btn-primary btn-fixed" value="登録" />
         <button type="button" class="btn btn-fixed" data-dismiss="modal">キャンセル</button>
     </div>
     {{ form_rest(form) }}

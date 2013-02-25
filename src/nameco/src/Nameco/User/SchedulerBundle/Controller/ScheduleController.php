@@ -22,9 +22,10 @@ class ScheduleController extends SchedulerBaseController
 {
     /**
      * @Route("/schedule/month/", name="schedule_month")
-     * @Route("/schedule/month/{id}", name="schedule_month_id")
-     * @Route("/schedule/month/{year}/{month}", name="schedule_month_ym")
-     * @Route("/schedule/month/{id}/{year}/{month}", name="schedule_month_id_ym")
+     * @Route("/schedule/month/{id}", name="schedule_month_id", requirements={"id"="\d+"})
+     * @Route("/schedule/month/{year}/{month}", name="schedule_month_ym", requirements={"year"="\d+", "month"="\d+"})
+     * @Route("/schedule/month/{id}/{year}/{month}", name="schedule_month_id_ym", requirements={"id"="\d+", "year"="\d+", "month"="\d+"})
+     * @Method("GET")
      * @Template()
      */
     public function monthAction($id = null, $year = null, $month = null)
@@ -69,8 +70,9 @@ class ScheduleController extends SchedulerBaseController
     }
     
     /**
-     * @Route("/schedule/new/{userId}/{year}/{month}/{day}")
-     * @Route("/schedule/new/{userId}/{establishmentId}/{year}/{month}/{day}")
+     * @Route("/schedule/new/{userId}/{year}/{month}/{day}", requirements={"userId"="\d+", "year"="\d+", "month"="\d+", "day"="\d+"}, defaults={"establishmentId"=null})
+     * @Route("/schedule/new/{userId}/{establishmentId}/{year}/{month}/{day}", requirements={"userId"="\d+", "establishmentId"="\d+", "year"="\d+", "month"="\d+", "day"="\d+"})
+     * @Method("GET")
      * @Template()
      */
     public function newAction(Request $request, $userId, $establishmentId = null, $year, $month, $day)
@@ -132,6 +134,7 @@ class ScheduleController extends SchedulerBaseController
     
     /**
      * @Route("/schedule/selectedMonth", name="schedule_selected_month")
+     * @Method("POST")
      * @Template()
      */
     public function selectedMonthAction()
@@ -144,7 +147,7 @@ class ScheduleController extends SchedulerBaseController
         return $this->redirect($this->generateUrl('schedule_month_id_ym', $linkParam));
     }
     
-    public function checkEstablishment(Form $form, Schedule $schedule, $em)
+    private function checkEstablishment(Form $form, Schedule $schedule, $em)
     {
         if ($em->getRepository('NamecoUserSchedulerBundle:Establishment')->isBooking($schedule))
         {
@@ -157,6 +160,7 @@ class ScheduleController extends SchedulerBaseController
     
     /**
      * @Route("/schedule/users", name="schedule_users")
+     * @Method("GET")
      */
     public function getUsersAction()
     {

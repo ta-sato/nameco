@@ -29,8 +29,8 @@ class Schedule
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=64, nullable=false)
-     * @Assert\NotBlank()
-     * @Assert\MaxLength(50)
+     * @Assert\NotBlank(message="必須項目です")
+     * @Assert\MaxLength(limit=50, message="{{ limit }}文字以内で入力してください")
      */
     private $title;
 
@@ -38,7 +38,7 @@ class Schedule
      * @var \DateTime
      *
      * @ORM\Column(name="start_datetime", type="datetime", nullable=false)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="必須項目です")
      */
     private $startDatetime;
 
@@ -46,7 +46,7 @@ class Schedule
      * @var \DateTime
      *
      * @ORM\Column(name="end_datetime", type="datetime", nullable=false)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="必須項目です")
      */
     private $endDatetime;
 
@@ -54,7 +54,8 @@ class Schedule
      * @var string
      *
      * @ORM\Column(name="detail", type="string", length=255, nullable=true)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="必須項目です")
+     * @Assert\MaxLength(limit=255, message="{{ limit }}文字以内で入力してください")
      */
     private $detail;
 
@@ -106,6 +107,7 @@ class Schedule
      *     @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      *   }
      * )
+     * @Assert\Count(min=1, minMessage="参加者を選んでください")
      */
     private $user;
 
