@@ -70,7 +70,7 @@ class ScheduleController extends SchedulerBaseController
     }
     
     /**
-     * @Route("/schedule/new/{userId}/{year}/{month}/{day}", requirements={"userId"="\d+", "year"="\d+", "month"="\d+", "day"="\d+"})
+     * @Route("/schedule/new/{userId}/{year}/{month}/{day}", requirements={"userId"="\d+", "year"="\d+", "month"="\d+", "day"="\d+"}, defaults={"establishmentId"=null})
      * @Route("/schedule/new/{userId}/{establishmentId}/{year}/{month}/{day}", requirements={"userId"="\d+", "establishmentId"="\d+", "year"="\d+", "month"="\d+", "day"="\d+"})
      * @Method("GET")
      * @Template()
