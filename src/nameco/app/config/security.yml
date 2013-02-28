@@ -5,7 +5,7 @@ jms_security_extra:
 security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
-        Nameco\User\SchedulerBundle\Entity\User:   sha512
+        Nameco\SchedulerBundle\Entity\User:   sha512
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -14,32 +14,41 @@ security:
     providers:
         main_provider:
           chain:
-            providers: [user_db, admin]
-        admin:
-          memory:
-            users:
-              admin:  { password: namecoadmin, roles: [ 'ROLE_ADMIN' ] }
+            providers: [user_db, in_memory]
+        in_memory:
+            memory:
+                users:
+                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                    admin: { password: namecoadmin, roles: [ 'ROLE_ADMIN' ] }
         user_db:
-          entity:  { class: Nameco\User\SchedulerBundle\Entity\User, property: username }
-        
+          entity:  { class: Nameco\SchedulerBundle\Entity\User, property: username }
 
     firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
         login:
             pattern:  ^/(login$|css|js|images|img)
             security: false
 
         secured_area:
+#            pattern:    ^/demo/secured/
             pattern:    ^/
             form_login:
-                login_path: /login
                 check_path: /login_check
+                login_path: /login
             logout:
                 path:   /logout
                 target: /login
-            anonymous: false
+            #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
 
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        #
+        # You must uncomment the two following rules to restrict access to paths
+        # starting with the /_internal prefix to only localhost
         #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+        #- { path: ^/_internal/secure, roles: ROLE_NO_ACCESS }

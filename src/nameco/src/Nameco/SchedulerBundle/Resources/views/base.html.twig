@@ -1,0 +1,44 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets
+      '@NamecoSchedulerBundle/Resources/public/css/bootstrap-editable.css'
+      '@NamecoSchedulerBundle/Resources/public/css/calendar.css'
+      '@NamecoSchedulerBundle/Resources/public/css/navigation.css'
+      '@NamecoSchedulerBundle/Resources/public/css/datepicker.css'
+     %}
+	<link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+	{% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{% javascripts
+      '@NamecoSchedulerBundle/Resources/public/js/bootstrap-editable.min.js'
+      '@NamecoSchedulerBundle/Resources/public/js/bootstrap-datepicker.js'
+      '@NamecoSchedulerBundle/Resources/public/js/locales/bootstrap-datepicker.ja.js'
+      '@NamecoSchedulerBundle/Resources/public/js/navigation.js'
+     %}
+	<script src="{{ asset_url }}" type="text/javascript"></script>
+	{% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+	<div id="contents" class="clearfix">
+		<div id="left_pane">
+			<div id="main_menu">
+				<a class="btn btn-primary btn-large" href="{{ path('schedule_month') }}">スケジュール</a>
+				<a class="btn btn-primary btn-large" href="{{ path('establishment_month') }}">施設予約</a>
+			</div>
+			<div id="sub_menu">
+				{% block submenu %}
+				{% endblock submenu %}
+			</div>
+		</div>
+		
+		{% block calendar %}
+		{% endblock %}
+	</div>
+	<span id="schedule_users_url" style="display:none;">{{ path('schedule_users') }}</span>
+{% endblock body%}

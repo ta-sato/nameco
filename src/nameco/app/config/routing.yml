@@ -1,28 +1,15 @@
-nameco_user_scheduler:
-    resource: "@NamecoUserSchedulerBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-nameco_user_scheduler_ajax:
-    resource: "@NamecoUserSchedulerBundle/Resources/config/routing.yml"
-
-nameco_admin_user:
-    resource: "@NamecoAdminUserBundle/Controller/"
-    type:     annotation
-    prefix:   /admin
-
-home:
-    pattern: /
-    defaults: { _controller: NamecoUserSchedulerBundle:Schedule:month }
-
-login_check:
-    pattern:   /login_check
-
-logout:
-    pattern:   /logout
-
-
 # Internal routing configuration to handle ESI
+# ****** WARNING ******
+# This route should be enabled with caution as it can open a security vulnerability
+# see http://symfony.com/blog/security-release-symfony-2-0-20-and-2-1-5-released for more information
+# ****** WARNING ******
 #_internal:
 #    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
 #    prefix:   /_internal
+NamecoUserBundle:
+    resource: "@NamecoUserBundle/Resources/config/routing.yml"
+    prefix:   /
+NamecoSchedulerBundle:
+    resource: "@NamecoSchedulerBundle/Resources/config/routing.yml"
+    prefix:   /
+  

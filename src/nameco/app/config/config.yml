@@ -1,6 +1,9 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: service.yml }
+    - { resource: serializer.yml }
+    
 
 framework:
     #esi:             ~
@@ -58,52 +61,3 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-
-
-services:
-    nameco.twig.navi_extension:
-        class: Nameco\User\SchedulerBundle\Twig\Extension\NavigationExtension
-        arguments:    [@router]
-        tags:
-            - { name: twig.extension }
-
-jms_serializer:
-    handlers:
-        datetime:
-            default_format: "c" # ISO8601
-            default_timezone: "UTC" # defaults to whatever timezone set in php.ini or via date_default_timezone_set
-
-    property_naming:
-        separator:  _
-        lower_case: true
-
-    metadata:
-        cache: file
-        debug: "%kernel.debug%"
-        file_cache:
-            dir: "%kernel.cache_dir%/serializer"
-
-        # Using auto-detection, the mapping files for each bundle will be
-        # expected in the Resources/config/serializer directory.
-        #
-        # Example:
-        # class: My\FooBundle\Entity\User
-        # expected path: @MyFooBundle/Resources/config/serializer/Entity.User.(yml|xml|php)
-        auto_detection: false
-
-        # if you don't want to use auto-detection, you can also define the
-        # namespace prefix and the corresponding directory explicitly
-#        directories:
-#            users:
-#                namespace_prefix: "Nameco\User\SchedulerBundle"
-#                path: "@NamecoUserSchedulerBundle/Resources/config/serializer"
-#            another-name:
-#                namespace_prefix: "My\\BarBundle"
-#                path: "@MyBarBundle/Resources/config/serializer"
-
-    visitors:
-        json:
-            options: 0 # json_encode options bitmask
-        xml:
-            doctype_whitelist:
-                - '<!DOCTYPE authorized SYSTEM "http://some_url">'

@@ -1,0 +1,6 @@
+services:
+    nameco.twig.navi_extension:
+        class: Nameco\SchedulerBundle\Twig\Extension\NavigationExtension
+        arguments:    [@router]
+        tags:
+            - { name: twig.extension }
