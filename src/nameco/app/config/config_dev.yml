@@ -21,9 +21,6 @@ monolog:
 
 assetic:
     use_controller: true
-    bundles:
-        - NamecoSchedulerBundle
-        - NamecoUserBundle
 
 #swiftmailer:
 #    delivery_address: me@example.com

@@ -2,26 +2,18 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	{% stylesheets
-      '@NamecoSchedulerBundle/Resources/public/css/bootstrap-editable.css'
-      '@NamecoSchedulerBundle/Resources/public/css/calendar.css'
-      '@NamecoSchedulerBundle/Resources/public/css/navigation.css'
-      '@NamecoSchedulerBundle/Resources/public/css/datepicker.css'
-     %}
-	<link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
-	{% endstylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/namecoscheduler/css/bootstrap-editable.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ asset('bundles/namecoscheduler/css/calendar.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ asset('bundles/namecoscheduler/css/navigation.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ asset('bundles/namecoscheduler/css/datepicker.css') }}" type="text/css" media="all" />
 {% endblock %}
 
 {% block javascripts %}
 	{{ parent() }}
-	{% javascripts
-      '@NamecoSchedulerBundle/Resources/public/js/bootstrap-editable.min.js'
-      '@NamecoSchedulerBundle/Resources/public/js/bootstrap-datepicker.js'
-      '@NamecoSchedulerBundle/Resources/public/js/locales/bootstrap-datepicker.ja.js'
-      '@NamecoSchedulerBundle/Resources/public/js/navigation.js'
-     %}
-	<script src="{{ asset_url }}" type="text/javascript"></script>
-	{% endjavascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/namecoscheduler/js/bootstrap-editable.min.js') }}" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ asset('bundles/namecoscheduler/js/bootstrap-datepicker.js') }}" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ asset('bundles/namecoscheduler/js/locales/bootstrap-datepicker.ja.js') }}" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ asset('bundles/namecoscheduler/js/navigation.js') }}" charset="utf-8"></script>
 {% endblock %}
 
 {% block body %}
