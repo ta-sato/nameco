@@ -46,7 +46,7 @@ abstract class BaseSchedulerControllerTest extends WebTestCase
 				$em->getClassMetadata('Nameco\SchedulerBundle\Entity\Area'),
 				$em->getClassMetadata('Nameco\SchedulerBundle\Entity\Establishment'),
 				$em->getClassMetadata('Nameco\SchedulerBundle\Entity\Schedule'),
-				$em->getClassMetadata('Nameco\SchedulerBundle\Entity\User'),
+				$em->getClassMetadata('Nameco\UserBundle\Entity\User'),
 		);
 		$tool->dropDatabase();
 		$tool->createSchema($classes);

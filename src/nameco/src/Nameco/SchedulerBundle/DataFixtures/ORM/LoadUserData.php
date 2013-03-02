@@ -2,7 +2,7 @@
 
 namespace Nameco\SchedulerBundle\DataFixtures\ORM;
 
-use Nameco\SchedulerBundle\Entity\User;
+use Nameco\UserBundle\Entity\User;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -33,7 +33,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 			$user->setName("Test" . $i . " Test" . $i);
 			$user->setKana("test" . $i . " test" . $i);
 			$user->setEmail("test" . $i . "@test.com");
-			$user->setEnabled(true);
+//			$user->setEnabled(true);
 			$em->persist($user);
 			// user-0 to user-4
 			$this->addReference('user-' . $i, $user);

@@ -33,7 +33,7 @@ class EstablishmentRepositoryFunctionalTest extends BaseSchedulerControllerTest
 		$end = clone $start;
 		$end->modify('+3 hour');
 
-		$user = $em->getRepository('NamecoSchedulerBundle:User')->findOneByUsername('test0');
+		$user = $em->getRepository('NamecoUserBundle:User')->findOneByUsername('test0');
 		$es = $repo->findAll();
 
 		$s = new Schedule();

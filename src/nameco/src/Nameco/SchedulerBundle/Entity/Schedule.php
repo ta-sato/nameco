@@ -98,7 +98,7 @@ class Schedule
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="schedule")
+     * @ORM\ManyToMany(targetEntity="Nameco\UserBundle\Entity\User", inversedBy="schedule")
      * @ORM\JoinTable(name="schedules_users",
      *   joinColumns={
      *     @ORM\JoinColumn(name="schedule_id", referencedColumnName="id")
@@ -114,7 +114,7 @@ class Schedule
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Nameco\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="owner_user_id", referencedColumnName="id")
      * })
@@ -338,10 +338,10 @@ class Schedule
     /**
      * Add user
      *
-     * @param \Nameco\SchedulerBundle\Entity\User $user
+     * @param \Nameco\UserBundle\Entity\User $user
      * @return Schedule
      */
-    public function addUser(\Nameco\SchedulerBundle\Entity\User $user)
+    public function addUser(\Nameco\UserBundle\Entity\User $user)
     {
         $this->user[] = $user;
 
@@ -351,9 +351,9 @@ class Schedule
     /**
      * Remove user
      *
-     * @param \Nameco\SchedulerBundle\Entity\User $user
+     * @param \Nameco\UserBundle\Entity\User $user
      */
-    public function removeUser(\Nameco\SchedulerBundle\Entity\User $user)
+    public function removeUser(\Nameco\UserBundle\Entity\User $user)
     {
         $this->user->removeElement($user);
     }
@@ -371,10 +371,10 @@ class Schedule
     /**
      * Set ownerUser
      *
-     * @param \Nameco\SchedulerBundle\Entity\User $ownerUser
+     * @param \Nameco\UserBundle\Entity\User $ownerUser
      * @return Schedule
      */
-    public function setOwnerUser(\Nameco\SchedulerBundle\Entity\User $ownerUser = null)
+    public function setOwnerUser(\Nameco\UserBundle\Entity\User $ownerUser = null)
     {
         $this->ownerUser = $ownerUser;
 
@@ -384,7 +384,7 @@ class Schedule
     /**
      * Get ownerUser
      *
-     * @return \Nameco\SchedulerBundle\Entity\User
+     * @return \Nameco\UserBundle\Entity\User
      */
     public function getOwnerUser()
     {

@@ -1,7 +1,6 @@
-nameco_admin_user:
+nameco_user:
     resource: "@NamecoUserBundle/Controller/"
     type:     annotation
-    prefix:   /admin
 
 login_check:
     pattern:   /login_check

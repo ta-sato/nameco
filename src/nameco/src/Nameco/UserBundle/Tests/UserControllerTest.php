@@ -61,9 +61,9 @@ class UserControllerTest extends WebTestCase
 
 		$user_form = $crawler->selectButton('submit')->form();
 		$crawler   = $client->submit($user_form, array(
-				'form[familly_name]'         => 'テスト姓',
+				'form[family_name]'         => 'テスト姓',
 				'form[first_name]'           => 'テスト名',
-				'form[kana_familly]'         => 'テストセイ',
+				'form[kana_family]'         => 'テストセイ',
 				'form[kana_first]'           => 'テストメイ',
 				'form[email]'                => $mail,
 				'form[password][first]'      => 'testpass',
@@ -77,7 +77,7 @@ class UserControllerTest extends WebTestCase
 	{
 		$client    = static::createClient();
 		$em        = $client->getContainer()->get('doctrine.orm.entity_manager');
-		$user_repo = $em->getRepository('NamecoSchedulerBundle:User');
+		$user_repo = $em->getRepository('NamecoUserBundle:User');
 		$user      = $user_repo->findOneByEmail($mail);
 		$this->assertTrue($user != null);
 		$em->remove($user);

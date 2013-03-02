@@ -2,7 +2,7 @@ home:
     pattern: /
     defaults: { _controller: NamecoSchedulerBundle:Schedule:month }
 
-nameco_user_scheduler:
+nameco_scheduler:
     resource: "@NamecoSchedulerBundle/Controller/"
     type:     annotation
     prefix:   /
