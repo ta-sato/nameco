@@ -1,0 +1,27 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets
+      '@NamecoSchedulerBundle/Resources/public/css/login.css'
+     %}
+	<link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+	{% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+	{% if error %}
+	    <div class="alert alert-error">{{ error }}</div>
+	{% endif %}
+	
+	<form  id="login_form" action="{{ path('login_check') }}" method="post">
+		<fieldset>
+	    	<label for="username">ユーザ名:</label>
+	    	<input type="text" id="username" name="_username" value="{{ last_username }}" />
+	    	<label for="password">パスワード:</label>
+	    	<input type="password" id="password" name="_password" />
+	    	<input type="hidden" name="_target_path" value="home" />
+    	</fieldset>
+    	<button class="btn btn-primary" id="submit" type="submit">ログイン</button>
+	</form>
+{% endblock %}

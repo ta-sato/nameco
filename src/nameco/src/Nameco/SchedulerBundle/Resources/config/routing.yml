@@ -1,0 +1,14 @@
+home:
+    pattern: /
+    defaults: { _controller: NamecoSchedulerBundle:Schedule:month }
+
+nameco_user_scheduler:
+    resource: "@NamecoSchedulerBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+schedule_new_prefix:
+    pattern: /schedule/new/{userId}
+
+schedule_new_establishment_prefix:
+    pattern: /schedule/new/{userId}/{establishmentId}

@@ -8,3 +8,7 @@
 *.php~
 /src/nameco/web/css/*
 /src/nameco/web/js/*
+/src/nameco/nbproject/private/
+src/nameco/src/Acme
+src/nameco/nbproject
+tmp

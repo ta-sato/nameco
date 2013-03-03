@@ -1,0 +1,14 @@
+{% extends 'NamecoSchedulerBundle:Base:calendar_month.html.twig' %}
+
+{% block navigation %}
+    {% include 'NamecoSchedulerBundle:Base:navigation.html.twig' with {'routeName': 'schedule_month_id_ym', 'selectRouteName':'schedule_selected_month'} %}
+{% endblock %}
+
+{% block submenu %}
+    {% render "NamecoSchedulerBundle:SubMenu:scheduleMonth" with {'year': year, 'month': month} %}
+{% endblock %}
+
+{% block calendar %}
+    {{ parent() }}
+    <span id="schedule_new_prefix" style="display:none;">{{ path('schedule_new_prefix', {'userId': userId }) }}</span>
+{% endblock %}
