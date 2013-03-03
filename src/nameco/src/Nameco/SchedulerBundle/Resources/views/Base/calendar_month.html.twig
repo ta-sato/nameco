@@ -2,22 +2,14 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	{% stylesheets
-      '@NamecoSchedulerBundle/Resources/public/css/calendar_month.css'
-      '@NamecoSchedulerBundle/Resources/public/css/schedule.css'
-     %}
-	<link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
-	{% endstylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/namecoscheduler/css/calendar_month.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ asset('bundles/namecoscheduler/css/schedule.css') }}" type="text/css" media="all" />
 {% endblock %}
 
 {% block javascripts %}
 	{{ parent() }}
-	{% javascripts
-      '@NamecoSchedulerBundle/Resources/public/js/calendar_month.js'
-      '@NamecoSchedulerBundle/Resources/public/js/schedule.js'
-     %}
-	<script src="{{ asset_url }}" type="text/javascript"></script>
-	{% endjavascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/namecoscheduler/js/calendar_month.js') }}" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ asset('bundles/namecoscheduler/js/schedule.js') }}" charset="utf-8"></script>
 {% endblock %}
 
 {% block calendar %}
