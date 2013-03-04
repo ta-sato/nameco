@@ -26,7 +26,7 @@ jms_serializer:
         # namespace prefix and the corresponding directory explicitly
 #        directories:
 #            users:
-#                namespace_prefix: "Nameco\User\SchedulerBundle"
+#                namespace_prefix: "Nameco\SchedulerBundle"
 #                path: "@NamecoSchedulerBundle/Resources/config/serializer"
 #            another-name:
 #                namespace_prefix: "My\\BarBundle"

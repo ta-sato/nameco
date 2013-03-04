@@ -12,8 +12,8 @@
 
 		<form action="" method="post" {{ form_enctype(form) }}>
 		
-			{% set error_name = form_errors(form.familly_name) != "" or form_errors(form.first_name) != "" %}
-			{% set error_kana = form_errors(form.kana_familly) != "" or form_errors(form.kana_first) != "" %}
+			{% set error_name = form_errors(form.family_name) != "" or form_errors(form.first_name) != "" %}
+			{% set error_kana = form_errors(form.kana_family) != "" or form_errors(form.kana_first) != "" %}
 			{% set error_mail = form_errors(form.email) != "" %}
 			{% set error_pass = form_errors(form.password.first) != "" %}
 			{% set error_confirm = form_errors(form.password.second) != "" %}
@@ -23,10 +23,10 @@
 					<label class="control-label">名前</label>
 					<div class="controls clearfix">
 						<div class="name_pane">
-							{{ form_widget(form.familly_name, { 'attr': {'class' : 'span3'}})}}
-							{% if form_errors(form.familly_name) != "" %}
+							{{ form_widget(form.family_name, { 'attr': {'class' : 'span3'}})}}
+							{% if form_errors(form.family_name) != "" %}
 								<div class="help-inline">
-									{{ form_errors(form.familly_name) }}
+									{{ form_errors(form.family_name) }}
 								</div>
 							{% endif %}
 						</div>
@@ -44,10 +44,10 @@
 					<label class="control-label">カナ</label>
 					<div class="controls clearfix">
 						<div class="name_pane">
-							{{ form_widget(form.kana_familly, { 'attr': {'class' : 'span3'}})}}
-							{% if form_errors(form.kana_familly) != "" %}
+							{{ form_widget(form.kana_family, { 'attr': {'class' : 'span3'}})}}
+							{% if form_errors(form.kana_family) != "" %}
 								<div class="help-inline">
-									{{ form_errors(form.kana_familly) }}
+									{{ form_errors(form.kana_family) }}
 								</div>
 							{% endif %}
 						</div>

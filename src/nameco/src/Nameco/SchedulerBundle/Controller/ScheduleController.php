@@ -2,7 +2,7 @@
 
 namespace Nameco\SchedulerBundle\Controller;
 
-use Nameco\SchedulerBundle\Entity\User;
+use Nameco\UserBundle\Entity\User;
 use Nameco\SchedulerBundle\Entity\Schedule;
 use Nameco\SchedulerBundle\Form\ScheduleType;
 
@@ -38,7 +38,7 @@ class ScheduleController extends SchedulerBaseController
         }
         else
         {
-            $user = $this->getDoctrine()->getRepository('NamecoSchedulerBundle:User')->find($id);
+            $user = $this->getDoctrine()->getRepository('NamecoUserBundle:User')->find($id);
             if (!$user)
             {
                 return $this->redirect($this->generateUrl('schedule_month'));
@@ -82,7 +82,7 @@ class ScheduleController extends SchedulerBaseController
             return $this->redirect($this->generateUrl('schedule_month'));
         }
         $em = $this->getDoctrine()->getEntityManager();
-        $user = $em->getRepository('NamecoSchedulerBundle:User')->find($userId);
+        $user = $em->getRepository('NamecoUserBundle:User')->find($userId);
         if (!$user)
         {
             $user = $this->getUser();
@@ -164,7 +164,7 @@ class ScheduleController extends SchedulerBaseController
      */
     public function getUsersAction()
     {
-        $users = $this->getDoctrine()->getEntityManager()->getRepository('NamecoSchedulerBundle:User')->findAll();
+        $users = $this->getDoctrine()->getEntityManager()->getRepository('NamecoUserBundle:User')->findAll();
         $serializer = $this->container->get('jms_serializer');
         $json = $serializer->serialize($users, 'json');
         $response = new Response($json);

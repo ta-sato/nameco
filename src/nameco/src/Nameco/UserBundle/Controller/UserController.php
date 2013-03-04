@@ -22,9 +22,9 @@ class UserController extends Controller
 		$user = new User();
 
 		$form = $this->createFormBuilder($user)
-			->add('familly_name',   'text')
+			->add('family_name',   'text')
 			->add('first_name',     'text')
-			->add('kana_familly',   'text')
+			->add('kana_family',   'text')
 			->add('kana_first',     'text')
 			->add('email',          'email')
 			->add('password',       'repeated', array(
@@ -41,9 +41,17 @@ class UserController extends Controller
 			if ($form->isValid())
 			{
 				$user = $form->getData();
-				$user->setKana($form['kana_familly']->getData() . ' ' . $form['kana_first']->getData());
-				$user->setName($form['familly_name']->getData() . ' ' . $form['first_name']->getData());
-				$user->setEnabled(true);
+//				$user->build(
+//						$form['email']->getData(),
+//						$form['password']->getData(),
+//						$form['family_name']->getData(),
+//						$form['first_name']->getData(),
+//						$form['kana_family']->getData(),
+//						$form['kana_first']->getData()
+//						);
+//				$user->setKana($form['kana_family']->getData() . ' ' . $form['kana_first']->getData());
+//				$user->setName($form['family_name']->getData() . ' ' . $form['first_name']->getData());
+//				$user->setEnabled(true);
 
 				// パスワードハッシュ化
 				$passward = $form['password']->getData();

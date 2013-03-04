@@ -20,7 +20,7 @@ class ScheduleControllerTest extends BaseSchedulerControllerTest
 		$this->login($this->_client, "test0", "testtest");
 
 		$this->_em = $this->_client->getContainer()->get('doctrine')->getEntityManager();
-		$this->_loginUser = $this->_em->getRepository('NamecoSchedulerBundle:User')->findOneByUsername("test0");
+		$this->_loginUser = $this->_em->getRepository('NamecoUserBundle:User')->findOneByUsername("test0");
 	}
 
 	public function testMonth()
@@ -30,7 +30,7 @@ class ScheduleControllerTest extends BaseSchedulerControllerTest
 		$container = $client->getContainer();
 		$em = $this->_em;
 
-		$repo = $em->getRepository('NamecoSchedulerBundle:User');
+		$repo = $em->getRepository('NamecoUserBundle:User');
 		$login = $this->_loginUser;
 		$other = $repo->findOneByUsername('test1');
 
@@ -76,7 +76,7 @@ class ScheduleControllerTest extends BaseSchedulerControllerTest
 		$day = date('d');
 		$user = $this->_loginUser;
 		$id = $user->getId();
-		$id2 = $em->getRepository('NamecoSchedulerBundle:User')->findOneByUsername('test1')->getId();
+		$id2 = $em->getRepository('NamecoUserBundle:User')->findOneByUsername('test1')->getId();
 
 		$est = $em->getRepository('NamecoSchedulerBundle:Establishment')->findOneByName('Establishment_0');
 		$estId = $est->getId();
@@ -350,7 +350,7 @@ class ScheduleControllerTest extends BaseSchedulerControllerTest
 		$this->assertTrue($client->getResponse()->headers->contains('Content-Type', 'application/json'));
 
 		$serializer = $container->get('jms_serializer');
-		$data = $serializer->deserialize($client->getResponse()->getContent(), 'ArrayCollection<Nameco\SchedulerBundle\Entity\User>', 'json');
+		$data = $serializer->deserialize($client->getResponse()->getContent(), 'ArrayCollection<Nameco\UserBundle\Entity\User>', 'json');
 		$this->assertGreaterThan(0, count($data));
 		$this->assertTrue($data[0]->getId() != null);
 	}

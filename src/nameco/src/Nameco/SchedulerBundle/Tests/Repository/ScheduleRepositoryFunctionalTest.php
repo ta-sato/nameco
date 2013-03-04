@@ -27,7 +27,7 @@ class ScheduleRepositoryFunctionalTest extends BaseSchedulerControllerTest
 		$end = clone $start;
 		$end->modify("+1 month");
 
-		$user0 = $this->_em->getRepository('NamecoSchedulerBundle:User')->findOneByUsername("test0");
+		$user0 = $this->_em->getRepository('NamecoUserBundle:User')->findOneByUsername("test0");
 		$results = $this->_em->getRepository('NamecoSchedulerBundle:Schedule')
 				->getUserMonthSchedules($user0->getId(), $start, $end);
 

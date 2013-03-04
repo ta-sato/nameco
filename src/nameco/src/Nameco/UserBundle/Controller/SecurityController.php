@@ -1,5 +1,5 @@
 <?php
-namespace Nameco\SchedulerBundle\Controller;
+namespace Nameco\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class SecurityController extends Controller
 {
 	/**
-	 * @Route("login")
+	 * @Route("/login")
 	 * @Template()
 	 */
 	public function loginAction()

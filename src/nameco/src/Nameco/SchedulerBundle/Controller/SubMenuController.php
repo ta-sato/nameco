@@ -20,7 +20,7 @@ class SubMenuController extends Controller
      */
     public function scheduleMonthAction(Request $request, $year, $month)
     {
-        $users = $this->getDoctrine()->getRepository('NamecoSchedulerBundle:User')->findAll();
+        $users = $this->getDoctrine()->getRepository('NamecoUserBundle:User')->findAll();
         return array('users' => $users, 'year' => $year, 'month' => $month);
     }
 
