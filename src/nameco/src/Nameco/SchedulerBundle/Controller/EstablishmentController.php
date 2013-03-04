@@ -17,32 +17,46 @@ class EstablishmentController extends SchedulerBaseController
     {
         $repository = $this->getDoctrine()->getEntityManager()->getRepository('NamecoSchedulerBundle:Establishment');
 
+		// 施設が選択されていない場合は施設の先頭を選択する
     	if ($id == null )
     	{
             $year  = date("Y");
             $month = date("m");
-            $id  = $repository->getOne()->getId();
+            $estab  = $repository->getOne();
     	}
+		else
+		{
+	    	$estab  = $repository->find($id);
+		}
+
+		if ($estab == null)
+		{
+			// TODO
+			return $this->render('NamecoSchedulerBundle:Establishment:empty.html.twig', array(
+			));
+		}
+		
         list($firstDay, $lastDay, $week, $dispDate) = $this->calcMonthRange($year, $month);
         $result = $repository->getMonthSchedules($id, $firstDay, $lastDay);
 
     	// 施設名
-    	$e      = $repository->find($id);
-    	$area   = $e->getArea();
-    	$e_name = $area->getName() . ' ' . $e->getName();
+//    	$area   = $estab->getArea();
+//    	$e_name = $area->getName() . ' ' . $estab->getName();
 
     	return $this->render('NamecoSchedulerBundle:Establishment:month.html.twig',
-    			array(
-                            'start'           => $firstDay,
-                            'end'             => $lastDay,
-                            'week'            => $week,
-                            'schedules'       => $result,
-                            'id'              => $id,
-                            'userId'          => $this->getUser()->getId(),
-                            'dispDate'        => $dispDate,
-                            'dispTargetLabel' => $e_name,
-                            'year'            => $year,
-                            'month'           => $month));
+				array(
+					'start'           => $firstDay,
+					'end'             => $lastDay,
+					'week'            => $week,
+					'schedules'       => $result,
+//					'id'              => $id,
+//					'userId'          => $this->getUser()->getId(),
+					'dispDate'        => $dispDate,
+//					'dispTargetLabel'	=> $e_name,
+					'year'            => $year,
+					'month'           => $month,
+					'estab'				=> $estab,
+					));
     }
 
     /**

@@ -34,7 +34,6 @@ class ScheduleController extends SchedulerBaseController
         if ($id == null)
         {
             $user = $this->getUser();
-            $id = $user->getId();
         }
         else
         {
@@ -50,26 +49,31 @@ class ScheduleController extends SchedulerBaseController
             $year  = date("Y");
             $month = date("m");
         }
-
         list($firstDay, $lastDay, $week, $dispDate) = $this->calcMonthRange($year, $month);
 
         $em = $this->getDoctrine()->getEntityManager();
-        $result = $em->getRepository('NamecoSchedulerBundle:Schedule')->getUserMonthSchedules($id, $firstDay, $lastDay);
+        $result = $em->getRepository('NamecoSchedulerBundle:Schedule')->getUserMonthSchedules($user->getId(), $firstDay, $lastDay);
 
+        $users = $em->getRepository('NamecoUserBundle:User')->findAll();
+//        return array( 'year' => $year, 'month' => $month);
+		
         return array(
-                'year'      => $year,
-                'month'     => $month,
-                'start'     => $firstDay,
-                'end'       => $lastDay,
-                'week'      => $week,
-                'schedules' => $result,
-                'id'        => $id,
-                'userId'    => $id,
-                'dispDate'  => $dispDate,
-                'dispTargetLabel' => $user->getName());
+			'year'      => $year,
+			'month'     => $month,
+			'start'     => $firstDay,
+			'end'       => $lastDay,
+			'week'      => $week,
+			'schedules' => $result,
+			'user'      => $user,
+//			'id'        => $id,
+//			'userId'    => $id,
+			'dispDate'  => $dispDate,
+//			'dispTargetLabel' => $user->getName(),
+			'users' => $users,
+			);
     }
 
-    /**
+	/**
      * @Route("/schedule/new/{userId}/{year}/{month}/{day}", requirements={"userId"="\d+", "year"="\d+", "month"="\d+", "day"="\d+"}, defaults={"establishmentId"=null})
      * @Route("/schedule/new/{userId}/{establishmentId}/{year}/{month}/{day}", requirements={"userId"="\d+", "establishmentId"="\d+", "year"="\d+", "month"="\d+", "day"="\d+"})
      * @Method("GET")

@@ -1,6 +1,3 @@
-window.onload = function() {
-	Month.init();
-};
 
 var Month =
 {
@@ -155,5 +152,7 @@ var Month =
 			span.text(txt.substr(0, txt.length - 2 - suffix.length));
 			span.text(span.text() + '...');
 		}
-	},
+	}
 };
+
+$(document).ready(Month.init);

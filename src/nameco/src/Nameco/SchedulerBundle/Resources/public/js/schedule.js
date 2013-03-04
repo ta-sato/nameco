@@ -31,7 +31,7 @@ var Schedule =
 				Schedule.onChangeDate(ev, '#schedule_startDateTime_date');
 			})
 			.on('show', function(ev){
-				Schedule.onShow(this, ev, '#schedule_startDateTime_date')
+				Schedule.onShow(this, ev, '#schedule_startDateTime_date');
 			});
 		$('#btn-endDate').datepicker({weekStart: 1, language:'ja'})
 			.on('changeDate', function(ev){
@@ -39,7 +39,7 @@ var Schedule =
 				Schedule.onChangeDate(ev, '#schedule_endDateTime_date');
 			})
 			.on('show', function(ev){
-				Schedule.onShow(this, ev, '#schedule_endDateTime_date')
+				Schedule.onShow(this, ev, '#schedule_endDateTime_date');
 			});
 		Schedule.registRemove('ul#schedule_user');
 		var now = new Date();
@@ -65,8 +65,9 @@ var Schedule =
 	{
 		var selectedDate = new Date(ev.date);
 		var date = selectedDate.getFullYear() + '/' + (selectedDate.getMonth() + 1) + '/' + selectedDate.getDate();
-		$(selector).val(date)
+		$(selector).val(date);
 	},
+
 	onShow:function(elem, ev, selector)
 	{
 		$(elem).datepicker('setDate', new Date($(selector).val()));
@@ -87,7 +88,7 @@ var Schedule =
 			success: function(data, status){
 				target.html(data);
 				Schedule.formInit();
-			},
+			}
 		});
 	},
 	closeModal:function()
@@ -133,8 +134,6 @@ var Schedule =
 			}
 		});
 	}
-}
+};
 
-$(window).ready(function(){
-	Schedule.init();
-});
+$(document).ready(Schedule.init);

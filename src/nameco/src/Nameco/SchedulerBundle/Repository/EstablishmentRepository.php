@@ -2,23 +2,30 @@
 
 namespace Nameco\SchedulerBundle\Repository;
 
-use Nameco\SchedulerBundle\Entity\Schedule;
-
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
+use Nameco\SchedulerBundle\Entity\Schedule;
 
 class EstablishmentRepository extends EntityRepository
 {
+	/**
+	 * 施設の先頭を取得する
+	 * 
+	 * @return null
+	 */
     public function getOne()
     {
-        $em = $this->getEntityManager();
-        $query = $em->createQuery('
-                        SELECT e
-                        FROM NamecoSchedulerBundle:Establishment e
-                        ORDER BY e.id')
-                        ->setMaxResults(1);
-        $ids = $query->getResult();
-        return $ids[0];
-    }
+		$q = $this->createQueryBuilder('e')
+				->orderBy('e.id', 'ASC')
+				->getQuery();
+		try
+		{
+			$estab = $q->getSingleResult();
+        } catch (NoResultException $e) {
+			return null;
+        }
+        return $estab;
+	}
 
     /**
      * @param type $id
