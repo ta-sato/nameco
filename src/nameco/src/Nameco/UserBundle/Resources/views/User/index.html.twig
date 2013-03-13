@@ -1,0 +1,36 @@
+{% extends "NamecoUserBundle:Admin:layout.html.twig" %}
+
+{% block admin_contents %}
+    <div>
+	<a href="{{path('user_new')}}"><i class="icon-plus-sign"></i>新規</a>
+    </div>
+    <table id="user_list" class="table table-striped table-hover">
+	<thead>
+	    <tr>
+		<th>&nbsp;</th>
+		<th>苗字</th>
+		<th>名前</th>
+		<th>メールアドレス</th>
+		<th>作成日時</th>
+		<th>更新日時</th>
+		<th>&nbsp;</th>
+	    </tr>
+	</thead>
+	<tbody>
+	    {% for user in users %}
+		<tr>
+		    <td><a href="{{path('user_edit', {'id' : user.id }) }}"><i class="icon-pencil"></i>編集</a></td>
+		    <td>{{user.familyName}}</td>
+		    <td>{{user.firstName}}</td>
+		    <td>{{user.email}}</td>
+		    <td>{{user.created|date("Y/m/d H:i")}}</td>
+		    <td>{{user.updated|date("Y/m/d H:i")}}</td>
+		    <td><a href="#"><i class="icon-trash" ></i>削除</a></td>
+		</tr>
+	    {% endfor%}
+	</tbody>
+    </table>
+    <div class="navigation">
+		{{ knp_pagination_render(users) }}
+    </div>
+{% endblock admin_contents %}

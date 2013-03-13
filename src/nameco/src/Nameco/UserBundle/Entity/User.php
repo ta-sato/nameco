@@ -180,8 +180,8 @@ class User implements AdvancedUserInterface
 	{
 //		$this->bookmarkUser = new \Doctrine\Common\Collections\ArrayCollection();
 //		$this->schedule = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->isAvtive = true;
-		$this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->isAvtive = true;
+        $this->salt     = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
 
 		// PrePersistが発動しない...
 		$this->created = new \DateTime();
@@ -206,7 +206,10 @@ class User implements AdvancedUserInterface
 	 */
 	public function setPassword($password)
 	{
-		$this->password = $password;
+		if (isset($password))
+		{
+			$this->password = $password;
+		}
 
 		return $this;
 	}
@@ -243,52 +246,6 @@ class User implements AdvancedUserInterface
 	{
 		return $this->salt;
 	}
-
-//	/**
-//	 * Set name
-//	 *
-//	 * @param string $name
-//	 * @return User
-//	 */
-//	public function setName($name)
-//	{
-//		$this->name = $name;
-//
-//		return $this;
-//	}
-//
-//	/**
-//	 * Get name
-//	 *
-//	 * @return string
-//	 */
-//	public function getName()
-//	{
-//		return $this->name;
-//	}
-
-//	/**
-//	 * Set kana
-//	 *
-//	 * @param string $kana
-//	 * @return User
-//	 */
-//	public function setKana($kana)
-//	{
-//		$this->kana = $kana;
-//
-//		return $this;
-//	}
-//
-//	/**
-//	 * Get kana
-//	 *
-//	 * @return string
-//	 */
-//	public function getKana()
-//	{
-//		return $this->kana;
-//	}
 
 	/**
 	 * Set email
@@ -471,29 +428,6 @@ class User implements AdvancedUserInterface
 	{
 		return $this->kana_first;
 	}
-// 	public function setConfirm($confirm)
-// 	{
-// 		$this->confirm = $confirm;
-// 		return $this;
-// 	}
-// 	public function getConfirm()
-// 	{
-// 		return $this->confirm;
-// 	}
-
-// 	/**
-// 	 * set values bedore persist
-// 	 *
-// 	 * @ORM\PrePersist
-// 	 */
-// 	public function prePersist()
-// 	{
-// 		$this->created = new \DateTime();
-// 		$this->updated = new \DateTime();
-
-// 		$mail = preg_split('/@/', $this->email);
-// 		$this->username = $mail[0];
-// 	}
 
 	/**
 	 * set values bedore update
@@ -518,6 +452,15 @@ class User implements AdvancedUserInterface
 	public function getRoles()
     {
     	return $this->roles->toArray();
+    }
+
+    public function getUserRoles()
+    {
+    	return $this->roles;
+    }
+    public function setUserRoles($roles)
+    {
+    	return $this->setRoles($roles);
     }
 	
     public function __toString()
@@ -550,22 +493,7 @@ class User implements AdvancedUserInterface
 	{
 		return $this->getFamilyName() . ' ' . $this->getFirstName();
 	}
-//	
-//	public function build($email, $password, $familyname, $firstname, $familyreading, $firstreading)
-//	{
-//		$this->setKana($familyreading . ' ' . $firstreading);
-//		$this->setName($familyname . ' ' . $firstname);
-//
-//		// パスワードハッシュ化
-////		$factory  = $this->get('security.encoder_factory');
-////		$encoder  = $factory->getEncoder($user);
-////		$hashedPassword = $encoder->encodePassword($user->getPassword(), $user->getSalt());
-////		$this->setPassword($password);
-//
-//		// usernameを@前に設定
-//		$mail = preg_split('/@/', $email);
-//		$this->setUsername($mail[0]);
-//	}
+
 	public function encodePassword($container, $password)
 	{
 		$encoder = $container->get('security.encoder_factory')->getEncoder($this);

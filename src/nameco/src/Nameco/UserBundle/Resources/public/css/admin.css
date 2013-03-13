@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+#left_pane
+{
+    width: 300px;
+}
+
+#main_pane
+{
+    width: 800px;
+}
