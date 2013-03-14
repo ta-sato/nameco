@@ -61,8 +61,8 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             ->createQueryBuilder('u')
             ->select('u')
             ->orderBy('u.created', 'ASC')
-            ->orderBy('u.kana_family', 'ASC')
-            ->orderBy('u.kana_first', 'ASC')
+            ->addOrderBy('u.kana_family', 'ASC')
+            ->addOrderBy('u.kana_first', 'ASC')
             ->getQuery()
         ;
     }

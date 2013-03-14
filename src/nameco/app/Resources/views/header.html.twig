@@ -11,10 +11,10 @@
 				    	<b class="caret"></b>
 				    	</a>
 				    	<ul class="dropdown-menu">
+				    		{% if is_granted('ROLE_ADMIN') %}
+	                            <li><a tabindex="-1" href="{{ path('admin') }}">管理</a></li>
+	                        {% endif %}
 				    		<li><a tabindex="-1" href="{{ path('logout') }}">ログアウト</a></li>
-                                                {% if is_granted('ROLE_ADMIN') %}
-                                                    <li><a tabindex="-1" href="{{ path('admin') }}">管理</a></li>
-                                                {% endif %}
 				    	</ul>
 				    </li>
 			    </ul>

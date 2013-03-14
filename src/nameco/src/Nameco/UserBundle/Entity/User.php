@@ -80,7 +80,7 @@ class User implements AdvancedUserInterface
 	 *
 	 * @ORM\Column(name="is_active", type="boolean", nullable=false)
 	 */
-	private $isAvtive;
+	private $isActive;
 
 	/**
 	 * @var \DateTime
@@ -180,7 +180,7 @@ class User implements AdvancedUserInterface
 	{
 //		$this->bookmarkUser = new \Doctrine\Common\Collections\ArrayCollection();
 //		$this->schedule = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->isAvtive = true;
+        $this->isActive = true;
         $this->salt     = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
 
 		// PrePersistが発動しない...
@@ -481,7 +481,7 @@ class User implements AdvancedUserInterface
 	}
 
 	public function isEnabled() {
-		return $this->isAvtive;
+		return $this->isActive;
 	}
 
 	public function getKana()
@@ -501,26 +501,26 @@ class User implements AdvancedUserInterface
 	}
 
     /**
-     * Set isAvtive
+     * Set isActive
      *
-     * @param boolean $isAvtive
+     * @param boolean $isActive
      * @return User
      */
-    public function setIsAvtive($isAvtive)
+    public function setIsActive($isActive)
     {
-        $this->isAvtive = $isAvtive;
+        $this->isActive = $isActive;
     
         return $this;
     }
 
     /**
-     * Get isAvtive
+     * Get isActive
      *
      * @return boolean 
      */
-    public function getIsAvtive()
+    public function getIsActive()
     {
-        return $this->isAvtive;
+        return $this->isActive;
     }
 
     /**

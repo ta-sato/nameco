@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+#admin_contents
+{
+	margin-top: 20px;
+}
+
 #left_pane
 {
     width: 300px;

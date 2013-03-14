@@ -35,16 +35,18 @@ class UserController extends Controller
 	 */
 	public function newAction($id = null)
 	{
-		$form = $this->getForm(false, new User());
-		$success = false;
-		if ($this->getRequest()->getMethod() == 'POST')
+		$user    = new User();
+        $form    = $this->getForm(false, $user);
+        $request = $this->getRequest();
+		if ($request->getMethod() == 'POST')
 		{
-			$success = $this->update($form, false);
+			if ($this->update($form, false))
+			{
+				$this->get('session')->getFlashBag()->add('success', '登録しました');
+				return $this->redirect($this->generateUrl('user_edit', array('id' => $user->getId())));
+			}
 		}
-		return $this->render('NamecoUserBundle:User:new.html.twig', array(
-				'form'    => $form->createView(),
-				'success' => $success
-		));	
+		return $this->render('NamecoUserBundle:User:new.html.twig', array('form' => $form->createView()));	
 	}
 
 	/**
@@ -52,16 +54,40 @@ class UserController extends Controller
 	 */
 	public function editAction($id)
 	{
-		$form = $this->getForm(true, $this->getDoctrine()->getRepository('NamecoUserBundle:User')->find($id));
-		$success = false;
-		if ($this->getRequest()->getMethod() == 'POST')
+        $form    = $this->getForm(true, $this->getDoctrine()->getRepository('NamecoUserBundle:User')->find($id));
+        $request = $this->getRequest();
+		if ($request->getMethod() == 'POST')
 		{
-			$success = $this->update($form, true);
+			if ($this->update($form, true))
+			{
+				$this->get('session')->getFlashBag()->add('success', '更新しました');
+			}
 		}
-		return $this->render('NamecoUserBundle:User:edit.html.twig', array(
-				'form'    => $form->createView(),
-				'success' => $success
-		));	
+		return $this->render('NamecoUserBundle:User:edit.html.twig', array('form' => $form->createView()));	
+	}
+
+	/**
+	 * @Route("/user/remove/{id}", name="user_remove")
+	 */
+	public function removeAction($id)
+	{
+		$user = $this->getDoctrine()->getRepository('NamecoUserBundle:User')->find($id);
+		if ($user == null)
+		{
+			$this->get('session')->setFlash('error', '既に削除されています');
+		}
+		elseif ($user->getId() == $this->get('security.context')->getToken()->getUser()->getId())
+		{
+			$this->get('session')->setFlash('error', 'ログイン中は削除できません');	
+		}
+		else
+		{
+			$em = $this->getDoctrine()->getEntityManager();
+	 		$em->remove($user);
+	        $em->flush();
+	        $this->get('session')->setFlash('success', '削除しました');
+		}
+		return $this->redirect($this->generateUrl('user'));
 	}
 
 	private function getForm($edit, $user)
@@ -71,7 +97,7 @@ class UserController extends Controller
 			->add('first_name',     'text')
 			->add('kana_family',    'text')
 			->add('kana_first',     'text')
-			->add('email',          'email', array('read_only' => $edit))
+			->add('email',          'email')
 			->add('password',       'repeated', array(
 										'type'            => 'password',
 										'invalid_message' => 'パスワードが一致しません',
@@ -81,6 +107,7 @@ class UserController extends Controller
 										'property' => 'name',
 										'multiple' => true
 									))
+			->add('isActive',       'checkbox', array('required' => false))
 			->getForm();
 		return $form;			
 	}
