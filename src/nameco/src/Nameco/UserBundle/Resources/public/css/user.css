@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+#edit, #remove  { width: 45px; }
+#family, #first { width: 150px; }
+#mail { width: 200px;}
+#created, #updated { width: 120px; }

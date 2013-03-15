@@ -19,6 +19,11 @@
 	margin-right: auto;
 }
 
+#form_isActive
+{
+	width: auto;
+}
+
 .error_pane, 
 .name_pane,
 .input_pane

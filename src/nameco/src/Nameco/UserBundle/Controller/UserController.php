@@ -33,7 +33,7 @@ class UserController extends Controller
 	/**
 	 * @Route("/user/new", name="user_new")
 	 */
-	public function newAction($id = null)
+	public function newAction()
 	{
 		$user    = new User();
         $form    = $this->getForm(false, $user);
@@ -50,7 +50,7 @@ class UserController extends Controller
 	}
 
 	/**
-	 * @Route("/user/edit/{id}", name="user_edit")
+	 * @Route("/user/edit/{id}", name="user_edit", requirements={"id"="\d+"})
 	 */
 	public function editAction($id)
 	{
@@ -63,11 +63,12 @@ class UserController extends Controller
 				$this->get('session')->getFlashBag()->add('success', '更新しました');
 			}
 		}
-		return $this->render('NamecoUserBundle:User:edit.html.twig', array('form' => $form->createView()));	
+		return $this->render('NamecoUserBundle:User:edit.html.twig', array(
+			'form' => $form->createView()));
 	}
 
 	/**
-	 * @Route("/user/remove/{id}", name="user_remove")
+	 * @Route("/user/remove/{id}", name="user_remove", requirements={"id"="\d+"})
 	 */
 	public function removeAction($id)
 	{

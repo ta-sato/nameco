@@ -3,14 +3,17 @@
 #admin_contents
 {
 	margin-top: 20px;
+	width: 1200px;
 }
 
 #left_pane
 {
-    width: 300px;
+    width: 180px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #main_pane
 {
-    width: 800px;
+    width: 1000px;
 }

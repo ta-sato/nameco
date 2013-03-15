@@ -1,5 +1,9 @@
 {% extends "NamecoUserBundle:Admin:layout.html.twig" %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('bundles/namecouser/css/user.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
 {% block javascripts %}
 	{{ parent() }}
     <script type="text/javascript" src="{{ asset('bundles/namecouser/js/user.js') }}" charset="utf-8"></script>
@@ -19,13 +23,13 @@
     <table id="user_list" class="table table-striped table-hover">
 		<thead>
 		    <tr>
-			<th>&nbsp;</th>
-			<th>苗字</th>
-			<th>名前</th>
-			<th>メールアドレス</th>
-			<th>作成日時</th>
-			<th>更新日時</th>
-			<th>&nbsp;</th>
+				<th id="edit">&nbsp;</th>
+				<th id="family">苗字</th>
+				<th id="first">名前</th>
+				<th id="mail">メールアドレス</th>
+				<th id="created">作成日時</th>
+				<th id="updated">更新日時</th>
+				<th id="remove">&nbsp;</th>
 		    </tr>
 		</thead>
 		<tbody>
