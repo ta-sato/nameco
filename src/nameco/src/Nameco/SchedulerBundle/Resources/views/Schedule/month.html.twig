@@ -1,14 +1,21 @@
-{% extends 'NamecoSchedulerBundle:Base:calendar_month.html.twig' %}
+{% extends 'NamecoSchedulerBundle::base.html.twig' %}
 
 {% block navigation %}
-    {% include 'NamecoSchedulerBundle:Base:navigation.html.twig' with {'routeName': 'schedule_month_id_ym', 'selectRouteName':'schedule_selected_month'} %}
+    {% include 'NamecoSchedulerBundle:Base:navigation.html.twig'
+        with {'routeName': 'schedule_month_id_ym', 'selectRouteName':'schedule_selected_month', 'id': user.id, 'dispTargetLabel': user.name } %}
 {% endblock %}
 
 {% block submenu %}
-    {% render "NamecoSchedulerBundle:SubMenu:scheduleMonth" with {'year': year, 'month': month} %}
+	<div class="dropdown">
+		<button class="btn btn-large dropdown-toggle" data-toggle="dropdown">ユーザ選択</button>
+		<ul class="dropdown-menu">
+			{% for u in users %}
+				<li><a tabindex="-1" href="{{ path('schedule_month_id_ym', {'id': u.id, 'year': year, 'month': month}) }}">{{ u.name }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
 {% endblock %}
 
-{% block calendar %}
-    {{ parent() }}
-    <span id="schedule_new_prefix" style="display:none;">{{ path('schedule_new_prefix', {'userId': userId }) }}</span>
+{% block createurl %}
+    <span id="schedule_new_prefix" style="display:none;">{{ path('schedule_new_prefix', {'userId': user.id }) }}</span>
 {% endblock %}

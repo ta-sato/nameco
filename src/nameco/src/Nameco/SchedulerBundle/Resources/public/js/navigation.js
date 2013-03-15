@@ -5,7 +5,7 @@ var Navigation =
 
 		$('#selectDateButton').datepicker({
 			weekStart : 1,
-			language: 'ja',
+			language: 'ja'
 		}).on('changeDate', function(ev){
 			Navigation.onChangeDate(ev);
 		});
@@ -22,9 +22,6 @@ var Navigation =
 		$('#salectDateForm [name=m]').val(selectDate.getMonth() + 1);
 		$('#salectDateForm').submit();
 	}
+};
 
-}
-
-$(window).load(function(){
-	Navigation.init();
-});
+$(document).ready(Navigation.init);
