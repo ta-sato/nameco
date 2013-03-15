@@ -22,6 +22,7 @@ class AppKernel extends Kernel
 			new JMS\SerializerBundle\JMSSerializerBundle(),
 			new Nameco\UserBundle\NamecoUserBundle(),
 			new Nameco\SchedulerBundle\NamecoSchedulerBundle(),
+			new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 			);
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

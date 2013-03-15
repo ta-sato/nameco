@@ -1,0 +1,4 @@
+<ul class="nav nav-pills nav-stacked">
+	{% set cur = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+    <li class="{% if cur == path('user') %} active {% endif %}"><a href="{{ path('user') }}">ユーザ</a></li>
+</ul>

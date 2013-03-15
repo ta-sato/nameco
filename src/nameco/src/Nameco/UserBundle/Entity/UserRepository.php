@@ -54,4 +54,16 @@ class UserRepository extends EntityRepository implements UserProviderInterface
         return $this->getEntityName() === $class
             || is_subclass_of($class, $this->getEntityName());
     }
+
+    public function getUserListQuery()
+    {
+        return $this
+            ->createQueryBuilder('u')
+            ->select('u')
+            ->orderBy('u.created', 'ASC')
+            ->addOrderBy('u.kana_family', 'ASC')
+            ->addOrderBy('u.kana_first', 'ASC')
+            ->getQuery()
+        ;
+    }
 }
