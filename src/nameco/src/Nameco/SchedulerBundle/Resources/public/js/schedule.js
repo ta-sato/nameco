@@ -14,7 +14,8 @@ var Schedule =
 				Schedule.formInit();
 			});
 		});
-		$('form#form-schedule').live('submit', function(){
+		$(document).on('submit', 'form#form-schedule', function(){
+//		$('form#form-schedule').live('submit', function(){
 			Schedule.submitScheduleForm(this);
 			return false;
 		});
@@ -104,8 +105,8 @@ var Schedule =
 			return;
 		}
 		checked = $.grep(sourceData, function(o){
-			return $.grep(value, function(v){ 
-				 return v == o.value; 
+			return $.grep(value, function(v){
+				 return v == o.value;
 			}).length;
 		});
 		$.each(checked, function(i, v) {
