@@ -1,25 +1,35 @@
 {% extends 'NamecoSchedulerBundle::base.html.twig' %}
 
 {% block navigation %}
-	{% include 'NamecoSchedulerBundle:Base:navigation.html.twig' with {'routeName': 'establishment_month_id', 'selectRouteName':'establishment_select_date', 'id': estab.id } %}
+	{% if estab.area is not null %}
+		{% set dtl = estab.area.name ~ ' ' ~ estab.name %}
+	{% else %}
+		{% set dtl = estab.name %}
+	{% endif %}
+	
+	{% include 'NamecoSchedulerBundle:Base:navigation.html.twig'
+		with {'routeName': 'establishment_month_id', 'selectRouteName':'establishment_select_date', 'id': estab.id, 'dispTargetLabel': dtl } %}
+
 {% endblock %}
 
 {% block submenu %}
 	<div class="dropdown">
 		<button class="btn btn-large dropdown-toggle" data-toggle="dropdown">施設選択</button>
 		<ul class="dropdown-menu">
-		{% for area in areas %}
-			<li>{{ area.name }}</li>
-			{% for es in area.establishment %}
-				<li><a tabindex="-1" href="{{ path('establishment_month_id', {'id': es.id, 'year': year, 'month': month}) }}">{{ es.name }}</a></li>
+		{% if areas is not null %}
+			{% for area in areas %}
+				<li>{{ area.name }}</li>
+				{% for es in area.establishments %}
+					<li><a tabindex="-1" href="{{ path('establishment_month_id', {'id': es.id, 'year': year, 'month': month}) }}">{{ es.name }}</a></li>
+				{% endfor %}
+				</li>
 			{% endfor %}
-			</li>
-		{% endfor %}
+		{% endif %}
 		</ul>
 	</div>
 {% endblock %}
 
 {% block createurl %}
-	<span id="schedule_new_prefix" style="display:none;">{{ path('schedule_new_establishment_prefix', {'userId': userId, 'establishmentId': estab.id }) }}</span>
+	<span id="schedule_new_prefix" style="display:none;">{{ path('schedule_new_establishment_prefix', {'userId': user.id, 'establishmentId': estab.id }) }}</span>
 {% endblock %}
 

@@ -98,7 +98,7 @@ class Schedule
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Nameco\UserBundle\Entity\User", inversedBy="schedule")
+     * @ORM\ManyToMany(targetEntity="Nameco\UserBundle\Entity\User")
      * @ORM\JoinTable(name="schedules_users",
      *   joinColumns={
      *     @ORM\JoinColumn(name="schedule_id", referencedColumnName="id")

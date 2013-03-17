@@ -2,8 +2,6 @@
 
 namespace Nameco\SchedulerBundle\Form;
 
-use Nameco\SchedulerBundle\Entity\Schedule;
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

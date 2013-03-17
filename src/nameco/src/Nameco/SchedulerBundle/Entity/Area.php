@@ -3,12 +3,16 @@
 namespace Nameco\SchedulerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Area
  *
  * @ORM\Table(name="area")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Nameco\SchedulerBundle\Repository\AreaRepository")
+ * @UniqueEntity("name")
  * @ORM\HasLifecycleCallbacks()
  */
 class Area
@@ -25,7 +29,9 @@ class Area
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @ORM\Column(name="name", type="string", length=32, nullable=false, unique=true)
+	 * @Assert\NotBlank()
+	 * @Assert\MaxLength(32)
      */
     private $name;
 
@@ -49,14 +55,14 @@ class Area
      * @ORM\OneToMany(targetEntity="Establishment", mappedBy="area")
      * @ORM\OrderBy({"name" = "ASC"})
      */
-    private $establishment;
+    private $establishments;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-    	$this->establishment = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->establishments = new ArrayCollection();
     }
 
     /**
@@ -138,40 +144,7 @@ class Area
         return $this->updated;
     }
 
-    /**
-     * Add establishment
-     *
-     * @param \Nameco\SchedulerBundle\Entity\Establishment $establishment
-     * @return Area
-     */
-    public function addEstablishment(\Nameco\SchedulerBundle\Entity\Establishment $establishment)
-    {
-    	$this->establishment[] = $establishment;
-
-    	return $this;
-    }
-
-    /**
-     * Remove establishment
-     *
-     * @param \Nameco\SchedulerBundle\Entity\Establishment $establishment
-     */
-    public function removeEstablishment(\Nameco\SchedulerBundle\Entity\Establishment $establishment)
-    {
-    	$this->establishment->removeElement($establishment);
-    }
-
-    /**
-     * Get establishment
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEstablishment()
-    {
-    	return $this->establishment;
-    }
-
-    /**
+	/**
      * @ORM\PrePersist
      */
     public function setCreatedValue()
@@ -189,5 +162,38 @@ class Area
     public function setUpdatedValue()
     {
     	$this->updated = new \DateTime();
+    }
+
+    /**
+     * Add establishments
+     *
+     * @param \Nameco\SchedulerBundle\Entity\Establishment $establishments
+     * @return Area
+     */
+    public function addEstablishment(\Nameco\SchedulerBundle\Entity\Establishment $establishments)
+    {
+        $this->establishments[] = $establishments;
+    
+        return $this;
+    }
+
+    /**
+     * Remove establishments
+     *
+     * @param \Nameco\SchedulerBundle\Entity\Establishment $establishments
+     */
+    public function removeEstablishment(\Nameco\SchedulerBundle\Entity\Establishment $establishments)
+    {
+        $this->establishments->removeElement($establishments);
+    }
+
+    /**
+     * Get establishments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEstablishments()
+    {
+        return $this->establishments;
     }
 }

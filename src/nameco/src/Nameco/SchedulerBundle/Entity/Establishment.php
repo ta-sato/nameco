@@ -3,6 +3,7 @@
 namespace Nameco\SchedulerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Establishment
@@ -24,8 +25,11 @@ class Establishment
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * 
+     * @ORM\Column(name="name", type="string", length=100, nullable=false)
+	 * 
+	 * @Assert\NotBlank()
+	 * @Assert\MaxLength(100)
      */
     private $name;
 
@@ -60,10 +64,8 @@ class Establishment
     /**
      * @var \Area
      *
-     * @ORM\ManyToOne(targetEntity="Area")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="area_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity="Area", inversedBy="establishments")
+	 * @ORM\JoinColumn(nullable=false)
      */
     private $area;
 
@@ -73,6 +75,7 @@ class Establishment
     public function __construct()
     {
         $this->schedule = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->enabled = true;
     }
 
 
