@@ -4,8 +4,10 @@
         <meta charset="UTF-8" />
         <title>Nameco</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        {% stylesheets  '../app/Resources/public/css/bootstrap.min.css'
-        				  '../app/Resources/public/css/exception.css' output='css/main.css' %}
+
+		<link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}" type="text/css" media="all" />
+
+        {% stylesheets '../app/Resources/public/css/exception.css' output='css/main.css' %}
         	<link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
 		{% endstylesheets %}
         {% block stylesheets %}{% endblock %}
@@ -20,6 +22,7 @@
     	<div id="wrapper">
         	{% block body %}{% endblock %}
         </div>
+        <script type="text/javascript" src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
