@@ -16,7 +16,10 @@ class EstablishmentRepository extends EntityRepository
     public function getOne()
     {
 		$q = $this->createQueryBuilder('e')
+				->select('e, a')
+				->leftJoin('e.area', 'a')
 				->orderBy('e.id', 'ASC')
+				->setMaxResults(1)
 				->getQuery();
 		try
 		{
@@ -35,20 +38,14 @@ class EstablishmentRepository extends EntityRepository
      */
     public function getMonthSchedules($id, $firstDay, $searchLastDay)
     {
-        $em = $this->getEntityManager();
-    	$query = $em->createQuery('
-    			SELECT s FROM NamecoSchedulerBundle:Schedule s
-    			JOIN s.establishment e
-    			WHERE e.id = :id
-    			AND (
-                                (s.startDatetime >= :firstDay AND s.startDatetime < :lastDay)
-                            OR  (s.startDatetime < :firstDay AND s.endDatetime > :lastDay)
-                        )
-    			ORDER BY s.startDatetime ASC')
+        return $this->getEntityManager()->createQuery(
+				'SELECT s FROM NamecoSchedulerBundle:Schedule s'
+				. ' JOIN s.establishment e WHERE e.id = :id AND ((s.startDatetime >= :firstDay AND s.startDatetime < :lastDay)'
+				. ' OR  (s.startDatetime < :firstDay AND s.endDatetime > :lastDay)) ORDER BY s.startDatetime ASC')
     	->setParameter('id',       $id)
     	->setParameter('firstDay', $firstDay)
-    	->setParameter('lastDay',  $searchLastDay);
-    	return $query->getResult();
+    	->setParameter('lastDay',  $searchLastDay)
+		->getResult();
     }
 
     public function isBooking(Schedule $schedule)

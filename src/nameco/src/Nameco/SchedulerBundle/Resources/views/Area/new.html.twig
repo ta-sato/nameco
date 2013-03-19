@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<h2>施設エリア登録</h2>
+<form action="{{ path('establishment_area_new') }}" method="post" {{ form_enctype(form) }}>
+	{{ form_errors(form) }}
+	<dl class="formlistitem">
+		<dt>エリア名</dt>
+		<dd>{{ form_errors(form.name) }}{{ form_widget(form.name) }}</dd>
+	</dl>
+	<p>
+		{{ form_rest(form) }}
+		<button type="submit">登録</button>
+	</p>
+</form>
+
+{% endblock %}
