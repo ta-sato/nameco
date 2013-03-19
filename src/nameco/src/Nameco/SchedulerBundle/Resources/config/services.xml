@@ -4,17 +4,21 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
-    <parameters>
-        <parameter key="nameco_user_scheduler.example.class">Nameco\SchedulerBundle\Example</parameter>
-    </parameters>
-
     <services>
-        <service id="nameco_user_scheduler.example" class="%nameco_user_scheduler.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="nameco.scheduler.admin" class="Nameco\UserBundle\Services\MenuItemService">
+			<argument type="collection">
+				<argument type="collection">
+					<argument key="name">施設エリア</argument>
+					<argument key="path">admin_establishment_area</argument>
+				</argument>
+				<argument type="collection">
+					<argument key="name">施設</argument>
+					<argument key="path">admin_establishment</argument>
+				</argument>
+			</argument>
+			<tag name="nameco.menuitem" />
         </service>
-    </services>
-    -->
+	</services>
+
+
 </container>

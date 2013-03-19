@@ -56,7 +56,7 @@ class ScheduleController extends SchedulerBaseController
 
         $users = $em->getRepository('NamecoUserBundle:User')->findAll();
 //        return array( 'year' => $year, 'month' => $month);
-		
+
         return array(
 			'year'      => $year,
 			'month'     => $month,

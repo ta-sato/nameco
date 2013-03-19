@@ -4,3 +4,17 @@ services:
         arguments:    [@router]
         tags:
             - { name: twig.extension }
+
+    nameco.menumanager:
+        class: Nameco\UserBundle\Services\MenuManagerService
+        
+    nameco.twig.menumanager:
+        class: Nameco\UserBundle\Twig\Extension\MenuManagerExtension
+        arguments: [@nameco.menumanager]
+        tags:
+            - { name: twig.extension }
+
+#    nameco.menu:
+#        class: Nameco\UserBundle\Services\MenuService
+#        arguments: [%nameco_user.menu.admin%]
+

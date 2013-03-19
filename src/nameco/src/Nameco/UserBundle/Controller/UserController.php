@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormError;
 class UserController extends Controller
 {
 	/**
-	 * @Route("/user/{page}", name="user", requirements={"page" = "\d+"}, defaults={"page" = "1"})
+	 * @Route("/admin/user/{page}", name="user", requirements={"page" = "\d+"}, defaults={"page" = "1"})
 	 */
 	public function indexAction($page)
 	{
@@ -31,7 +31,7 @@ class UserController extends Controller
 	}
     
 	/**
-	 * @Route("/user/new", name="user_new")
+	 * @Route("/admin/user/new", name="user_new")
 	 */
 	public function newAction()
 	{
@@ -50,7 +50,7 @@ class UserController extends Controller
 	}
 
 	/**
-	 * @Route("/user/edit/{id}", name="user_edit", requirements={"id"="\d+"})
+	 * @Route("/admin/user/edit/{id}", name="user_edit", requirements={"id"="\d+"})
 	 */
 	public function editAction($id)
 	{
@@ -68,7 +68,7 @@ class UserController extends Controller
 	}
 
 	/**
-	 * @Route("/user/remove/{id}", name="user_remove", requirements={"id"="\d+"})
+	 * @Route("/admin/user/remove/{id}", name="user_remove", requirements={"id"="\d+"})
 	 */
 	public function removeAction($id)
 	{

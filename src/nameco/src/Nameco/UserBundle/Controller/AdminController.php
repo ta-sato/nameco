@@ -18,7 +18,6 @@ class AdminController extends Controller
 	public function indexAction()
 	{
 		return $this->render('NamecoUserBundle:Admin:index.html.twig');
-			    
 	}
 }
 
