@@ -11,17 +11,13 @@
         	<link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
 		{% endstylesheets %}
         {% block stylesheets %}{% endblock %}
-		
-		{% javascripts "../app/Resources/public/js/jquery-1.8.3.min.js" 
-						 "../app/Resources/public/js/bootstrap.min.js" output='js/main.js' %}
-		      <script src="{{ asset_url }}" type="text/javascript"></script>
-		{% endjavascripts %}
     </head>
     <body>
     	{% include '::header.html.twig' %}
     	<div id="wrapper">
         	{% block body %}{% endblock %}
         </div>
+        <script type="text/javascript" src="{{ asset('jquery/js/jquery-1.9.1.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
