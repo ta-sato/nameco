@@ -1,8 +1,8 @@
-{% extends "::base.html.twig" %}
+{% extends "NamecoUserBundle:Admin:layout.html.twig" %}
 
-{% block body %}
+{% block admin_contents %}
 <h2>施設登録</h2>
-<form action="{{ path('establishment_new') }}" method="post" {{ form_enctype(form) }}>
+<form action="{{ path('admin_establishment_new') }}" method="post" {{ form_enctype(form) }}>
 	{{ form_errors(form) }}
 	<dl class="formlistitem">
 		<dt>施設名</dt>

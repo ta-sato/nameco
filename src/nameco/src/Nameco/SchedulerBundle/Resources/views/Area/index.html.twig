@@ -1,6 +1,6 @@
-{% extends "::base.html.twig" %}
+{% extends "NamecoUserBundle:Admin:layout.html.twig" %}
 
-{% block body %}
+{% block admin_contents %}
 <h2>施設エリア一覧</h2>
 
 <ul>
@@ -8,6 +8,8 @@
 	<li>{{ area.name }}</li>
 {% endfor %}
 </ul>
-<a href="{{ path('establishment_area_new') }}">新規登録</a>
-<a href="{{ path('home') }}">戻る</a>
-{% endblock %}
+<a href="{{ path('admin_establishment_area_new') }}">新規登録</a>
+{#
+<a href="{{ path('admin') }}">戻る</a>
+#}
+{% endblock admin_contents %}

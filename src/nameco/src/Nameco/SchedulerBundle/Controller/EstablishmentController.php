@@ -44,8 +44,6 @@ class EstablishmentController extends SchedulerBaseController
         $result = $repository->getMonthSchedules($estab->getId(), $firstDay, $lastDay);
 
     	// 施設名
-//    	$area   = $estab->getArea();
-//    	$e_name = $area->getName() . ' ' . $estab->getName();
         $areas = $em->getRepository('NamecoSchedulerBundle:Area')
 				->createQueryBuilder('es')
 				->orderBy('es.name', 'ASC')
@@ -81,8 +79,24 @@ class EstablishmentController extends SchedulerBaseController
     	return $this->redirect($this->generateUrl('establishment_month_id', $linkParam));
     }
 
+    /**
+     * 施設エリア一覧
+     * @Route("/admin/establishment", name="admin_establishment")
+     */
+    public function indexAction()
+    {
+		$em = $this->getDoctrine()->getManager();
+		
+        $establishments = $em->getRepository('NamecoSchedulerBundle:Establishment')->findAll();
+
+    	return $this->render('NamecoSchedulerBundle:Establishment:index.html.twig',
+				array(
+					'establishments' => $establishments,
+					));
+    }
+
 	/**
-     * @Route("/establishment/new", name="establishment_new")
+     * @Route("/admin/establishment/new", name="admin_establishment_new")
 	 */
 	public function newAction(Request $request)
 	{
@@ -96,7 +110,7 @@ class EstablishmentController extends SchedulerBaseController
                 $em->persist($entity);
                 $em->flush();
                 
-                return $this->redirect($this->generateUrl('establishment_month'));
+                return $this->redirect($this->generateUrl('admin_establishment'));
             }
         }
 

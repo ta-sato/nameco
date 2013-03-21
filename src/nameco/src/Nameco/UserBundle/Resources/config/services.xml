@@ -4,17 +4,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
-    <parameters>
-        <parameter key="nameco_admin_user.example.class">Nameco\UserBundle\Example</parameter>
-    </parameters>
-
     <services>
-        <service id="nameco_admin_user.example" class="%nameco_admin_user.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="nameco.usermenu.add" class="Nameco\UserBundle\Services\MenuItemService">
+			<argument type="collection">
+				<argument type="collection">
+					<argument key="name">ユーザ</argument>
+					<argument key="path">user</argument>
+				</argument>
+			</argument>
+			<tag name="nameco.menuitem" />
         </service>
-    </services>
-    -->
+	</services>
 </container>

@@ -16,7 +16,7 @@ class AreaController extends Controller
 {
     /**
      * 施設エリア一覧
-     * @Route("/establishment/area/", name="establishment_area")
+     * @Route("/admin/area/", name="admin_establishment_area")
      */
     public function indexAction()
     {
@@ -31,7 +31,7 @@ class AreaController extends Controller
     }
 	
 	/**
-     * @Route("/establishment/area/new", name="establishment_area_new")
+     * @Route("/admin/area/new", name="admin_establishment_area_new")
 	 */
 	public function newAction(Request $request)
 	{
@@ -45,7 +45,7 @@ class AreaController extends Controller
                 $em->persist($entity);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('establishment_area'));
+                return $this->redirect($this->generateUrl('admin_establishment_area'));
             }
         }
 

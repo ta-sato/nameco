@@ -1,0 +1,12 @@
+{% extends "NamecoUserBundle:Admin:layout.html.twig" %}
+
+{% block admin_contents %}
+<h2>施設一覧</h2>
+
+<ul>
+{% for es in establishments %}
+	<li>{{ es.name }}</li>
+{% endfor %}
+</ul>
+<a href="{{ path('admin_establishment_new') }}">新規登録</a>
+{% endblock admin_contents %}
