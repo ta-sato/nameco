@@ -1,17 +1,10 @@
 {% extends "::base.html.twig" %}
 
 {% block stylesheets %}
-	{{ parent() }}
 	<link href="{{ asset('bundles/namecouser/css/admin.css') }}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block body %}
-<div id="admin_contents" class="clearfix">
-	<div id="left_pane" class="pull-left">
-	    {% include 'NamecoUserBundle:Admin:menu.html.twig' %}
-	</div>
-	<div id="main_pane" class="pull-left">
-	    {% block admin_contents %}{% endblock %}
-	</div>
-</div>
+	<div class="span3">{% include 'NamecoUserBundle:Admin:menu.html.twig' %}</div>
+	<div class="span9">{% block admin_contents %}{% endblock %}</div>
 {% endblock body %}

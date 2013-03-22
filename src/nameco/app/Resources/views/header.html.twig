@@ -1,24 +1,18 @@
-<div class="navbar navbar-inverse navbar-static-top">
+<div class="navbar navbar-inverse">
 	<div class="navbar-inner">
-	    <a class="brand" href="{{ path('home') }}">Nameco</a>
-		{% set token =app.security.getToken() %}
-		{% if token != null %}
-			{% if token.getUser() is defined  %}
-			    <ul class="nav pull-right">
-				    <li class="dropdown" >
-				    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						{% if token.getUser().getName is defined %}{{ token.getUser().getName }}{% endif %}
-				    	<b class="caret"></b>
-				    	</a>
-				    	<ul class="dropdown-menu">
-				    		{% if is_granted('ROLE_ADMIN') %}
-	                            <li><a tabindex="-1" href="{{ path('admin') }}">管理</a></li>
-	                        {% endif %}
-				    		<li><a tabindex="-1" href="{{ path('logout') }}">ログアウト</a></li>
-				    	</ul>
-				    </li>
-			    </ul>
-		    {% endif %}
-	    {% endif %}
-	</div> 
+		<a class="brand" href="{{ path('home') }}">Nameco</a>
+		{% if app.user  %}
+			<ul class="nav pull-right">
+				<li class="dropdown" >
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.name }}<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						{% if is_granted('ROLE_ADMIN') %}
+							<li><a tabindex="-1" href="{{ path('admin') }}">管理</a></li>
+						{% endif %}
+						<li><a tabindex="-1" href="{{ path('logout') }}">ログアウト</a></li>
+					</ul>
+				</li>
+			</ul>
+		{% endif %}
+	</div>
 </div>

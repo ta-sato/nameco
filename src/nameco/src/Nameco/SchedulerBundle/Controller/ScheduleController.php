@@ -55,7 +55,6 @@ class ScheduleController extends SchedulerBaseController
         $result = $em->getRepository('NamecoSchedulerBundle:Schedule')->getUserMonthSchedules($user->getId(), $firstDay, $lastDay);
 
         $users = $em->getRepository('NamecoUserBundle:User')->findAll();
-//        return array( 'year' => $year, 'month' => $month);
 
         return array(
 			'year'      => $year,
@@ -65,10 +64,7 @@ class ScheduleController extends SchedulerBaseController
 			'week'      => $week,
 			'schedules' => $result,
 			'user'      => $user,
-//			'id'        => $id,
-//			'userId'    => $id,
 			'dispDate'  => $dispDate,
-//			'dispTargetLabel' => $user->getName(),
 			'users' => $users,
 			);
     }

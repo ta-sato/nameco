@@ -51,22 +51,6 @@ class User implements AdvancedUserInterface
 	 */
 	private $salt;
 
-//	/**
-//	 * @var string
-//	 *
-//	 * @ORM\Column(name="name", type="string", length=255, nullable=false)
-//	 * @Expose
-//	 * @SerializedName("text")
-//	 */
-//	private $name;
-//
-//	/**
-//	 * @var string
-//	 *
-//	 * @ORM\Column(name="kana", type="string", length=255, nullable=false)
-//	 */
-//	private $kana;
-
 	/**
 	 * @var string
 	 *
@@ -96,34 +80,12 @@ class User implements AdvancedUserInterface
 	 */
 	private $updated;
 
-//	/**
-//	 * @var \Doctrine\Common\Collections\Collection
-//	 *
-//	 * @ORM\ManyToMany(targetEntity="User", inversedBy="user")
-//	 * @ORM\JoinTable(name="bookmark",
-//	 *   joinColumns={
-//	 *     @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-//	 *   },
-//	 *   inverseJoinColumns={
-//	 *     @ORM\JoinColumn(name="bookmark_user_id", referencedColumnName="id")
-//	 *   }
-//	 * )
-//	 */
-//	private $bookmarkUser;
-
-//	/**
-//	 * @var \Doctrine\Common\Collections\Collection
-//	 *
-//	 * @ORM\ManyToMany(targetEntity="Schedule", mappedBy="user")
-//	 */
-//	private $schedule;
-
 	/**
 	 * @ORM\Column(name="family_name", type="string", length=50, nullable=false)
 	 * 
 	 * @Assert\NotNull()
 	 * @Assert\NotBlank()
-	 * @Assert\MaxLength(limit=50, message="{{ limit }}文字以内で入力してください")
+	 * @Assert\MaxLength(limit=50, message="姓は{{ limit }}文字以内で入力してください")
 	 * @var string
 	 */
 	private $family_name;
@@ -133,7 +95,7 @@ class User implements AdvancedUserInterface
 	 * 
 	 * @Assert\NotNull()
 	 * @Assert\NotBlank()
-	 * @Assert\MaxLength(limit=50, message="{{ limit }}文字以内で入力してください")
+	 * @Assert\MaxLength(limit=50, message="名は{{ limit }}文字以内で入力してください")
 	 * @var string
 	 */
 	private $first_name;
@@ -143,11 +105,11 @@ class User implements AdvancedUserInterface
 	 * 
 	 * @Assert\NotNull()
 	 * @Assert\NotBlank()
-	 * @Assert\MaxLength(limit=50, message="{{ limit }}文字以内で入力してください")
+	 * @Assert\MaxLength(limit=50, message="姓は{{ limit }}文字以内で入力してください")
 	 * @Assert\Regex(
 	 * 		pattern="/^[ァ-ヾ]+$/u",
 	 * 		match=true,
-	 * 		message="カタカナで入力してください"
+	 * 		message="姓はカタカナで入力してください"
 	 * )
 	 * @var string
 	 */
@@ -158,11 +120,11 @@ class User implements AdvancedUserInterface
 	 * 
 	 * @Assert\NotNull()
 	 * @Assert\NotBlank()
-	 * @Assert\MaxLength(limit=50, message="{{ limit }}文字以内で入力してください")
+	 * @Assert\MaxLength(limit=50, message="名は{{ limit }}文字以内で入力してください")
 	 * @Assert\Regex(
 	 * 		pattern="/^[ァ-ヾ]+$/u",
 	 * 		match=true,
-	 * 		message="カタカナで入力してください"
+	 * 		message="名はカタカナで入力してください"
 	 * )
 	 * @var string
 	 */
