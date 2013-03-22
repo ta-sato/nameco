@@ -1,6 +1,3 @@
-window.onload = function() {
-	User.init();
-};
 
 var User =
 {
@@ -24,7 +21,8 @@ var User =
 			$('#remove_confirm').modal('hide');
 			return false;
 		});
-
-
 	}
-}
+};
+
+$(document).ready(User.init);
+
