@@ -1,6 +1,6 @@
 <ul class="nav nav-pills nav-stacked">
-	{% set cur = app.request.attributes.get('_route') %}
+	{% set cur = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
 	{% for menu in menumanager.items %}
-    <li {% if cur == menu.path or (cur == 'admin' and loop.first) %}class="active"{% endif %}><a href="{{ path(menu.path) }}">{{ menu.name }}</a></li>
+    <li {% if cur|slice(0, path(menu.path)|length) == path(menu.path) %}class="active"{% endif %}><a href="{{ path(menu.path) }}">{{ menu.name }}</a></li>
 	{% endfor %}
 </ul>

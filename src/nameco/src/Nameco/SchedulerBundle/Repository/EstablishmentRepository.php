@@ -79,4 +79,20 @@ class EstablishmentRepository extends EntityRepository
         }
         return false;
     }
+	
+	/**
+	 * エリアが設定されている施設の数を返す
+	 * 
+	 * @param type $id エリアID
+	 * @return type 施設数
+	 */
+	public function countArea($id)
+	{
+		return $this->createQueryBuilder('e')
+				->select('COUNT(e.id)')
+				->leftJoin('e.area', 'a')
+				->where('a.id=:area_id')
+				->setParameter('area_id', $id)
+				->getQuery()->getSingleScalarResult();
+	}
 }

@@ -1,12 +1,15 @@
-{% block field_errors %}
+{% block form_errors %}
 {% spaceless %}
     {% if errors|length > 0 %}
     <ul class="formerrorlist unstyled text-error">
         {% for error in errors %}
-            <li>{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</li>
+            <li>{{
+                error.messagePluralization is null
+                    ? error.messageTemplate|trans(error.messageParameters, 'validators')
+                    : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
+            }}</li>
         {% endfor %}
     </ul>
     {% endif %}
 {% endspaceless %}
-{% endblock field_errors %}
-
+{% endblock form_errors %}

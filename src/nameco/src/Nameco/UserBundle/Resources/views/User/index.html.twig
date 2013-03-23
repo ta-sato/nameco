@@ -27,7 +27,7 @@
 		</thead>
 		<tbody>
 		    {% for user in users %}
-			<tr class="{% if user.isActive == false %}muted{% endif %}">
+			<tr{% if user.isActive == false %} class="muted"{% endif %}>
 			    <td><a href="{{path('user_edit', {'id' : user.id }) }}" title="編集"><i class="icon-pencil"></i></a></td>
 			    <td>{{user.familyName}}</td>
 			    <td>{{user.firstName}}</td>

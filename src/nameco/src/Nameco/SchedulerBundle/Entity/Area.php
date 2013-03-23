@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="area")
  * @ORM\Entity(repositoryClass="Nameco\SchedulerBundle\Repository\AreaRepository")
- * @UniqueEntity("name")
+ * @UniqueEntity(fields="name", message="既に登録されています")
  * @ORM\HasLifecycleCallbacks()
  */
 class Area
