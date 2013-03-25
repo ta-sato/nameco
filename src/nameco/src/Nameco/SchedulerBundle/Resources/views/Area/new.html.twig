@@ -1,16 +1,25 @@
 {% extends "NamecoUserBundle:Admin:layout.html.twig" %}
 
+{% form_theme form 'NamecoUserBundle:Form:fields.html.twig' %}	
+
 {% block admin_contents %}
-<h2>施設エリア登録</h2>
-<form action="{{ path('admin_establishment_area_new') }}" method="post" {{ form_enctype(form) }}>
-	{{ form_errors(form) }}
-	<dl class="formlistitem">
-		<dt>エリア名</dt>
-		<dd>{{ form_errors(form.name) }}{{ form_widget(form.name) }}</dd>
-	</dl>
-	<p>
-		{{ form_rest(form) }}
-		<button type="submit">登録</button>
-	</p>
+<div class="page-header">
+	<h2>施設エリア{% block actionname %}登録{% endblock %}</h2>
+</div>
+{{ form_errors(form) }}
+<form action="{% block actionpath %}{{ path('admin_establishment_area_new') }}{% endblock %}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+	<div class="control-group {% if form.name.vars.errors|length %} error {% endif %}">
+		<label class="control-label">エリア名</label>
+		<div class="controls">
+			{{ form_widget(form.name, {'attr': {'class': 'span3'}}) }}
+			{{ form_errors(form.name) }}
+		</div>
+	</div>
+	{{ form_rest(form) }}
+	<div class="btn-toolbar text-center">
+		<div class="btn-group">
+			<button class="btn btn-primary" type="submit">保存</button>
+		</div>
+	</div>
 </form>
 {% endblock %}
