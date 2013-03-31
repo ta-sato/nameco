@@ -88,40 +88,107 @@ class EstablishmentController extends SchedulerBaseController
 		$em = $this->getDoctrine()->getManager();
 		
         $establishments = $em->getRepository('NamecoSchedulerBundle:Establishment')->findAll();
-
+		$form = $this->createDeleteForm(null);
     	return $this->render('NamecoSchedulerBundle:Establishment:index.html.twig',
 				array(
 					'establishments' => $establishments,
+					'delete_form' => $form->createView(),
 					));
     }
 
+//	/**
+//     * @Route("/admin/establishment/new", name="admin_establishment_new")
+//	 */
+//	public function newAction(Request $request)
+//	{
+//        $entity  = new Establishment();
+//        $form    = $this->createForm(new EstablishmentType(), $entity);
+//        if ($request->isMethod('POST'))
+//        {
+//            $form->bind($request);
+//           if ($form->isValid()) {
+//                $em = $this->getDoctrine()->getEntityManager();
+//                $em->persist($entity);
+//                $em->flush();
+//                
+//                return $this->redirect($this->generateUrl('admin_establishment'));
+//            }
+//        }
+//
+//        $renderParam = array(
+//            'entity' => $entity,
+//            'form'   => $form->createView(),
+//            );
+//
+//        return $this->render('NamecoSchedulerBundle:Establishment:new.html.twig', $renderParam);
+//	}
+//	
+	
 	/**
      * @Route("/admin/establishment/new", name="admin_establishment_new")
 	 */
-	public function newAction(Request $request)
+	public function newAction()
 	{
         $entity  = new Establishment();
-        $form    = $this->createForm(new EstablishmentType(), $entity);
+		return $this->prepareForm($entity, 'new');
+	}
+
+	/**
+	 * @Route("/admin/establishment/edit/{id}", name="admin_establishment_edit", requirements={"id"="\d+"})
+	 */
+	public function editAction($id)
+	{
+		$em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NamecoSchedulerBundle:Establishment')->find($id);
+		return $this->prepareForm($entity, 'edit');
+	}
+
+	/**
+	 * @Route("/admin/establishment/delete", name="admin_establishment_delete")
+	 */
+	public function deleteAction(Request $request)
+	{
+        $form = $this->createDeleteForm(null);
+        $form->bindRequest($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+			$entity = $em->getRepository('NamecoSchedulerBundle:Establishment')->find($form['id']->getData());
+			$em->remove($entity);
+			$em->flush();
+			$this->get('session')->getFlashBag()->add('success', '削除しました。');
+        }
+		return $this->redirect($this->generateUrl('admin_establishment'));
+	}
+
+	private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder(array('id' => $id))
+            ->add('id', 'hidden')
+            ->getForm()
+        ;
+    }
+	
+	protected function prepareForm($entity, $template)
+	{
+        $form = $this->createForm(new EstablishmentType(), $entity);
+		$request = $this->getRequest();
         if ($request->isMethod('POST'))
         {
             $form->bind($request);
            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
-                
+				$this->get('session')->getFlashBag()->add('success', '保存しました');
+
                 return $this->redirect($this->generateUrl('admin_establishment'));
             }
         }
 
-        $renderParam = array(
+		return $this->render('NamecoSchedulerBundle:Establishment:'.$template.'.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            );
-
-        return $this->render('NamecoSchedulerBundle:Establishment:new.html.twig', $renderParam);
+            ));
 	}
-	
-	
 	
 }

@@ -19,6 +19,7 @@
 	{% endfor %}
 
 <p><a href="{{path('admin_establishment_area_new')}}"><i class="icon-plus-sign"></i>&nbsp;新規</a></p>
+{% if areas %}
 <table class="table table-striped table-hover table-condensed">
 	<thead>
 		<tr>
@@ -35,6 +36,9 @@
 		{% endfor%}
 	</tbody>
 </table>
+{% else %}
+<p>登録されている施設エリアはありません</p>
+{% endif %}
 
 <div id="remove_confirm" class="modal hide fade">
 	<div class="modal-header">

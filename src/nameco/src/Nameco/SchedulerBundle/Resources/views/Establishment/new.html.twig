@@ -1,21 +1,33 @@
 {% extends "NamecoUserBundle:Admin:layout.html.twig" %}
 
-{% block admin_contents %}
-<h2>施設登録</h2>
-<form action="{{ path('admin_establishment_new') }}" method="post" {{ form_enctype(form) }}>
-	{{ form_errors(form) }}
-	<dl class="formlistitem">
-		<dt>施設名</dt>
-		<dd>{{ form_errors(form.name) }}{{ form_widget(form.name) }}</dd>
-	</dl>
-	<dl class="formlistitem">
-		<dt>エリア</dt>
-		<dd>{{ form_errors(form.area) }}{{ form_widget(form.area) }}</dd>
-	</dl>
-	<p>
-		{{ form_rest(form) }}
-		<button type="submit">登録</button>
-	</p>
-</form>
+{% form_theme form 'NamecoUserBundle:Form:fields.html.twig' %}	
 
+{% block admin_contents %}
+<div class="page-header">
+	<h2>施設{% block actionname %}登録{% endblock %}</h2>
+</div>
+{{ form_errors(form) }}
+<form action="{% block actionpath %}{{ path('admin_establishment_new') }}{% endblock %}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+	<div class="control-group {% if form.name.vars.errors|length %} error {% endif %}">
+		<label class="control-label">施設名</label>
+		<div class="controls">
+			{{ form_widget(form.name, {'attr': {'class': 'span3'}}) }}
+			{{ form_errors(form.name) }}
+		</div>
+	</div>
+	<div class="control-group {% if form.area.vars.errors|length %} error {% endif %}">
+		<label class="control-label">エリア</label>
+		<div class="controls">
+			{{ form_widget(form.area) }}
+			{{ form_errors(form.area) }}
+		</div>
+	</div>
+	{{ form_rest(form) }}
+	<div class="btn-toolbar text-center">
+		<div class="btn-group">
+			<button class="btn btn-primary" type="submit">保存</button>
+		</div>
+	</div>
+</form>
 {% endblock %}
+
