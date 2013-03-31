@@ -3,9 +3,7 @@
 {% form_theme form 'NamecoUserBundle:Form:fields.html.twig' %}	
 
 {% block admin_contents %}
-<div class="page-header">
-	<h2>施設{% block actionname %}登録{% endblock %}</h2>
-</div>
+<p>施設{% block actionname %}登録{% endblock %}</p>
 {{ form_errors(form) }}
 <form action="{% block actionpath %}{{ path('admin_establishment_new') }}{% endblock %}" method="post" {{ form_enctype(form) }} class="form-horizontal">
 	<div class="control-group {% if form.name.vars.errors|length %} error {% endif %}">

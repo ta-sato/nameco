@@ -6,11 +6,6 @@
 {% endblock %}
 
 {% block admin_contents %}
-
-<div class="page-header">
-	<h2>施設一覧</h2>
-</div>
-
 	{% for flashMessage in app.session.flashbag.get('success') %}
 	    <div class="alert alert-success">{{flashMessage}}</div>
 	{% endfor %}

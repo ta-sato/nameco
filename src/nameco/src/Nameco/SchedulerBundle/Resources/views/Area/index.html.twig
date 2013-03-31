@@ -7,16 +7,12 @@
 
 {% block admin_contents %}
 
-<div class="page-header">
-	<h2>施設エリア</h2>
-</div>
-
-	{% for flashMessage in app.session.flashbag.get('success') %}
-	    <div class="alert alert-success">{{flashMessage}}</div>
-	{% endfor %}
-	{% for flashMessage in app.session.flashbag.get('error') %}
-	    <div class="alert alert-error">{{flashMessage}}</div>
-	{% endfor %}
+{% for flashMessage in app.session.flashbag.get('success') %}
+	<div class="alert alert-success">{{flashMessage}}</div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('error') %}
+	<div class="alert alert-error">{{flashMessage}}</div>
+{% endfor %}
 
 <p><a href="{{path('admin_establishment_area_new')}}"><i class="icon-plus-sign"></i>&nbsp;新規</a></p>
 {% if areas %}

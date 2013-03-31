@@ -45,12 +45,8 @@ class EstablishmentController extends SchedulerBaseController
 
         $holidays = $em->getRepository('NamecoSchedulerBundle:Holiday')->getHolidays($firstDay, $lastDay);
 
-    	// 施設名
-        $areas = $em->getRepository('NamecoSchedulerBundle:Area')
-				->createQueryBuilder('es')
-				->orderBy('es.name', 'ASC')
-				->getQuery()
-				->getResult();
+    	// 施設選択用アイテム取得
+        $areas = $em->getRepository('NamecoSchedulerBundle:Area')->findEstablishmentArea();
 
     	return $this->render('NamecoSchedulerBundle:Establishment:month.html.twig',
 				array(
