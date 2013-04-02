@@ -15,7 +15,7 @@ var Schedule =
 			});
 		});
 		$(document).on('submit', 'form#form-schedule', function(){
-//		$('form#form-schedule').live('submit', function(){
+//		$('form#form-schedule').on('submit', function(){
 			Schedule.submitScheduleForm(this);
 			return false;
 		});
