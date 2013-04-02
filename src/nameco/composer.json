@@ -4,6 +4,24 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "nanaweb/japaneseHoliday-bundle",
+                "version": "dev-master",
+                "dist": {
+                    "url": "https://github.com/77web/NanawebJapaneseHolidayBundle/zipball/master",
+                    "type": "zip"
+                },
+                "source": {
+                    "url": "https://github.com/77web/NanawebJapaneseHolidayBundle.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        }
+    ],
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.1.*",
@@ -23,7 +41,8 @@
         "phpunit/phpunit": "3.7.*",
 		"doctrine/doctrine-fixtures-bundle": "dev-master",
 		"doctrine/data-fixtures": "dev-master",
-		"knplabs/knp-paginator-bundle": "dev-master"
+		"knplabs/knp-paginator-bundle": "dev-master",
+        "nanaweb/japaneseHoliday-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

@@ -43,6 +43,8 @@ class EstablishmentController extends SchedulerBaseController
         list($firstDay, $lastDay, $week, $dispDate) = $this->calcMonthRange($year, $month);
         $result = $repository->getMonthSchedules($estab->getId(), $firstDay, $lastDay);
 
+        $holidays = $em->getRepository('NamecoSchedulerBundle:Holiday')->getHolidays($firstDay, $lastDay);
+
     	// 施設名
         $areas = $em->getRepository('NamecoSchedulerBundle:Area')
 				->createQueryBuilder('es')
@@ -59,9 +61,10 @@ class EstablishmentController extends SchedulerBaseController
 					'dispDate'        => $dispDate,
 					'year'            => $year,
 					'month'           => $month,
-					'estab'			=> $estab,
-					'areas' => $areas,
-					'user'  => $user = $this->getUser(),
+					'estab'			  => $estab,
+					'areas'           => $areas,
+					'user'            => $user = $this->getUser(),
+                    'holidays'        => $holidays,
 					));
     }
 
