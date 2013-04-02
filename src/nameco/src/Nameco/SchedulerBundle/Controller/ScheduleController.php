@@ -54,6 +54,8 @@ class ScheduleController extends SchedulerBaseController
         $em = $this->getDoctrine()->getEntityManager();
         $result = $em->getRepository('NamecoSchedulerBundle:Schedule')->getUserMonthSchedules($user->getId(), $firstDay, $lastDay);
 
+        $holidays = $em->getRepository('NamecoSchedulerBundle:Holiday')->getHolidays($firstDay, $lastDay);
+
         $users = $em->getRepository('NamecoUserBundle:User')->findAll();
 
         return array(
@@ -65,7 +67,8 @@ class ScheduleController extends SchedulerBaseController
 			'schedules' => $result,
 			'user'      => $user,
 			'dispDate'  => $dispDate,
-			'users' => $users,
+			'users'     => $users,
+            'holidays'  => $holidays,
 			);
     }
 

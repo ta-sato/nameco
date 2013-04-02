@@ -1,5 +1,5 @@
 {
-    "hash": "0d1ce1801cc3bbcdff468a545b5b4a58",
+    "hash": "01fafb9bfd491db683e99f257b48ca84",
     "packages": [
         {
             "name": "doctrine/common",
@@ -1117,6 +1117,23 @@
             "time": "2012-08-29 11:53:20"
         },
         {
+            "name": "nanaweb/japaneseHoliday-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/77web/NanawebJapaneseHolidayBundle.git",
+                "reference": "master"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/77web/NanawebJapaneseHolidayBundle/zipball/master",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library",
+            "time": "2012-09-12 13:23:25"
+        },
+        {
             "name": "phpcollection/phpcollection",
             "version": "0.2.0",
             "source": {
@@ -2133,7 +2150,8 @@
         "kriswallsmith/assetic": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
         "doctrine/data-fixtures": 20,
-        "knplabs/knp-paginator-bundle": 20
+        "knplabs/knp-paginator-bundle": 20,
+        "nanaweb/japaneseholiday-bundle": 20
     },
     "platform": {
         "php": ">=5.3.3"
