@@ -1,19 +1,15 @@
 {% extends 'NamecoSchedulerBundle::base.html.twig' %}
 
-{% block navigation %}
-    {% include 'NamecoSchedulerBundle:Base:navigation.html.twig'
-        with {'routeName': 'schedule_month_id_ym', 'selectRouteName':'schedule_selected_month', 'id': user.id, 'dispTargetLabel': user.name } %}
-{% endblock %}
+{% block paginationRoute %}schedule_month_id_ym{% endblock %}
+{% block calendarRoute %}schedule_selected_month{% endblock %}
+{% block calendarId %}{{user.id}}{% endblock %}
+{% block calendarTitle %}{{user.name}}{% endblock %}
+{% block selectCalendarLabel %}ユーザ選択{% endblock %}
 
-{% block submenu %}
-	<div class="dropdown">
-		<button class="btn btn-large dropdown-toggle" data-toggle="dropdown">ユーザ選択</button>
-		<ul class="dropdown-menu">
-			{% for u in users %}
-				<li><a tabindex="-1" href="{{ path('schedule_month_id_ym', {'id': u.id, 'year': year, 'month': month}) }}">{{ u.name }}</a></li>
-			{% endfor %}
-		</ul>
-	</div>
+{% block select_calendar_menu %}
+	{% for u in users %}
+		<li><a tabindex="-1" href="{{ path('schedule_month_id_ym', {'id': u.id, 'year': year, 'month': month}) }}">{{ u.name }}</a></li>
+	{% endfor %}
 {% endblock %}
 
 {% block createurl %}

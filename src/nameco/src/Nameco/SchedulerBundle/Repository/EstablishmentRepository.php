@@ -17,6 +17,7 @@ class EstablishmentRepository extends EntityRepository
     {
 		$q = $this->createQueryBuilder('e')
 				->select('e, a')
+				->where('e.enabled=true')
 				->leftJoin('e.area', 'a')
 				->orderBy('e.id', 'ASC')
 				->setMaxResults(1)

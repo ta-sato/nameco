@@ -21,74 +21,107 @@
 {% endblock %}
 
 {% block body %}
-	<div id="contents" class="clearfix">
-		<div id="left_pane">
-			<div id="main_menu">
-				<a class="btn btn-primary btn-large" href="{{ path('schedule_month') }}">スケジュール</a>
-				<a class="btn btn-primary btn-large" href="{{ path('establishment_month') }}">施設予約</a>
-				{#
-					TODO システムメニュー
-				<a href="{{ path('establishment_area') }}">施設エリア一覧</a>
-				<a href="{{ path('establishment_new') }}">施設登録</a>
-				#}
-			</div>
-			<div id="sub_menu">
-				{% block submenu %}	{% endblock submenu %}
-			</div>
-		</div>
-
-		<div id="calendar_pane">
-			{% block navigation %}{% endblock %}
-
-			<ul id="schedules" style="display: none">
-			{% for s in schedules %}
-				<li>
-					<div class="title">{{ s.title }}</div>
-					<div class="id">{{ s.id }}</div>
-					<div class="start_date">{{ s.startDatetime|date("Ymd") }}</div>
-					<div class="start_time">{{ s.startDatetime|date("H:i") }}</div>
-					<div class="end_date">{{ s.endDatetime|date("Ymd") }}</div>
-					<div class="end_time">{{ s.endDatetime|date("H:i") }}</div>
-				</li>
-			{% endfor %}
-			</ul>
-			<ul id="weekday" class="clearfix">
-				<li>月</li><li>火</li><li>水</li><li>木</li><li>金</li><li>土</li><li>日</li>
-			</ul>
-			<div id="grid_pane">
-				<table id="calender_bg" class="">
-					<thead><tr>
-						{% for n in 0..6 %} <th class="bg_week_{{ n }}">&nbsp;</th> {% endfor %}
-					</tr></thead>
-					<tbody><tr>
-						{% for n in 0..6 %} <td class="bg_week_{{ n }}">&nbsp;</td> {% endfor %}
-					</tr></tbody>
-				</table>
-				{% set h_date = start %}
-				{% for i in 1..week %}
-				<div class="week_row">
-					<table class="week_schedule_row" id="table_{{ i }}">
-						<thead>
-							<tr class="date_row" id="week_{{ i }}">
-							{% for n in 0..6 %}
-                                {% if holidays[h_date|date("Y-m-d")] == "" %}
-								<th id="date_{{ h_date|date("Ymd") }}" class="weekday_{{ n }} weekday">
-                                {% else %}
-								<th id="date_{{ h_date|date("Ymd") }}" class="bg_week_6 weekday_6 weekday">
-                                {% endif %}
-									{{ h_date|date("m月d日") }}<a href="#"><i class="icon-plus-sign"></i></a><span style="font-size:80%">{{ holidays[h_date|date("Y-m-d")] }}</span>
-								</th>
-								{% set h_date = h_date|date_modify("+1 day") %}
-							{% endfor %}
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
+	<div class="span2">
+		<ul class="nav nav-pills nav-stacked">
+			<li><a href="{{ path('schedule_month') }}">スケジュール</a></li>
+			<li><a href="{{ path('establishment_month') }}">施設予約</a></li>
+		</ul>
+	</div>
+	<div class="span10">
+		<div class="row">
+			<div class="span4">
+				<div class="btn-toolbar">
+					{% set prevDate = dispDate|date_modify('-1 month') %}
+					{% set nextDate = dispDate|date_modify('+1 month') %}
+					{% set paginationRoute = block('paginationRoute') %}
+					{% set calendarId = block('calendarId') %}
+					{% set calendarRoute = block('calendarRoute') %}
+					<div class="btn-group">
+						<a class="btn" href="{{ path(paginationRoute, {'id': calendarId, 'year': prevDate|date('Y'), 'month': prevDate|date('m')}) }}">←</a>
+					</div>
+					<div class="btn-group">
+						<span style="display: inline-block; font-size: 14px; vertical-align: middle;">{{ dispDate|date('Y年 n月') }}</span>
+					</div>
+					<div class="btn-group">
+						<a class="btn" href="{{ path(paginationRoute, {'id': calendarId, 'year': nextDate|date('Y'), 'month': nextDate|date('m')}) }}">→</a>
+					</div>
+					<div class="btn-group">
+						{% set nowDate  = date() %}
+						<a class="btn" href="{{ path(paginationRoute, {'id': calendarId, 'year': nowDate|date('Y'), 'month': nowDate|date('m') }) }}">今月</a>
+						<a class="btn" data-date="pickerDate" data-date-format="yyyy-mm-dd" id="selectDateButton" href="#"><i class="icon-calendar"></i></a>
+					</div>
+					<form id="salectDateForm" action="{{ path(calendarRoute) }}" method="post" style="display:inline;">
+						<input type="hidden" name="idVal" value="{{ calendarId }}"/>
+						<input type="hidden" name="y"/>
+						<input type="hidden" name="m"/>
+					</form>
 				</div>
-				{% endfor %}
 			</div>
-			<div id="register-modal" class="modal hide fade"></div>
+			<div class="span6">
+				<div class="btn-toolbar">
+					<div class="btn-group">
+					</div>
+					<div class="btn-group">
+						<span style="display: inline-block; font-size: 14px; vertical-align: middle;">{% block calendarTitle %}{% endblock %}</span>
+					</div>
+					<div class="btn-group">
+						<button class="btn dropdown-toggle" data-toggle="dropdown">{% block selectCalendarLabel %}{% endblock %}</button>
+						<ul class="dropdown-menu">
+							{% block select_calendar_menu %}{% endblock %}
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
+
+		<ul id="schedules" style="display: none">
+		{% for s in schedules %}
+			<li>
+				<div class="title">{{ s.title }}</div>
+				<div class="id">{{ s.id }}</div>
+				<div class="start_date">{{ s.startDatetime|date("Ymd") }}</div>
+				<div class="start_time">{{ s.startDatetime|date("H:i") }}</div>
+				<div class="end_date">{{ s.endDatetime|date("Ymd") }}</div>
+				<div class="end_time">{{ s.endDatetime|date("H:i") }}</div>
+			</li>
+		{% endfor %}
+		</ul>
+		<ul id="weekday" class="clearfix">
+			<li>月</li><li>火</li><li>水</li><li>木</li><li>金</li><li>土</li><li>日</li>
+		</ul>
+		<div id="grid_pane">
+			<table id="calender_bg" class="">
+				<thead><tr>
+					{% for n in 0..6 %} <th class="bg_week_{{ n }}">&nbsp;</th> {% endfor %}
+				</tr></thead>
+				<tbody><tr>
+					{% for n in 0..6 %} <td class="bg_week_{{ n }}">&nbsp;</td> {% endfor %}
+				</tr></tbody>
+			</table>
+			{% set h_date = start %}
+			{% for i in 1..week %}
+			<div class="week_row">
+				<table class="week_schedule_row" id="table_{{ i }}">
+					<thead>
+						<tr class="date_row" id="week_{{ i }}">
+						{% for n in 0..6 %}
+                            {% if holidays[h_date|date("Y-m-d")] == "" %}
+                            <th id="date_{{ h_date|date("Ymd") }}" class="weekday_{{ n }} weekday">
+                            {% else %}
+                            <th id="date_{{ h_date|date("Ymd") }}" class="bg_week_6 weekday_6 weekday">
+                            {% endif %}
+                                {{ h_date|date("m月d日") }}<a href="#"><i class="icon-plus-sign"></i></a><div style="font-size:80%">{{ holidays[h_date|date("Y-m-d")] }}</div>
+							</th>
+							{% set h_date = h_date|date_modify("+1 day") %}
+						{% endfor %}
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+			{% endfor %}
+		</div>
+		<div id="register-modal" class="modal hide fade"></div>
 	</div>
 	{% block createurl %}{% endblock %}
 {#

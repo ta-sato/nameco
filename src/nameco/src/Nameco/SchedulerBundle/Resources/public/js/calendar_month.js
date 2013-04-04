@@ -59,7 +59,7 @@ var Month =
 			}
 		});
 
-		$('#calender_bg').height($('#calendar_pane').height());
+		$('#calender_bg').height($('#grid_pane').height());
 	},
 
 	setCalendar : function(item)

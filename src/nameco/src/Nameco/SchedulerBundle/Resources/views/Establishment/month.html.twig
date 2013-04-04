@@ -1,32 +1,29 @@
 {% extends 'NamecoSchedulerBundle::base.html.twig' %}
 
-{% block navigation %}
+{% block paginationRoute %}establishment_month_id{% endblock %}
+{% block calendarRoute %}establishment_select_date{% endblock %}
+{% block calendarId %}{{ estab.id }}{% endblock %}
+{% block calendarTitle %}
 	{% if estab.area is not null %}
-		{% set dtl = estab.area.name ~ ' ' ~ estab.name %}
+		{{ estab.area.name ~ ' ' ~ estab.name }}
 	{% else %}
-		{% set dtl = estab.name %}
+		{{ estab.name }}
 	{% endif %}
-	
-	{% include 'NamecoSchedulerBundle:Base:navigation.html.twig'
-		with {'routeName': 'establishment_month_id', 'selectRouteName':'establishment_select_date', 'id': estab.id, 'dispTargetLabel': dtl } %}
-
 {% endblock %}
+{% block selectCalendarLabel %}施設選択{% endblock %}
 
-{% block submenu %}
-	<div class="dropdown">
-		<button class="btn btn-large dropdown-toggle" data-toggle="dropdown">施設選択</button>
-		<ul class="dropdown-menu">
-		{% if areas is not null %}
-			{% for area in areas %}
-				<li>{{ area.name }}</li>
-				{% for es in area.establishments %}
-					<li><a tabindex="-1" href="{{ path('establishment_month_id', {'id': es.id, 'year': year, 'month': month}) }}">{{ es.name }}</a></li>
-				{% endfor %}
-				</li>
-			{% endfor %}
-		{% endif %}
-		</ul>
-	</div>
+{% block select_calendar_menu %}
+	{% if areas is not null %}
+		{% for area in areas %}
+			<li class="dropdown-submenu"><a href="#" tabindex="-1">{{ area.name }}</a>
+				<ul class="dropdown-menu">
+					{% for es in area.establishments %}
+						<li><a tabindex="-1" href="{{ path('establishment_month_id', {'id': es.id, 'year': year, 'month': month}) }}">{{ es.name }}</a></li>
+					{% endfor %}
+				</ul>
+			</li>
+		{% endfor %}
+	{% endif %}
 {% endblock %}
 
 {% block createurl %}
