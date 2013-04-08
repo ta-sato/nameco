@@ -51,7 +51,7 @@ class ScheduleController extends SchedulerBaseController
         }
         list($firstDay, $lastDay, $week, $dispDate) = $this->calcMonthRange($year, $month);
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $result = $em->getRepository('NamecoSchedulerBundle:Schedule')->getUserMonthSchedules($user->getId(), $firstDay, $lastDay);
 
         $holidays = $em->getRepository('NamecoSchedulerBundle:Holiday')->getHolidays($firstDay, $lastDay);
@@ -84,7 +84,7 @@ class ScheduleController extends SchedulerBaseController
         {
             return $this->redirect($this->generateUrl('schedule_month'));
         }
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('NamecoUserBundle:User')->find($userId);
         if (!$user)
         {
@@ -119,10 +119,10 @@ class ScheduleController extends SchedulerBaseController
         {
             return $this->redirect($this->generateUrl('schedule_month'));
         }
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $schedule = new Schedule();
         $form = $this->createForm(new ScheduleType(), $schedule);
-        $form->bindRequest($request);
+        $form->bind($request);
 
         $schedule->setOwnerUser($this->getUser());
 
@@ -167,7 +167,7 @@ class ScheduleController extends SchedulerBaseController
      */
     public function getUsersAction()
     {
-        $users = $this->getDoctrine()->getEntityManager()->getRepository('NamecoUserBundle:User')->findAll();
+        $users = $this->getDoctrine()->getManager()->getRepository('NamecoUserBundle:User')->findAll();
         $serializer = $this->container->get('jms_serializer');
         $json = $serializer->serialize($users, 'json');
         $response = new Response($json);

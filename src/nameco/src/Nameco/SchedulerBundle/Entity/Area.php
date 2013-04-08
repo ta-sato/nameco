@@ -31,7 +31,7 @@ class Area
      *
      * @ORM\Column(name="name", type="string", length=32, nullable=false, unique=true)
 	 * @Assert\NotBlank()
-	 * @Assert\MaxLength(32)
+	 * @Assert\Length(max=32)
      */
     private $name;
 

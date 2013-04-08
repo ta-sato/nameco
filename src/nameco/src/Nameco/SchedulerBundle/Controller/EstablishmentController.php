@@ -106,7 +106,7 @@ class EstablishmentController extends SchedulerBaseController
 //        {
 //            $form->bind($request);
 //           if ($form->isValid()) {
-//                $em = $this->getDoctrine()->getEntityManager();
+//                $em = $this->getDoctrine()->getManager();
 //                $em->persist($entity);
 //                $em->flush();
 //                
@@ -148,7 +148,7 @@ class EstablishmentController extends SchedulerBaseController
 	public function deleteAction(Request $request)
 	{
         $form = $this->createDeleteForm(null);
-        $form->bindRequest($request);
+        $form->bind($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 			$entity = $em->getRepository('NamecoSchedulerBundle:Establishment')->find($form['id']->getData());

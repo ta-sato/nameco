@@ -39,7 +39,7 @@ class User implements AdvancedUserInterface
 	 * @var string
 	 *
 	 * @ORM\Column(name="password", type="string", length=255, nullable=false)
-	 * @Assert\MinLength(limit=6, message="{{ limit }} 文字以上で入力してください")
+	 * @Assert\Length(min=6, minMessage="{{ limit }} 文字以上で入力してください")
 	 * @Assert\NotBlank()
 	 */
 	private $password;
@@ -85,7 +85,7 @@ class User implements AdvancedUserInterface
 	 * 
 	 * @Assert\NotNull()
 	 * @Assert\NotBlank()
-	 * @Assert\MaxLength(limit=50, message="姓は{{ limit }}文字以内で入力してください")
+	 * @Assert\Length(max=50, maxMessage="姓は{{ limit }}文字以内で入力してください")
 	 * @var string
 	 */
 	private $family_name;
@@ -95,7 +95,7 @@ class User implements AdvancedUserInterface
 	 * 
 	 * @Assert\NotNull()
 	 * @Assert\NotBlank()
-	 * @Assert\MaxLength(limit=50, message="名は{{ limit }}文字以内で入力してください")
+	 * @Assert\Length(max=50, maxMessage="名は{{ limit }}文字以内で入力してください")
 	 * @var string
 	 */
 	private $first_name;
@@ -105,7 +105,7 @@ class User implements AdvancedUserInterface
 	 * 
 	 * @Assert\NotNull()
 	 * @Assert\NotBlank()
-	 * @Assert\MaxLength(limit=50, message="姓は{{ limit }}文字以内で入力してください")
+	 * @Assert\Length(max=50, maxMessage="姓は{{ limit }}文字以内で入力してください")
 	 * @Assert\Regex(
 	 * 		pattern="/^[ァ-ヾ]+$/u",
 	 * 		match=true,
@@ -120,7 +120,7 @@ class User implements AdvancedUserInterface
 	 * 
 	 * @Assert\NotNull()
 	 * @Assert\NotBlank()
-	 * @Assert\MaxLength(limit=50, message="名は{{ limit }}文字以内で入力してください")
+	 * @Assert\Length(max=50, maxMessage="名は{{ limit }}文字以内で入力してください")
 	 * @Assert\Regex(
 	 * 		pattern="/^[ァ-ヾ]+$/u",
 	 * 		match=true,
