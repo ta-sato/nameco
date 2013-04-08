@@ -83,7 +83,7 @@ class UserController extends Controller
 		}
 		else
 		{
-			$em = $this->getDoctrine()->getEntityManager();
+			$em = $this->getDoctrine()->getManager();
 	 		$em->remove($user);
 	        $em->flush();
 	        $this->get('session')->setFlash('success', '削除しました');
@@ -116,7 +116,7 @@ class UserController extends Controller
 	private function update($form, $edit)
 	{
 		$request = $this->getRequest();
-		$form->bindRequest($request);
+		$form->bind($request);
 
 		if (!$form->isValid())
 		{
@@ -129,7 +129,7 @@ class UserController extends Controller
 			$user->encodePassword($this, $pwd);
 		}
 
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		if (!$edit)
 		{
 			$em->persist($user);

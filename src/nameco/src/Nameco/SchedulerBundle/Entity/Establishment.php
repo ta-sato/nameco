@@ -29,7 +29,7 @@ class Establishment
      * @ORM\Column(name="name", type="string", length=100, nullable=false)
 	 * 
 	 * @Assert\NotBlank()
-	 * @Assert\MaxLength(100)
+	 * @Assert\Length(max=100)
      */
     private $name;
 

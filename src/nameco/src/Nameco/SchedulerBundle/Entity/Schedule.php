@@ -30,7 +30,7 @@ class Schedule
      *
      * @ORM\Column(name="title", type="string", length=64, nullable=false)
      * @Assert\NotBlank(message="必須項目です")
-     * @Assert\MaxLength(limit=50, message="{{ limit }}文字以内で入力してください")
+     * @Assert\Length(max=50, maxMessage="{{ limit }}文字以内で入力してください")
      */
     private $title;
 
@@ -55,7 +55,7 @@ class Schedule
      *
      * @ORM\Column(name="detail", type="string", length=255, nullable=true)
      * @Assert\NotBlank(message="必須項目です")
-     * @Assert\MaxLength(limit=255, message="{{ limit }}文字以内で入力してください")
+     * @Assert\Length(max=255, maxMessage="{{ limit }}文字以内で入力してください")
      */
     private $detail;
 

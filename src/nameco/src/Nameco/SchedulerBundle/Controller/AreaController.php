@@ -59,7 +59,7 @@ class AreaController extends Controller
 	public function deleteAction(Request $request)
 	{
         $form = $this->createDeleteForm(null);
-        $form->bindRequest($request);
+        $form->bind($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 			$entity = $em->getRepository('NamecoSchedulerBundle:Area')->find($form['id']->getData());
